@@ -20,7 +20,7 @@ Welcome to KubeEdge!
 
 ## Code of Conduct
 
-Please make sure to read and observe our [Code of Conduct](../../CODE_OF_CONDUCT.md).
+Please make sure to read and observe our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## Community Expectations
 
@@ -33,7 +33,7 @@ The goal of the community is to develop a cloud native edge computing platform b
 # Getting started
 
 - Fork the repository on GitHub
-- Read the [setup](../setup/setup.md) for build instructions.
+- Read the [setup](https://github.com/kubeedge/kubeedge/tree/master/docs/setup/setup.md) for build instructions.
 
 
 # Your First Contribution

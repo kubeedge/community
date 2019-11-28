@@ -17,7 +17,7 @@ This document gives a brief overview of the KubeEdge community roles with the re
 ## Member
 
 Members are active participants in the community who contribute by authoring PRs,
-reviewing issues/PRs or participate in community discussions on slack/mailing list. 
+reviewing issues/PRs or participate in community discussions on slack/mailing list.
 
 
 ### Requirements
@@ -44,7 +44,7 @@ reviewing issues/PRs or participate in community discussions on slack/mailing li
 ## Approver
 
 Approvers are active members who have good experience and knowledge of the domain.
-They have actively participated in the issue/PR reviews and have identified relevant issues during review. 
+They have actively participated in the issue/PR reviews and have identified relevant issues during review.
 
 
 ### Requirements
@@ -114,5 +114,5 @@ Has deep understanding of KubeEdge and related domain and facilitates major agre
 
 **Note :** These roles are applicable only for KubeEdge github organization and repositories. Currently KubeEdge doesn't have a formal process for review and acceptance into these roles. We will come-up with a process soon.
 
-[Code of Conduct]: https://github.com/kubeedge/kubeedge/blob/master/CODE_OF_CONDUCT.md
+[Code of Conduct]: https://github.com/kubeedge/community/blob/master/CODE_OF_CONDUCT.md
 [two-factor authentication]: https://help.github.com/articles/about-two-factor-authentication
