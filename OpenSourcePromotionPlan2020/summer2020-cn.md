@@ -21,7 +21,10 @@
 
 ## 任务列表
 
-### 1. 
+### 1. [KubeEdge AI边缘应用开发](https://github.com/kubeedge/kubeedge/issues/1743)
+### 2. [一键安装脚本开发](https://github.com/kubeedge/kubeedge/issues/1741)
+### 3. [集成chaos-mesh测试KubeEdge](https://github.com/kubeedge/kubeedge/issues/1742)
+### 4. [社区网站](https://github.com/kubeedge/website/issues/70)
 
 
 ## 候选人要求
@@ -49,6 +52,8 @@
 
 
 ## 投递要求
+
+### 1. 与项目导师联系
 
 ### 官网投递（2020年6月1日至6月20日）
 
