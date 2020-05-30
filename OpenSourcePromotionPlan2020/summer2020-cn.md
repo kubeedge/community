@@ -21,10 +21,11 @@
 
 ## 任务列表
 
-### 1. [KubeEdge AI边缘应用开发](https://github.com/kubeedge/kubeedge/issues/1743)
-### 2. [一键安装脚本开发](https://github.com/kubeedge/kubeedge/issues/1741)
-### 3. [集成chaos-mesh测试KubeEdge](https://github.com/kubeedge/kubeedge/issues/1742)
-### 4. [社区网站](https://github.com/kubeedge/website/issues/70)
+### 1. [KubeEdge AI边缘应用开发](./tasks_list.md#1-build-an-ai-example-to-run-ai-application-on-kubeedge-platform)
+### 2. [一键安装脚本开发](./tasks_list.md#2-add-script-to-install-kubeedge-cloud-and-edge-side)
+### 3. [集成chaos-mesh测试KubeEdge](./tasks_list.md#3-integrate-chaosmesh-to-test-kubeedge)
+### 4. [社区网站](./tasks_list.md#4-new-theme-and-format-for-the-website)
+### 5. [EdgeCore支持边缘应用List-Watch](./tasks_list.md#5-support-list-watch-from-edgecore-for-applications-on-the-edge)
 
 
 ## 候选人要求
