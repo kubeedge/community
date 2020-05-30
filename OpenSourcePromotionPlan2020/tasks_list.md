@@ -22,6 +22,8 @@
    1. KubeEdge
    2. AI technology, such as face recognition
 
+- **Related Issue**: https://github.com/kubeedge/kubeedge/issues/1743
+
 - **Related Repo**:
    1. https://github.com/kubeedge/kubeedge
    2. https://github.com/kubeedge/examples
@@ -42,6 +44,8 @@
    1. Shell
    2. Kubernetes
    3. KubeEdge
+   
+- **Related Issue**: https://github.com/kubeedge/kubeedge/issues/1741
 
 - **Related Repo**:
    1. https://github.com/kubeedge/kubeedge
@@ -61,6 +65,8 @@
 - **Tech. Requirement**:
    1. KubeEdge
    2. chaos-mesh
+   
+- **Related Issue**: https://github.com/kubeedge/kubeedge/issues/1742
 
 - **Related Repo**:
    1. https://github.com/pingcap/chaos-mesh
@@ -86,6 +92,8 @@
    1. KubeEdge
    2. css
    3. website layout
+   
+- **Related Issue**: https://github.com/kubeedge/website/issues/70
 
 - **Related Repo**:
    1. https://github.com/kubeedge/website
@@ -106,6 +114,8 @@
 - **Tech. Requirement**:
    1. KubeEdge
    2. Kubernetes
+   
+- **Related Issue**: https://github.com/kubeedge/kubeedge/issues/1758
 
 - **Related Repo**:
    1. https://github.com/kubeedge/kubeedge
