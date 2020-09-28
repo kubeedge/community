@@ -1,6 +1,6 @@
 # SIG Device IoT Charter
 
-This charter adheres to the conventions described in KubeEdge Open Governance and uses the Roles and Organization Management outlined in the governance doc.
+This charter adheres to the conventions described in [KubeEdge Open Governance](https://github.com/kubeedge/community/blob/master/GOVERNANCE.md) and uses the Roles and Organization Management outlined in the governance doc.
 
 ## Scope
 
