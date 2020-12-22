@@ -12,9 +12,14 @@ SIG AI is responsible to provide general platform capabilities based on KubeEdge
 
 - work with existing AI framework, to enable it run better on KubeEdge, such as Tensorflow, PaddlePaddle, onnx etc.
     - KubeEdge supports heterogeneous hardware, such as Ascend, Kunglun, Cambrian, and Rockchip.
-    - KubeEdge supports ONX models, such as tutorials.
+    - KubeEdge supports ONNX models, such as tutorials.
     - Cooperation with other open source communities, such as Akraino
-- provide an **edge-cloud collaborative** AI framework based on KubeEdge capabilities
+- provide an **edge-cloud collaborative** AI framework based on KubeEdge capabilities, such as model and dataset.
+- provide an end-to-end edge-cloud collaborative AI benchmarking framework, for typical AI applications scenarios on KubeEdge.
+    - Contextual Metrics
+    - End-to-end Testbed
+        - Consisting of data collection, data preprocess, train, inference and other parts 
+        - Covering cloud, edge, and end-device layers 
 - research interest **include but not limited as follow**:
     - cloud training and edge inference， integrationg with kubeflow
     - incremental learning
