@@ -4,35 +4,32 @@ This charter adheres to the conventions described in [KubeEdge Open Governance](
 
 ## Scope
 
-SIG AI is responsible to provide general platform capabilities based on KubeEdge so  that AI applications running at the edge can benefit from cost reduction, model performance improvement, and data privacy protection.
-
+SIG AI is responsible for providing general platform capabilities based on KubeEdge so that AI applications running at the edge can benefit from cost reduction, model performance improvement, and data privacy protection.
+    
 ### In scope
-
 #### Areas of Focus
-
-- work with existing AI framework, to enable it run better on KubeEdge, such as Tensorflow, PaddlePaddle, onnx etc.
-    - KubeEdge supports heterogeneous hardware, such as Ascend, Kunglun, Cambrian, and Rockchip.
-    - KubeEdge supports ONNX models, such as tutorials.
-    - Cooperation with other open source communities, such as Akraino
-- provide an **edge-cloud collaborative** AI framework based on KubeEdge capabilities, such as model and dataset.
-- provide an end-to-end edge-cloud collaborative AI benchmarking framework, for typical AI applications scenarios on KubeEdge.
-    - Contextual Metrics
-    - End-to-end Testbed
-        - Consisting of data collection, data preprocess, train, inference and other parts 
-        - Covering cloud, edge, and end-device layers 
-- research interest **include but not limited as follow**:
-    - cloud training and edge inference， integrationg with kubeflow
+1. Empower KubeEdge with existing AI ecosystems, to support execution of Edge AI applications and services：
+    - Support heterogeneous edge hardware, e.g., Ascend, Kunlun, Cambrian, and Rockchip
+    - Integrate typical AI frameworks into KubeEdge, e.g., Tensorflow, Pytorch, PaddlePaddle and Mindspore 
+    - Integrate KubeFlow and ONNX into KubeEdge, to enable interoperability of edge models with diverse formats
+    - Cooperate with other open source communities, e.g., Akraino and LF AI
+1. Research **includes but not limited to**:
+    - cloud training and edge inference
     - incremental learning
-    - joint inference
+    - edge-cloud-collaborative inference
+        - knowledge distillation for the cloud and edge model
     - federated learning 
-    - Knowledge distillation training model, which can be combined with join inference as a means of training large and small models.
-    - KubeEdgeFlow, extend KubeFlow capabilities to edge
-
-
+    - edge model and dataset management
+1. Furnish an end-to-end Edge AI benchmarking framework, to identify best practices of Edge AI applications-and-services development:
+    - Provide Contextual Metrics
+        - for typical Edge AI applications scenarios
+    - Provide Standardized Evaluation Settings
+        - standardized datasets, architectures, and hardware
+        - for each routine AI module, e.g., data collection, data preprocessing, train and inference 
+        - for each architecture layer, i.e., cloud, edge, and end-device 
 ### Out of scope
-- to re-invent existing ML framework, i.e., tensorflow, pytorch, mindspore, etc.
-- to re-invent KubeEdge platform capability.
-- to offer domain/application-specific algorithms, i.e., facial recognition, text classification, etc.
+   - Re-invent existing AI framework, e.g., Tensorflow, Pytorch and Mindspore
+   - Offer domain/application-specific algorithms, e.g., facial recognition and text classification
 
 
 ## Roles and Organization Management
