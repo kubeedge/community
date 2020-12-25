@@ -1,6 +1,6 @@
 # SIG AI
 
-SIG AI is responsible to provide general platform capabilities based on KubeEdge so  that AI applications running at the edge can benefit from cost reduction, model performance improvement, and data privacy protection.
+The SIG AI focuses on technical discussion, API definition, reference architecture, implementation in the Edge AI field, to enable AI applications better running on edge (including cost saving, performance improvement, and data protection).
 
 
 The [charter](charter.md) defines the scope and governance of the AI Special Interest Group.
