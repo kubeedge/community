@@ -13,7 +13,7 @@ The SIG AI focuses on technical discussion, API definition, reference architectu
     - Integrate typical AI frameworks into KubeEdge, e.g., Tensorflow, Pytorch, PaddlePaddle and Mindspore etc.
     - Integrate KubeFlow and ONNX into KubeEdge, to enable interoperability of edge models with diverse formats
     - Cooperate with other open source communities, e.g., Akraino and LF AI
-1. Synergy models research for AI workloads, **including but not limited to**:
+1. Synergy mechanisms research for AI workloads, **including but not limited to**:
     - Cloud training and edge inference
     - Edge-cloud-collaborative inference
         - Knowledge distillation for the cloud and edge model
