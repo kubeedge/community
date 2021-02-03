@@ -1,247 +1,243 @@
-# MEC资源管理与应用管理
+# MEC Resource Management and Application Management
 
-## 背景介绍
+## Background
 
-MEC站点资源有如下的特点：
+Resources of MEC stations has the following characteristics：
 
-1. MEC边缘站点通常部署在运营商各个层次的汇聚机房和核心机房，如移动的大区中心、省中心、大城市、地级市、区县的多层次机房，联通的全国中心、省中心、大城市、地级市、区县的多层次机房。
-2. 每个MEC边缘站点的节点规模从几个到几百个。
-3. 有通用服务器、GPU服务器、一体机等各种异构的服务器。
-4. 每个MEC站点内部的节点之间是网络互通的，与其它MEC站点的节点通常不能直接网络互通。
+1. MEC stations are usually deployed in the access aggregation, regional aggregation and national core DC of operators at all levels.
+2. The size of nodes in each MEC stations ranges from several to hundreds.
+3. There are general server, GPU server, all-in-one machine and other heterogeneous servers.
+4. The nodes in a MEC station communicate with each other through the network, but they can't communicate with the nodes in another MEC  station directly.
 
-基于KubeEdge的边缘计算平台负责统一管理多层次的MEC资源、全局调度和部署边缘应用、统一管理边缘的微服务、实施灵活的边缘流量治理。
+Edge computing platform based on kubeEdge should provide the following functions: Unified management of multi-level MEC resources、Global scheduling and deployment of edge applications、Unified management of edge microservices、Flexible edge traffic management.
 
-下面分为MEC站点资源管理与应用部署、跨MEC站点的应用管理两部分进行分析和设计
+The following chapters are divided into two parts for analysis and design, include Resource management and application deployment in MEC station,  Application management cross MEC stations.
 
-## MEC站点资源管理与应用部署
+## Resource management and Application deployment in MEC Station
 
 ### Use Case
 
-1. 用户在机房新建立一个MEC站点，在所有的节点上安装Edgecore，把这些节点(1~500个)都纳管到KubeEdge，并归属到一个MEC站点对象进行统一管理
+1. An user set up a new MEC station, then install edgecore on all nodes. All these nodes (1-500) are managed by kubeedge, and belong to a MEC station object for unified management.
 
-2. 用户在多个机房新建立多个MEC站点，在所有的节点上安装Edgecore，把大量节点(1~5000个)都纳管到KubeEdge，并归属到多个MEC站点对象进行统一管理
-3. 用户通过KubeEdge管理面查询MEC站点列表，查看每个MEC站点的详细信息
-4. 用户通过KubeEdge管理面查询到每个MEC站点的节点列表，查看到每个节点的详细信息
-5. 用户通过KubeEdge管理面把1个应用部署到指定MEC站点
-6. 用户通过KubeEdge管理面查询指定MEC站点上已经部署的应用实例列表，查看到应用实例的详细信息
+2. An users set up multiple MEC stations, then install edgecore on all nodes.  All these nodes (1-5000) are managed by kubeedge, and it belongs to multiple MEC station objects for unified management.
+3. An user can query the list of MEC station through client of kubeEdge, and get the details of each MEC station.
+4. An user can query the node list of each MEC station through client of kubeEdge, and get the detailed information of each node
+5. An user deploys an application to the specified MEC station through client of kubeEdge
+6. An user can query the list of deployed application instances on the specified MEC station through client of kubeEdge, and get the detailed information of application instances
 
-### 方案设计
+### Design
 
-#### 整体方案
+#### Overall design
 
-为了在单个Kubernetes集群管理多层次的MEC站点资源，需要提供MEC站点概念，每个MEC站点包含若干node和workload实例。
+In order to manage multi-level MEC station resources in a single kubernetes cluster, the concept of MEC station needs to be provided. Each MEC station contains several nodes and workload instances.
 
-Kubernetes提供label机制来对node、workload等所有资源进行逻辑分组，并根据label进行条件查询。
+Kubernetes provides label mechanism to logically group all resources such as node and workload, and makes conditional query according to label
 
-KubeEdge基于Label来划分逻辑的MEC站点概念，方案的关键点如下：
+KubeEdge provides the logical MEC station concept based on label. The key points of the scheme are as follows:
 
-1. 使用label把Node资源划分到MEC站点，同一个MEC站点的节点都打上相同的label，包括NodeGroup：MEC站点名字
+1. Use label to divide node resources into MEC stations. Nodes in the same MEC station are labeled with the same label, including “nodegroup: MEC station name”
 
-2. 使用label把workload对象划分到MEC站点，把Pod、deployment、Service等对象都打上相同的label，包括NodeGroup：MEC站点名字
+2. Use label to divide the workload object into MEC station, and label pod, deployment, service and other objects with the same label, including "nodegroup: MEC station name"
 
-3. 使用nodeSelector或节点亲和性把workload对象部署到指定的MEC站点，部署workload对象时指定MEC站点对应的label，如在nodeSelector字段加上NodeGroup：MEC站点名字的label条件
+3. Deploy workload to the specified MEC station by nodeselector or node affinity. When deploying workload object, specify the label corresponding to MEC station, such as adding label condition ("nodegroup: MEC station name") into nodeselector field.
 
 ![image-20200907102146397](../images/MEC-Resource-App-Management/image-20200907102146397.png)
 
-#### 详细流程
+#### Detailed process
 
-##### 纳管MEC站点的节点
+##### Set up node of MEC station
 
-1. 在MEC站点的节点上部署Edgecore，纳管到KubeEdge
-2. 重复步骤1，直至MEC站点所有的节点都纳管到KubeEdge
-3. 通过Kubectl或Kubernetes API，为节点打NodeGroup：MEC站点名字的label
-4. 重复步骤3，直至MEC站点所有的节点都完成打label
+1. Install edgecore on the node of MEC site , the the node is managed by kubeEdge
+2. Repeat step 1 until all nodes of MEC station are managed by kubeEdge
+3. Through kubectl or kubernetes API, add “nodegroup: MEC site name label” for the node
+4. Repeat step 3 until all nodes of MEC station are labeled
 
-##### 查看MEC站点的节点列表
+##### Query node list of MEC station
 
-1. 通过Kubectl或Kubernetes API，使用labelSelector条件查询节点列表，labelSelector条件包括NodeGroup：MEC站点名字
-2. 通过步骤1返回的结果查看到MEC站点的节点列表，查看每个节点的详细信息，包括NodeGroup等label信息
+1. Through kubectl or kubernetes API, query the node list by the labelselector condition. The labelselector condition includes "nodegroup: MEC site name".
+2. Obtain the node list of MEC site through the result returned in step 1, and get the detailed information of each node,
 
-##### 部署应用到指定的MEC站点
+##### Deploy an application to the specified MEC station
 
-1. 编写Deployment模板，打NodeGroup：MEC站点名字的label，并在nodeSelector加上NodeGroup：MEC站点名字的label条件，或增加节点亲和性条件：NodeGroup=MEC站点名字
-2. 通过Kubectl或Kubernetes API，提交deployment模板来部署应用
-3. 编写services模板，打NodeGroup：MEC站点名字的label
-4. 通过Kubectl或Kubernetes API，提交service模板来创建微服务
+1. Write the deployment template, add the label "nodegroup: MEC site name", and add the label condition "nodegroup: MEC site name" into nodeselector field, or add node affinity condition "nodegroup:=MEC site name"
+2. Submit the deployment template to deploy the application through kubectl or kubernetes API
+3. Write the services template, add the label  "nodegroup: MEC site name"
+4. Through kubectl or kubernetes API, submit service template to create microservices
 
-##### 查看MEC站点的应用列表
+##### Query application list of MEC station
 
-1. 通过Kubectl或Kubernetes API，使用labelSelector条件查询deployment列表，labelSelector条件包括NodeGroup：MEC站点名字
-2. 从步骤1返回的结果查看MEC站点上已经部署的deployment列表
-3. 通过Kubectl或Kubernetes API，使用labelSelector条件查询service列表，labelSelector条件包括NodeGroup：MEC站点名字
-4. 从步骤1返回的结果查看MEC站点上已经部署的微服务列表
+1. Through kubectl or kubernetes API, query the deployment list by the labelselector condition. The labelselector condition includes "nodegroup: MEC site name".
+2. From the results returned in step 1, get the list of deployed deployments on the MEC station.
+3. Through kubectl or kubernetes API, query the service list by the labelselector condition. The labelselector condition includes "nodegroup: MEC site name".
+4. Obtain the list of services deployed on the MEC station from the results returned in step 1.
 
-###  增强方案(可选)
+###  Advanced design (Optional)
 
-上述的方案中，部署应用(Deployment等workload)时要同时指定label、nodeSelector或节点亲和性，操作容易出错。
+In the above design, when deploying an application (such as deployment, etc.), you must specify label and nodeselector (or node affinity) at the same time, which can be error-prone.
 
-改进方案主要通过admission webhook模块为应用自动添加节点亲和性条件，用户不再需要指定nodeSelector或节点亲和性。
+In the Advanced design, the admission webhook module is used to automatically add node affinity conditions into the application, and no longer need to specify nodeselector or node affinity.
 
-主要的流程：
+Main processes:
 
-1. 用户编写deployment模板，打上NodeGroup：MEC站点名字的label，通过Kubectl或Kubernetes API提交deployment模板来部署应用
-2. Kubernetes API Server把创建deployment的Http请求转发到admission webhook
-3. admission webhook获取deployment的详细信息，如果包含NodeGroup：MEC站点名字的label，则为deployment增加节点亲和性条件(nodeAffinity硬亲和)：NodeGroup=MEC站点名字，并返回修改的Json字符串给Kubernetes API Server
+1. An user write the deployment template, add the label "nodegroup: MEC station name", and submit the deployment template through kubectl or kubernetes API to deploy the application.
+2. Kubernetes API server forwards the HTTP request for creating deployment to the admission webhook
+3. Admission webhook obtains the details of deployment. If it includes "nodegroup: MEC station name" label, node affinity condition ("nodegroup = MEC station name") is added for deployment, and the modified JSON string is returned to kubernetes API server.
 
 ![image-20200907102258039](../images/MEC-Resource-App-Management/image-20200907102258039.png)
 
-admission webhook作为一个可选的controller，在云上的管理节点进行容器化部署。
+As an optional controller, admission webhook can be deployed in the cloud.
 
-admission webhook的主要功能：
+Main functions of admission webhook:
 
-1. 提供Rest server，接收来自Kubernetes API Server的http请求
-2. 根据http请求包含的对象类型和操作类型进行过滤，只留下deployment等WorkLoads对象的创建和更新操作
-3. 从Kubernetes API Server查询请求中deployment的详细信息，如果包含NodeGroup：MEC站点名字的label，则为deployment等WorkLoads对象增加节点亲和性条件(nodeAffinity硬亲和)：NodeGroup=MEC站点名字，并返回修改的PathJson给Kubernetes API Server
+1. Provide a rest server to receive HTTP requests from kubernetes API server
+2. Filter HTTP requests according to the object type and operation type, leaving only the creation and update operations of workload objects such as deployment.
+3. Obtain the information of deployment from kubernetes API server.  If it includes "nodegroup: MEC station name" label, node affinity condition ("nodegroup = MEC station name") is added for deployment, and the modified JSON string is returned to kubernetes API server.
 
-### 其它问题
+### Other issues
 
-1.为什么不使用namespace来隔离MEC站点
+1.Why not use a namespace to isolate MEC stations
 
-A. MEC站点通常包含资源和应用两种资源，但namespace不能隔离node对象。
+A. MEC stations usually contain node and applications, but the namespace cannot isolate node objects
 
-B. 如果使用namespace来隔离workload对象，一个MEC站点上只能存在一个namespace及归属这个namespace的workload对象。但一些公司有开发、测试等多个团队，这些团队共同使用一个MEC站点的资源，并且每个团队使用一个namespace来隔离。
+B. If a namespace is used to isolate the workload object, only one namespace and the workload object belonging to the namespace can exist in a MEC station. But some companies have multiple teams for development, testing, etc. these teams share the resources of a MEC station, and each team uses a namespace to isolate them.
 
-2.MEC站点通常会有地理位置信息、网络层次信息，怎么承载
+2.MEC station usually has geographic location information, network level information, how to carry
 
-可以通过CRD机制来扩展MEC_Station对象，name=MEC站点名字，通过label等字段来包含地理位置信息、网络层次信息
+MEC station object can be extended by CRD mechanism, which contains geographic location information and network hierarchy information through fields such as label.
 
-## 跨MEC站点的应用管理
+## Application management cross MEC stations
 
 ### Use Case
 
-1. 如分布式监控、探测等应用，需要在多个MEC站点上都部署完全相同的一套应用实例。用户通过KubeEdge管理面，把1个应用部署到指定的多个MEC站点，KubeEdge在每个MEC站点都部署相同的一套应用实例。用户通过KubeEdge管理面API，调整应用实例数量，在每个MEC站点都调整应用实例数量
-2. 如云游戏/互动直播/AR/VR等应用，需要在多个MEC站点上部署应用实例，但每个MEC站点上的实例数量需要根据策略来自动调整。用户通过KubeEdge管理面，把1个应用部署到到指定的多个MEC站点，KubeEdge在每个MEC站点根据策略部署不同数量的应用实例。应用实例策略包括：用户设置应用实例数量、根据CPU负载自动调整应用实例数量、根据请求数量自动调整应用实例数量
-3. 如云游戏/互动直播/AR/VR等应用，需要在多个MEC站点上部署应用实例，MEC站点列表需要根据策略来自动选择，每个MEC站点上的实例数量需要根据策略来自动调整。用户通过KubeEdge管理面API，指定部署策略来部署1个应用，KubeEdge根据策略来选择多个MEC站点，并在每个MEC站点根据策略部署不同数量的应用实例。MEC站点选择策略：用户设置MEC站点列表、根据需要覆盖的地理范围选择MEC站点列表。应用实例策略包括：用户设置应用实例数量、根据CPU负载自动调整应用实例数量、根据请求数量自动调整应用实例数量     
-4. 用户通过KubeEdge管理面，为应用增加一个或多个MEC站点，KubeEdge在新增加的MEC站点部署应用实例
-5. 用户通过KubeEdge管理面，为应用删除一个或多个MEC站点，KubeEdge在被删除的MEC站点上删除应用实例
-6. 用户通过KubeEdge管理面，调整在指定MEC站点的应用实例数量，KubeEdge在指定MEC站点把应用实例数量调整到期望值
+1. Distributed monitoring and detection need to deploy the same set of application instances on multiple MEC station. An user deploys an application to a specified list of MEC stations through client of kubeEdge, then kubeEdge deploys the same set of application instances into each MEC station. The user can adjust the number of application instances in each MEC station through client of kubeEdge.
+2. Applications such as cloud game / interactive live broadcast / Ar / VR , need to deploy application instances into multiple MEC stations, but the number of instances in each MEC station needs to be adjusted automatically according to the policy. An user deploys an application to a specified list of MEC station through client of kubeEdge. Then KubeEdge deploys different number of application instances in each MEC station according to the policy. The auto-scale strategy for application instance includes: set the number of application instances by users, automatically adjust the number of application instances according to CPU load, and automatically adjust the number of application instances according to the number of requests.
+3. Applications such as cloud game / interactive live broadcast / Ar / VR, need to deploy application instances into multiple MEC stations. The list of MEC stations needs to be automatically selected according to the policy, and the number of instances in each MEC stations needs to be adjusted automatically according to the policy. An user deploy an application and specify the deployment strategy through client of KubeEdge. Then KubeEdge selects list of MEC stations according to the policy, and deploys different number of application instances in each MEC station according to the policy. MEC station selection strategy includes: set MEC stations list by users, and select MEC stations according to geographical coverage. The auto-scale strategy for application instance includes: set the number of application instances by users, automatically adjust the number of application instances according to CPU load, and automatically adjust the number of application instances according to the number of requests.     
+4. An user can add one or more MEC stations for an application through client of  kubeedge, then KubeEdge deploys application instances in the newly added MEC station.
+5. An user can delete one or more MEC stations for an application through client of kubeEdge, then kubeEdge will delete the application instance in the deleted MEC stations.
+6. An User can adjust the number of application instances in the specified MEC station through client of kubeEdge, then kubeEdge adjusts the number of application instances to the expected value in the specified MEC station.
 
-### 方案设计
+### Design
 
-Kubernetes原生的Deployment等Workloads对象通过Node的label来指定部署条件，需要通过非常复杂的组合条件来实现跨MEC站点的应用部署，无法实现灵活的部署策略，用户的操作难度也很大，无法支撑上述的use case。
+Deployment and other workload objects of Kubernetes specify node conditions through the label of node, which requires very complex combination conditions to realize the application deployment across MEC stations. Flexible deployment strategies cannot be implemented, and the operation of users is also very difficult, which can not support the above use case.
 
-#### 整体方案
+#### Overall Design
 
-用户提交需要全局部署的应用请求到全局调度模块，由全局调度模块对应用进行分解、调度和编排，并在多个Kubernetes集群的多个MEC站点分别创建Deployment对象和Service对象。
+An user submit application (cross MEC stations) requests to the Global Manager module. The global manager module decomposes, schedules and orchestrating applications. Then deployment and service are created into multiple MEC stations,  which may belong to multiple kubernetes clusters.
 
 ![image-20200917094605027](../images/MEC-Resource-App-Management/image-20200917094605027.png)
 
-#### 跨MEC站点的微服务管理
+#### Microservice management cross MEC stations
 
-在MEC站点内部Pod可以通过service name直接访问微服务，微服务在各个MEC站点的service name应该是一样的。
+Within MEC stations, pods can directly access microservices through service name. The service names of microservices in each MEC station should be the same.
 
-方案1：在K8S集群只创建1个service，由Edgecore/Edgemesh提供访问控制机制  (建议)
+Scenario 1: only one service is created in kubernetes cluster, and edgecore/edgemesh provides access control mechanism (recommended)
 
 ![image-20200915161405346](../images/MEC-Resource-App-Management/image-20200915161405346.png)
 
-跨MEC站点的service管理流程：
+Service management process cross MEC stations：
 
-1. 对于应用定义的一个Service，在Kubernetes集群中创建一个Service实例，在所有MEC站点上部署
+1. For a service defined by application, create a service instance in kubernetes cluster and deploy it on all MEC stations.
 
-2. MEC站点内部Pod可以通过service_name域名直接访问Service实例。由于Service实例对应的后端POD实例分布在多个MEC站点，需要Edgecore/Edgemesh提供访问控制机制。
+2. Within MEC stations, pods can directly access microservices through service name. Since the back-end pod instances corresponding to service instances are distributed in multiple MEC stations, edgecore / edgemesh needs to provide access control mechanism.
 
-   对于普通的service，通过service name只能访问到MEC站点内部的后端Pod(通过Endpoint后端Pod的label来区分)。
+   For normal services, only the back-end pod instances inside MEC stations can be accessed through service name (distinguished by the label of endpoint back-end POD).
 
-   对于包含特定label(Cross_Type=Cross_MEC_Station)的service，通过service name能访问到MEC站点内部的后端Pod、其它MEC站点的后端Pod。
-
-问题：一个serivce的后端POD能不能来自多个deployment？  K8S原生可以支持
+   For Services that containing a specific label (cross_ Type=Cross_ MEC_ Station), through service name, pod can access the back-end pod instances inside MEC station and those in other MEC stations.
 
 
 
-方案2：在每个MEC站点创建1个Service
+Scenario 2: create a service in each MEC station
 
-问题：由于每个MEC站点的service都是一样的service_name，在K8S集群中有冲突
+Problem: the service in each MEC station has the same service name, conflict in kubernetes cluster
 
-#### 全局编排和调度
+#### Global orchestrating and scheduling
 
-Global Manager作为Kubernetes的一个扩展controller，有一套面向用户的API，主要功能包括:
+As an extension controller of kubernetes, global manager has a set of user oriented API, and its main functions include:
 
-1. 提供一套应用模板，支持定义跨MEC站点的应用，包括Deployment、Service等workload对象
-2. 对应用模板实例进行解析和编排，分解为Deployment、Service等workload对象
-3. 根据应用的部署要求进行调度，根据策略在多个MEC站点分别创建Deployment对象和Service对象
-4. 负责跨MEC站点应用的生命周期管理，包括创建、查看、更新、删除等
-5. 支持多Kubernetes集群
+1. Provide  application templates to support the definition of applications cross MEC stations, including workload objects such as deployment and service.
+2. Analyze and orchestrate the application template instance, and decompose it into workload objects such as deployment and service
+3. According to the deployment requirements of the application, the deployment and service are created into multiple MEC stations according to the policy
+4. Responsible for the lifecycle management of application cross MEC stations, including creation, view, update, delete, etc
+5. Support multiple kubernetes clusters
 
-Global Manager有两种API提供方式：
+There are two ways to provide API in global manager：
 
-方式1：通过CRD在K8S集群扩展Helm_App对象，Global Manager作为controller来管理Helm_App对象，在K8S API Server提供对外的API
+A：Extending Helm_App object in kubernetes cluster through CRD, global manager is a extended controller, which manages Helm_App object, and providing external API through kubernetes API server
 
-方式2：Global Manager包含独立的API Server，提供对外的API
+B：Global manager includes an independent API server to provide external API
 
-#####  对象模型
+#####  Object Model
 
-通过helm模板来定义跨MEC站点的应用模板，应用模板包括Deployment、Service、MEC站点选择策略、实例数量控制策略等信息
+Provide application template definition by helm template, and the application template  should include deployment, service, MEC station selection strategy, instance auto-scale policy and so on.
 
-在每个MEC站点创建1个Release，包含Deployment、configmap、secret等对象
+Create a release in each MEC station, including deployment, configmap, secret and other objects
 
-在每个K8S集群创建1个Release，包含Service对象
+Create a release in each kubernetes cluster, including the service object
 
 ![image-20200915160018702](../images/MEC-Resource-App-Management/image-20200915160018702.png)
 
-在Helm模板中，每个K8S对象(Deployment、Service等)都增加enable控制项，通过values文件中的参数来控制每个Release包含的对象，详细见"应用模板"章节
+In helm template, enable control parameter  is added to each kubernetes object (deployment, service, etc.), and the objects contained in each release are controlled by parameters in the values file. See the chapter "application template" for details.
 
-控制项有两种注入方式：
+There are two ways to inject control parameters：
 
-方式1：用户在编写Helm模板时加入控制项
+A：Add control parameters when writing helm templates by users
 
-方式2：Global Mananger从Repo获取到Helm模板后，在Helm模板里加入控制项
+B：Global manager obtain the helm template from repo, and adds control parameters to the helm template
 
+##### Application scheduling cross MEC stations
 
+Main functions of application scheduling：
 
-##### 跨MEC站点的应用调度
+1. Select list of MEC stations for application
+2. Create deployment instances and service instances into each MEC station for the application
+3. Manage and control the number of deployment instances in each MEC station
 
-应用调度的主要功能：
+Supported MEC Stations selection strategy：
 
-1. 为应用选择MEC站点列表
-2. 为应用在各个MEC站点部署Deployment实例和Service实例
-3. 控制应用在各个MEC站点上的Deployment副本数量
+1. set MEC stations list by users
+2. select MEC stations according to geographical coverage  <Not supported at the moment>
 
-支持的MEC站点选择策略：
+Supported auto-scale strategy for application instance:
 
-1. 用户指定MEC站点列表
-2. 根据需要覆盖的地理范围选择MEC站点列表 <暂不支持>
+1. set the number of application instances by users
+2. automatically adjust the number of application instances according to CPU load <Not supported at the moment>
+3. automatically adjust the number of application instances according to the number of requests. <Not supported at the moment>
 
-支持的实例数量控制策略：
+##### Application lifecycle management
 
-1. 用户设置应用实例数量
-2. 根据CPU负载自动调整应用实例数量 <暂不支持>
-3. 根据请求数量自动调整应用实例数量 <暂不支持>
+Provide lifecycle management of applications cross MEC stations, and supports creation, query, update, delete and other operations
 
-##### 应用生命周期管理
+Query：Query the application list and application details, including the overall status, objects and their status in each MEC station
 
-提供跨MEC站点应用的生命周期管理，支持创建、查看、更新、删除等操作
+Update：Update list of MEC stations and the number of instances in each MEC station for an application
 
-查看：查询应用列表、查询应用详情，应用详情包括整体部署状态、在每个MEC站点部署的对象及状态
+Delete：Delete all objects in each MEC station for an application
 
-更新：支持更新MEC站点列表，支持更新在每个MEC站点的实例数
+Please refer to "API definition" and "detailed process" for details
 
-删除：删除在各个MEC站点上部署的对象
-
-详细请见 “API定义” 和 “详细流程” 章节
-
-##### 支持多K8S集群
+##### Support multiple kubernetes clusters
 
 // TODO
 
 
 
-#### 应用模板与API定义
+#### Application template and API definition
 
-##### 应用模板
+##### Application template
 
-templates\deployment.yaml文件
+templates\deployment.yaml
 
 ![image-20200916110451894](../images/MEC-Resource-App-Management/image-20200916110451894.png)
 
-templates\service.yaml文件
+templates\service.yaml
 
 ![image-20200916110620206](../images/MEC-Resource-App-Management/image-20200916110620206.png)
 
-values.yaml文件
+values.yaml
 
 ![image-20200916110712806](../images/MEC-Resource-App-Management/image-20200916110712806.png)
 
-##### API定义
+##### API definition
 
 ###### Create Helm_App Instance
 
@@ -251,11 +247,11 @@ Body:
 
 {
 
-​	name: ""                    //跨MEC站点应用的名字
+​	name: ""                    //the name of application cross MEC stations
 
-​	template_file_url: ""    //跨MEC站点应用helm模板文件包的存储路径
+​	template_file_url: ""    //the file path of helm templates
 
-​    values_file_path: ""   //跨MEC站点应用helm模板中values文件的存储路径，用于指定应用实例的参数
+​    values_file_path: ""   //the file path of values file，which contains parameters for the application
 
 }
 
@@ -273,46 +269,46 @@ Body:
 
 {
 
-​    values_file_path: ""   //跨MEC站点应用helm模板中values文件的存储路径，用于指定应用实例的参数
+​    values_file_path: ""   //the file path of values file，which contains parameters for the application
 
 }
 
-当前只支持更新MEC站点列表和在每个MEC站点的实例数
+Currently, only the list of  MEC stations and the number of instances in each MEC station can be updated
 
 ###### Delete Helm_App Instance
 
 DELETE  v1/helm_app/instances/{instance_id}
 
-#### 详细流程
+#### Detailed process
 
-##### 创建应用
+##### Create application
 
-1. 按照应用模板规范，用户编写helm模板，上传到Repo
-2. 用户编写values文件，包含MEC站点列表、在每个MEC站点的实例数，并通过API来创建应用
-3. Global Manager解析values文件，获取MEC站点列表和实例数
-4. Global Manager为每个MEC站点生成1份value文件，只启用Deployemt对象，并设置Deployemt的副本数、label、nodeSelector，通过helm在每个MEC站点创建1个Release，
-5. Global Manager为每个K8S集群生成1份value文件，只启用Service对象，通过helm在每个K8S集群创建1个Release
-6. Global Manager把应用部署状态、MEC站点列表、在每个MEC站点的实例数、Release列表、values文件等信息存放到DB/ETCD
+1. According to the application template specification, an user write helm template and upload it to repo
+2. The user write values file, which contains parameters for application, including the list of MEC stations, the number of instances in each MEC station, and create an application instance through API
+3. Global manager parses the values file to obtain the list of MEC stations and the number of instances.
+4. Global manager generates a value file for each MEC station, only deployment object is enabled, and the number of instances, label and nodeselector in deployment are set. A release is created in each MEC station through helm.
+5. Global manager generates a value file for each kubernetes cluster, only the service object is enabled. A release is created in each kubernetes cluster through helm.
+6. Global manager stores the status of application deployment, list of MEC stations, number of instances in each MEC stations, release list, values file and other information to DB or etcd.
 
-##### 查看应用
+##### Query application
 
-1. 用户通过API查看应用列表
-2. Global Manager从DB/ETCD中获取应用部署状态、MEC站点列表、在每个MEC站点的实例数、values文件等信息
-3. Global Manager通过helm获取每个Release的信息，包括部署的对象及状态
-4. Global Manager封装应用的详细信息，并返回
+1. An user query application list through API
+2. Global Manager obtains the status of application deployment, list of MEC stations, number of instances in each MEC stations, release list, values file and other information from DB or etcd.
+3. Global Manager obtains information of each release for helm, including deployed objects and their status.
+4. Global manager returns information of application details to user.
 
-##### 更新应用
+##### Update application
 
-1. 用户编写values文件，包含更新后的MEC站点列表、在每个MEC站点的实例数，并通过API来更新应用
-2. Global Manager解析values文件，获取MEC站点列表和实例数
-3. Global Manager从DB/ETCD中获取应用部署状态、MEC站点列表、在每个MEC站点的实例数、Release列表、values文件等信息，与提供的信息进行对比。
-4. Global Manager为新增加的每个MEC站点生成1份value文件，只启用Deployemt对象，并设置Deployemt的副本数、label、nodeSelector，通过helm在每个MEC站点创建1个Release
-5. Global Manager为被删除的每个MEC站点，调用helm删除对应的Release
-6. Global Manager为实例数变化的每个MEC站点生成1份value文件，只启用Deployemt对象，并设置Deployemt的副本数、label、nodeSelector，通过helm更新对应的Release
+1. An user writes a values file, which contains new list of MEC stations and number of instances in each MEC stations, and updates the application instance through API.
+2. Global Manager parse value file to obtain the list of MEC stations and the number of instances.
+3. Global manager obtains the status of application deployment, list of MEC stations, number of instances in each MEC stations, release list, values file and other information from DB or etcd, and compare with these from the new value file in step 2. 
+4. Global manager generates a value file for each newly added MEC station, only deployment object is enabled, and the number of instance, label and nodeselector of deployment are set. A release is created in each MEC station through helm.
+5. Global manager delete the corresponding release through helm for each MEC station that is deleted.
+6. Global manager generates a value file for each MEC station where the number of instances changes, only deployment object is enabled, and the number of instance, label and nodeselector of deployment are set, and the corresponding release is updated through helm.
 
-##### 删除应用
+##### Delete application
 
-1. 用户通过API删除应用
-2. Global Manager从DB/ETCD中获取应用部署状态、MEC站点列表、在每个MEC站点的实例数、Release列表、values文件等信息
-3. Global Manager调用helm来删除所有的Release
+1. An user delete application instance through API.
+2. Global manager obtains the status of application deployment, list of MEC stations, number of instances in each MEC stations, release list, values file and other information from DB or etcd.
+3. Global Manager delete all the corresponding release through helm. 
 
