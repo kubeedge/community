@@ -38,9 +38,8 @@ This proposal is about to carry out the wireless network issues under kubeedge m
 - Communication mode may need to change from TCP, IP mode to multi-cast or broadcast mode.
 - Network for dynamics scenarios.  
 
-**Description**:  In the mobile scenario, multiple vehicles support similar services, and vehicles wireless connected with each other as KubeEdge nodes. (e.g. NIO ET7 with NVIDIA Orin * 4 , which has computing power of 1016 TOPS)
-
-- Offline autonomy and node management: Five cars form an mesh network, which can transfer information processing between each other in offline conditions.
+**Description**:  In the mobile scenario, multiple vehicles support similar services, and vehicles wireless connected with each other as KubeEdge nodes.
+- Off-line autonomy and node management: Five cars form an mesh network, which can transfer information processing between each other in off-line conditions.
 - Leader selection: Choose a node as a cluster head, to do the overall management of other equipments.
 - KubeEdge-wireless should monitor the whole or partly network status, to aid in networking decisions.
 - According to the Service Level Agreement, KubeEdge can make decisions on the networking modes and limit the network scope.
@@ -67,14 +66,12 @@ This proposal is about to carry out the wireless network issues under kubeedge m
   - Actively consider the network instability caused by mobility, especial for users joint and exit suddenly.
   - Active feedback to adjust the network, active networking.
 - Edge nodes have partial cloud capabilities
-
   - Enable the edge devices to self-organize network and partial autonomy when off-line or discontinuous network. 
-
   - In most cases, multiple edge devices may spontaneously form a small group, and the outside nodes can join or quit the group.
 
 ### Areas of Focus
 
-   Wireless communication tech, reenforcement learning, multi-access protocol, Invoke the schema on the communication computing topology，
+   Wireless communication tech, reenforcement learning, multi-access protocol, Invoke the schema on the communication computing topology
 
 
 
