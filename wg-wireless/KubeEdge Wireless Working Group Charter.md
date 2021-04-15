@@ -19,7 +19,7 @@ KubeEdge-Wireless Working group is responsible to simplify, develop, and optimiz
 ​	Wireless  technology, Communication mesh technical, multi-access protocol, Invoke the schema on the communication computing topology
 
 - Cloud or edge service quality problems caused by user movement
-- Random off-line issues present new challenges to kubeEdge management in wireless communication. 
+- Random off-line issues present new challenges to KubeEdge management in wireless communication. 
 - Optimize the quality of communication under the scenario of side collaboration
 - Proactive changes in communication intensity require decentralized cloud management capabilities.
 

@@ -1,4 +1,4 @@
-Kubeedge wireless scenario
+KubeEdge wireless scenario
 
 #### Scenario：
 

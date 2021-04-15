@@ -1,4 +1,4 @@
-KubeEdge-Wireless Working Group Proposal
+KubeEdge Wireless Working Group Proposal
 
 Author: Jiahong Ning
 
@@ -10,16 +10,16 @@ Author: Jiahong Ning
 ## Overview:
 
 -  With the development of computing and communication technologies, powerful computing equipments constitutes multi-agent systems. The agents have both computing and communication capacities and interact with each others. Therefore, the problem of wireless agents interaction between multiple agents and system management is the main scenario discussed here. 
-- The communication relationship between different Kubeedge nodes can not be easily seen as connect or disconnect,  it should be more fine-grain communication management.
+- The communication relationship between different KubeEdge nodes can not be easily seen as connect or disconnect,  it should be more fine-grain communication management.
 
-This proposal is about to carry out the wireless network issues under kubeedge management. 
+This proposal is about to carry out the wireless network issues under KubeEdge management. 
 
 ## In scope：
 
 ### Areas of Focus
 
 - Cloud or edge service quality problems caused by user movement
-- Random off-line issues present new challenges to kubeEdge management in wireless communication. 
+- Random off-line issues present new challenges to KubeEdge management in wireless communication. 
 - Optimize the quality of communication under the scenario of side collaboration
 - Proactive changes in communication intensity require decentralized cloud management capabilities.
 

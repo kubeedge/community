@@ -1,6 +1,6 @@
 ### KubeEdge-Wireless Working Group 
 
-KubeEdge-Wireless Working group is responsible to simplify, develop, and optimize the communication issues under wireless scenario in kubeEdge.
+KubeEdge Wireless Working group is responsible to simplify, develop, and optimize the communication issues under wireless scenario in KubeEdge.
 
 ## Stakeholder SIG
 
@@ -17,4 +17,4 @@ KubeEdge-Wireless Working group is responsible to simplify, develop, and optimiz
 - Slack: [#sig-mec](https://kubeedge.slack.com/archives/C0120QT37PD)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 
-This working group currently sponsored by sig-mec with a focus on improving ability of management and developing of kubeedge in wireless scenario.
+This working group currently sponsored by sig-mec with a focus on improving ability of management and developing of KubeEdge in wireless scenario.
