@@ -4,9 +4,7 @@ title: Distributors Application for <YOUR DISTRIBUTION HERE>
 about: Apply for membership of cncf-kubeedge-distrib-announce@lists.cncf.io
 ---
 
-<!--
-Please answer the following questions and provide supporting evidence for meeting the membership criteria.
--->
+**Please answer the following questions and provide supporting evidence for meeting the membership criteria.**
 
 **Actively monitored security email alias for our project:**
 
