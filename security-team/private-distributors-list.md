@@ -43,4 +43,4 @@ To be eligible for the [cncf-kubeedge-distrib-announce@lists.cncf.io](mailto:cnc
 
 ### Request to Join
 
-File an issue [here](https://github.com/kubeedge/community/issues/new?template=distributors-application.md), filling in the criteria template.
+File an issue [here](https://github.com/kubeedge/community/issues/new?template=distributors-application.md), or send an [email](comms-templates/join-announcement-email-list.md), filling in the criteria template.
