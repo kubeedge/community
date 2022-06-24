@@ -1,10 +1,12 @@
----
-name: Distributors Application
-title: Distributors Application for <YOUR DISTRIBUTION HERE>
-about: Apply for membership of cncf-kubeedge-distrib-announce@lists.cncf.io
----
+_Use this email template for applying for membership of cncf-kubeedge-distrib-announce@lists.cncf.io._
+
+TO: `cncf-kubeedge-security@lists.cncf.io`
+
+SUBJECT: `Distributors Application`
 
 _See [Private distributors list](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#request-to-join) for additional places the request could be posted._
+
+---
 
 ## **Please answer the following questions and provide supporting evidence for meeting the [membership criteria](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#membership-criteria).**
 
