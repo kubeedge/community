@@ -119,7 +119,7 @@ Communications process:
   location of the binaries to get wide distribution and user action. As much as possible this
   announcement should be actionable, and include any mitigating steps users can take prior to
   upgrading to a fixed version. The announcement will be sent via the following channels:
-  - General announcement email ([template](comms-templates/vulnerability-announcement-email.md)) to multiple KubeEdge lists
+  - General announcement email ([template](comms-templates/distributors-announcement-email.md)) to multiple KubeEdge lists
   - [#announcement slack channel](https://kubeedge.slack.com/archives/CUABZBD55) ([template](comms-templates/vulnerability-announcement-slack.md))
   - Tracking issue opened in https://github.com/kubeedge/kubeedge/issues ([template](comms-templates/vulnerability-announcement-issue.md)) and prefixed with the associated CVE ID (if applicable)
   - [GitHub Security Advisories](https://github.com/kubeedge/kubeedge/security/advisories) of KubeEdge
