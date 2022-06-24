@@ -8,7 +8,7 @@ SUBJECT: `[EMBARGOED] $CVE: $SUMMARY`
 
 ### EMBARGOED
 
-The information contained in this email is **[under embargo](https://github.com/kubeedge/community/blob/master/sig-security/private-distributors-list.md#embargo-Policy)** until the scheduled public disclosure on **$DATE, at 9AM PT**.
+The information contained in this email is **[under embargo](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#embargo-Policy)** until the scheduled public disclosure on **$DATE, at 9AM PT**.
 
 _Additional details on the embargo conditions._
 - _If a patch is provided, can it be deployed?_
