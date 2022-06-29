@@ -2,13 +2,42 @@
 
 ## Report a vulnerability
 
-Please follow steps listed [here](report-a-vulnerability.md) to report a vulnerability.
+We sincerely request you to keep the vulnerability information confidential and responsibly disclose the vulnerabilities.
+
+To report a vulnerability, please contact the Security Team: [cncf-kubeedge-security@lists.cncf.io](mailto:cncf-kubeedge-security@lists.cncf.io). You can email the Security Team with the security details and the details expected for [KubeEdge bug reports](https://github.com/kubeedge/kubeedge/blob/master/.github/ISSUE_TEMPLATE/bug-report.md). 
+
+The information of the Security Team members is described as follows:
+
+| Name                                                         | Email                 |
+| ------------------------------------------------------------ | --------------------- |
+| Kevin Wang ([@kevin-wangzefeng](https://github.com/kevin-wangzefeng)) | wangzefeng@huawei.com |
+| Fisher Xu ([@fisherxu](https://github.com/fisherxu))         | xufei40@huawei.com    |
+| Vincent Lin ([@vincentgoat](https://github.com/vincentgoat)) | linguohui1@huawei.com |
+
+### E-mail Response
+
+The team will help diagnose the severity of the issue and determine how to address the issue. The reporter(s) can expect a response within 2 business day acknowledging the issue was received. If a response is not received within 2 business day, please reach out to any Security Team member directly to confirm receipt of the issue. We’ll try to keep you informed about our progress throughout the process.
+
+### When Should I Report a Vulnerability?
+
+- You think you discovered a potential security vulnerability in KubeEdge
+- You are unsure how a vulnerability affects KubeEdge
+
+### When Should I NOT Report a Vulnerability?
+
+- You need help tuning KubeEdge components for security
+- You need help applying security related updates
+- Your issue is not security related
+
+If you think you discovered a vulnerability in another project that KubeEdge depends on, and that project has their own vulnerability reporting and disclosure process, please report it directly there.
 
 ## Security release process
 
-The KubeEdge community will strictly handle the reporting vulnerability according to this [procedure](security-release-process.md).
+The KubeEdge community will strictly handle the reporting vulnerability according to this [procedure](security-release-process.md). The following flowchart shows the vulnerability handling process.
 
-## Mailing lists
+<img src="./images/Vulnerability-handling-process.PNG">
+
+## Relative Mailing lists
 
 - [cncf-kubeedge-security@lists.cncf.io](mailto:cncf-kubeedge-security@lists.cncf.io), is for reporting security concerns to the KubeEdge Security Team, who uses the list to privately discuss security issues and fixes prior to disclosure.
 
