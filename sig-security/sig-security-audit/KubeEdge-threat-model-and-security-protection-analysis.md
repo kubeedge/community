@@ -1,4 +1,5 @@
-# KubeEdge threat model and security protection analysis
+# KubeEdge Threat Model And Security Protection Analysis
+
 
 ## Background
 
@@ -6,7 +7,8 @@ As the first cloud-native edge computing community, KubeEdge provides solutions 
 
 The KubeEdge community attaches great importance to security and has set up[ Sig Security](https://github.com/kubeedge/community/tree/master/sig-security) and[ Security Team](https://github.com/kubeedge/community/tree/master/security-team) to design KubeEdge system security and quickly respond to and handle security vulnerabilities. To conduct a more comprehensive security assessment of the KubeEdge project, the KubeEdge community cooperates with Ada Logics Ltd. and The Open Source Technology Improvement Fund performed a holistic security audit of KubeEdge and output a security auditing report, including the security threat model and security issues related to the KubeEdge project. Thank you to experts Adam Korczynski and David Korczynski of [Ada Logics](https://adalogics.com/) for their professional and comprehensive evaluation of the KubeEdge project, which has important guiding significance for the security protection of the KubeEdge project.
 
- The discovered security issues have been fixed and patched to the latest three minor release versions (v1.11.1、v1.10.2、v1.9.4) by KubeEdge maintainers according to the [kubeedge security policy](https://github.com/kubeedge/kubeedge/security/policy). Security advisories have been published [here](https://github.com/kubeedge/kubeedge/security/advisories).
+ The discovered security issues have been fixed and patched to the latest three minor release versions (v1.11.1, v1.10.2, v1.9.4) by KubeEdge maintainers according to the [kubeedge security policy](https://github.com/kubeedge/kubeedge/security/policy). Security advisories have been published [here](https://github.com/kubeedge/kubeedge/security/advisories).
+
 
 This article will analyze the threat model of KubeEdge, and carry out the mitigations.
 
