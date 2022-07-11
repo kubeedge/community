@@ -8,17 +8,7 @@ Email:
 
 cncf-kubeedge-distrib-announce@lists.cncf.io
 
-Owners:
-
-- [wangzefeng@huawei.com](mailto:wangzefeng@huawei.com)
-- [xufei40@huawei.com](mailto:xufei40@huawei.com)
-- [linguohui1@huawei.com](mailto:linguohui1@huawei.com)
-
-Members:
-
-- [wangzefeng@huawei.com](mailto:wangzefeng@huawei.com)
-- [xufei40@huawei.com](mailto:xufei40@huawei.com)
-- [linguohui1@huawei.com](mailto:linguohui1@huawei.com)
+Maintained by [Security Team](#the-security-team).
 
 ### The Security Team
 
