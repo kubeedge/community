@@ -42,7 +42,7 @@ Expand the usage scenarios of KubeEdge SIG Robotics, realize the visual monitori
 
 For this project, the system is divided into three modules: **data acquisition, data monitoring, and data display**. The architecture diagram of this project is shown in the figure below.
 
-![](2.png)
+![](https://github.com/ycr-sjtu/community/blob/master/sig-robotics/propoasal/Building%20a%20Robot%20Oriented%20Intelligent%20Monitoring%20System/images/System%20Architecture.png)
 
 - **Data acquisition module**Based on ROS development, it is divided into real robots and simulated robots in gazebo. The robot monitoring data is obtained in real time through the corresponding ROS node and transmitted to the cloud.
 
