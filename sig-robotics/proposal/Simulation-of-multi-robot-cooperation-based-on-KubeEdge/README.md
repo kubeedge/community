@@ -48,13 +48,13 @@ The multi-robot system has become the development trend of the robotics industry
 - The edge robot moves in the gazebo environment by simulating the motion controller according to the target point information and path information sent by the cloud, 
 - Use the rbotix package as the motion controller. (http://wiki.ros.org/arbotix)
 
-<img src="images/1659406251178-2b0e5403-0358-46ec-8912-8a1a16167fa1-16594268430217.png" alt="2022-08-02 09-59-37屏幕截图.png" style="zoom:80%;" />
+<img src="images/1659406251178-2b0e5403-0358-46ec-8912-8a1a16167fa1-16594268430217.png" alt="2022-08-02 09-59-37屏幕截图.png" style="zoom: 67%;" />
 
 - In the process of moving, the side-end robot is positioned in real time through the simulated single-line lidar on board; And combined with their own posture, speed. Do local path planning.
   - Sensor: single-line lidar,  RGB camera, RGBD camera, etc.
   - local path planning: dwa local planner (http://wiki.ros.org/dwa_local_planner)
 
-![2022-08-02 09-56-54屏幕截图.png](images/1659406272774-78d96118-4ac8-4ee0-8a43-d21d7a1174e5-165942695647110.png)
+<img src="images/1659406272774-78d96118-4ac8-4ee0-8a43-d21d7a1174e5-165942695647110.png" alt="2022-08-02 09-56-54屏幕截图.png" style="zoom: 80%;" />
 
 - During the driving process, the edge-end robot sends its own status information to the cloud in real time.
   - Information: Position, speed, posture, status information, etc.
