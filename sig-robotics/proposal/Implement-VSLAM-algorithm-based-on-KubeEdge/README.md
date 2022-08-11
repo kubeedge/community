@@ -12,7 +12,7 @@ Currently, SLAM(simultaneous localization and mapping ) technology has been wide
 
 ## 2 Proposal
 
-We propose using one of the classic SLAM frameworks: ORB-SLAM2 as the basis. Just like ORB-SLAM2 or other classic frameworks, the SLAM system mainly includes four modules: tracking, local optimization, loop closure detection and global optimization. 
+We propose using one of the classic SLAM frameworks: [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2) as the basis. Just like ORB-SLAM2 or other classic frameworks, the SLAM system mainly includes four modules: tracking, local optimization, loop closure detection and global optimization. 
 
 ### 2.1 ORB-SLAM2 Overview
 
@@ -39,17 +39,18 @@ The first strategy ensures that the edge has a long-term offline autonomy capabi
 
 The second method offloads all optimizations to the cloud, which greatly reduces the pressure on edge resources, but requires strong network stability. At the same time, the edge side only needs to maintain a small-scale local map (below 10 frames), and the local map can be updated easily by clearing local map on the edge and repalcing it with new received local map update from the cloud.
 
-Based on the above discussion, based on the reliable network communication provided by kubeedge and edgemesh and some open source work available for reference(such as [edge-slam][https://github.com/droneslab/edgeslam]), we intend to use the second method for this work.
+Based on the above discussion, based on the reliable network communication provided by kubeedge and edgemesh and some open source work available for reference(such as [edge-slam](https://github.com/droneslab/edgeslam), we intend to **use the second method** for this work.
 
 ### 2.3 General Framework
 
 The general framework is shown in the figure below. The cloud nodes are responsible for most of the operations, and the edge is responsible for data preprocessing, key frame selection, and pose tracking.
 
-![vslam_kubeedge_proposal_arch](images/vslam_kubeedge_proposal_arch.png)
+<img src="images/vslam_kubeedge_proposal_arch.png" alt="vslam_kubeedge_proposal_arch" style="zoom:50%;" />
 
 ### 2.4 Use Cases
 
-* Users can implement visual SLAM in simulation or real environments by providing ROS-based sensor data topics.
+* This project is mainly for mobile robots and VR/AR devices. Users can use this project to implement SLAM positioning function at the side end quickly.
+* To deploy this project, users only need to provide ROS-based sensor data topics from simulation or real environments.
 
 ## 3 Design Details
 
@@ -57,7 +58,7 @@ The general framework is shown in the figure below. The cloud nodes are responsi
 
 We will introduce the functions of each module in the form of sub-modules. The overall module design diagram is shown in the figure below. 
 
-![vslam_kubeedge_proposal_design_arch](images/vslam_kubeedge_proposal_design_arch.png)
+<img src="images/vslam_kubeedge_proposal_design_arch.png" alt="vslam_kubeedge_proposal_design_arch" style="zoom: 50%;" />
 
 ### 3.2 Tracking Module
 
@@ -80,6 +81,4 @@ Local map is a subset of the global map, it contains several latest optimized ke
 **Map Synchronization**
 
 To maintain the synchronization between local map and global map, the cloud      will send the latest subset of global map to edge frequently. If the update is **redundant** or **latency**, the edge will not use it.
-
-## 4 Workers Communication
 
