@@ -32,7 +32,7 @@ According to the KubeEdge security auditing report, there are the threat actors:
 - Internal attackers, including inadvertent internal actors who accidentally cause issues.
 - Supply chain attackers, representing attackers that subvert components of the KubeEdge software supply chain.
 
-In the following sections the KubeEdge community will do an overall system security analysis of KubeEdge, which is mainly based on the ASTRIDE Low Level threat modeling method and the KubeEdge security audit report. The goals of the following sections are helping developers or users understand the potential security threats in the system, the content includes a list of corresponding mitigations currently available in the KubeEdge community and security reinforce recommendations for users and developers.
+In the following sections the KubeEdge community will do an overall system security analysis of KubeEdge, which is mainly based on the [STRIDE threat modeling](https://en.wikipedia.org/wiki/STRIDE_(security)) and the [KubeEdge security audit](https://github.com/kubeedge/community/blob/master/sig-security/sig-security-audit/KubeEdge-security-audit-2022.pdf). The goals of the following sections are helping developers or users understand the potential security threats in the system, the content includes a list of corresponding mitigations currently available in the KubeEdge community and security reinforce recommendations for users and developers.
 
 ### Attack surface of external malicious attackers
 
