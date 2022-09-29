@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding='utf-8'?>
+<robot name="dual" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="white">
+        <color rgba="0.6 1 1 1"/>
+    </material>
+    
+    <material name="gripper_color">
+        <color rgba="0.2 0.6 0.8 0.75"/>
+    </material>
+    
+    <material name="platform_color">
+        <color rgba="1 0.6 0 0.9"/>
+    </material>
+    
+    <xacro:property name="platform_x" value="1.2"/>
+    <xacro:property name="platform_y" value="0.6"/>
+    <xacro:property name="platform_z" value="0.6"/>
+    
+    <xacro:include filename="$(find zu7)/urdf/jaka_macro.xacro" ns="left"/>
+    <xacro:left.jaka_robot prefix="left_"/>
+
+    <xacro:include filename="$(find jaka_zu7_v2)/urdf/jaka_zu7_v2.xacro" ns="right"/>
+    <xacro:right.jaka_robot prefix="right_"/>
+
+
+    <joint name="left_to_right" type="fixed">
+        <parent link="right_base_link"/>
+        <child link="left_base_link"/>
+        <origin xyz="0.48622462  0.0084934  -0.00136687"
+                rpy="-0.015272913100903103 0.01866994910995618 0.02274242853030429"/>
+    </joint>
+
+    <link name="right_gripper_base_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+            <material name="gripper_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="right_ee_joint" type="fixed">
+        <parent link="right_link_6"/>
+        <child link="right_gripper_base_link"/>
+        <origin xyz="0 0 0.039" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="left_gripper_base_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+            <material name="gripper_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="left_ee_joint" type="fixed">
+        <parent link="left_link_6"/>
+        <child link="left_gripper_base_link"/>
+        <origin xyz="0 0 0.0355" rpy="0 0 0"/>
+    </joint>
+    
+    <link name="platform">
+        <visual>
+            <geometry>
+                <box size="${platform_x} ${platform_y} ${platform_z}"/>
+            </geometry>
+            <material name="platform_color"/>
+            <origin xyz="${platform_x/2} ${platform_y/2} ${-platform_z/2}"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${platform_x} ${platform_y} ${platform_z}"/>
+            </geometry>
+            <origin xyz="${platform_x/2} ${platform_y/2} ${-platform_z/2}"/>
+        </collision>
+    </link>
+
+    <joint name="right_to_platform" type="fixed">
+        <parent link="platform"/>
+        <child link="right_base_link"/>
+        <origin xyz="0.2 0.4 0"/>
+    </joint>
+
+</robot>
