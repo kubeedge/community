@@ -1,10 +1,13 @@
 # RK3568 OpenHarmony运行KubeEdge
 
------------------------------
+
+
 以润和DAYU200为例，展示了OpenHarmony设备上运行Kubeedge的具体过程。这里，KubeEdge所用的运行时为docker。
 
+
+
 ## OpenHarmony运行Docker的关键步骤
------
+
 ##### 1. 准备支持Docker容器的OpenHarmony内核
 - 修改内核配置：
 cggroup和namespace相关特性，主要修改的文件是openharmony3.1/kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
@@ -139,9 +142,15 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
+
+
 ## OpenHarmony运行KubeEdge的关键步骤
----------------------
+
+
+
 利用KubeEdge打通云端和OpenHarmony边端交互。这边使用的KubeEdge是1.9.1版本（提醒：k8s与KubeEdge版本是有匹配的，有些高版本的k8s是不支持的。）
+
+
 
 ##### 1. 云端安装KubeEdge cloudcore
 ```
@@ -233,7 +242,10 @@ cd keadm/
 keadm gettoken 
 ```
 
+
+
 ##### 2. KubeEdge edgecore 源码静态编译
+
 在Arm server上编译KubeEdge源码获得edgecore静态二进制文件
 ```
 # 1. 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
@@ -285,7 +297,9 @@ docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore
 ```
 
 
+
 ##### 3. OpenHarmony 边缘端安装edgecore
+
 ```
 # 文件添加内容
 echo "0" > /dev/cpuset/background/cpuset.mems
@@ -360,7 +374,8 @@ modules:
 
 
 ## 在润和DAYU200上实现参考
------------------------------------------
+
+
 ### 环境信息
 ----------------------------------------
 开发板：润和DAYU200
@@ -372,7 +387,9 @@ Docker：18.03.1
 KubeEdge：1.9.1
 
 
+
 ### 操作过程与参考文件
+
 ------------------------------------------------------------------
 #### DockerOnOpenHarmony
 
@@ -458,11 +475,16 @@ CONFIG_ARCH_HAS_TICK_BROADCAST=y
 CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y
 ```
 - 执行脚本
-./check-config.sh    /home/.config
+  ./check-config.sh    /home/.config
+
 - 检测结果如图
-![[img/check-1.png]]
-![[check-2.png]]
-![[check-3.png]]
+![](image/check-1.png)
+
+![](image/check-2.png) 
+
+​	![](image/check-3.png)
+
+
 
 ##### 2. 修改源码内核配置
 
@@ -660,11 +682,35 @@ def _prepare_root(system_path, target_cpu):
 /lib                u:object_r:rootfs:s0
 ```
 
+
+
 ##### 3. 编译并且在设备运行openharmony系统
 
 - 编译
+
+```
+# 拉取最新openharmony编译环境docker镜像，镜像较大，拉取时间较长，请耐心等待
+
+docker pull swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
+
+# 进入openharmony源码目录下启动镜像
+cd openharmony
+
+docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
+
+# 预编译工具包：下载和编译时间较长，请耐心等待
+./build/prebuilts_download.sh
+
+# 我使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
+# 执行编译脚本：如首次编译不成功，且不是下述错误，可考虑再次运行
+./build.sh --product-name rk3568 --ccache
+
+# 编译后的img放在在路径 out/rk3568/packages/phone/images 目录里
+```
+
 - 烧录
 - 并且通过hdc_std标准工具（通过蓝色的debug线也就是烧录线与PC进行通信）进入oh系统
+
 ```
 # 查看是否有oh设备
 D:>hdc_std.exe list targets 
@@ -676,7 +722,10 @@ D:>hdc_std.exe shell
 mount -o rw,remount   -t  auto /
 ```
 
+
+
 ##### 4. 格式化sd卡为f2fs文件系统
+
 - docker overlay filesystem推荐backing filesystem是未加密的f2fs。而RK3568的data分区是加密的ext4，可以通过micro sd card卡扩展RK3568的存储将sd card格式化为f2fs解决此问题。
 - 准备一个sd卡，插入到DAYU200板子上
 ```
@@ -691,7 +740,10 @@ blkid
 mkfs.f2fs     /dev/sdc1 
 ```
 
+
+
 ##### 5. 安装ip、iptables和busybox必备组件
+
 - 通过有线或者无线连接网络
 ```
 # 查看正在运行的
@@ -813,6 +865,8 @@ https://www.linux.org/docs/man5/os-release.html
 # 存放的路径
 /usr/lib/os-release
 ```
+
+
 
 ##### 6. 安装docker容器引擎组件
 
@@ -947,6 +1001,7 @@ export PATH=$PATH:/system/bin/docker/
 ```
 
 
+
 ##### 7. docker环境准备
 
 运行脚本（如果脚本无法运行也可以按脚本一步一步来）
@@ -1043,13 +1098,19 @@ setenforce 0
 
 ```
 
+
+
 ##### 8. 运行docker
+
 ```
 # run dockerd
 dockerd -D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
 ```
 
+
+
 ##### 9. 验证docker工作状态
+
 ```
 # docker run hello-world
 
@@ -1082,9 +1143,14 @@ docker ps -a
 docker images
 ```
 
-![[dockerhello.jpg]]
+![](image/dockerhello.jpg)
+
+
+
+
 
 #### KubeEdgeOnOpenHarmony
+
 - Arm server上编译edgecore
 ```
 # 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
@@ -1209,4 +1275,37 @@ modules:
 ```
 
 最终效果是
-![[edgecore.jpg]]
+
+![](image/edgecore.jpg)
+
+
+
+
+
+## 项目中可能遇到的问题及解决方案
+
+
+
+- 问题一：二进制部署Docker流程
+
+二进制部署Docker虽然官网有相应的静态二进制，但是要通过静态二进制运行起来Docker并不是一件容易的事。社区的老师真的提供了很多帮助，其中一位老师提供了他在Android运行Docker容器关键步骤教程让我来做参考。https://github.com/ThunderSoft001/kubeedgeOnAndroid
+
+- 问题二：OpenHarmony许多开发板不适配无法运行
+
+OpenHarmony还处于一个研发和推广阶段，所以支持OpenHarmony开发板并不是很多。在购入两块开发板不太适配OpenHarmony后，我联系了华为运营通过参与润和DAYU200体验适用活动申请到OpenHarmony官方用的开发板。DAYU200适配OpenHarmony各个标准版本，所以节省了研究开发板的烧录和运行时间。
+
+- 问题三：OpenHarmony内核部分配置即使设置也无效
+
+OpenHarmony 3.1 release使用的是5.10内核，有些配置是默认关闭的需要在deconfig去配置以下才能打开。然后有些配置即使在deconfig设置了，也无法打开。经过搜索和寻求帮助，发现有些配置是有依赖配置的，需要将依赖配置也打开才可以。查看具体配置的熟悉可以通过 https://cateee.net/lkddb/web-lkddb/CGROUPS.html 查看。
+
+- 问题四：iptables静态交叉编译后无法在OpenHarmony上运行
+
+运行docker需要一些基本软件工具，而OpenHarmony很多组件是需要自己去编译安装的。我所使用的DAYU200开发板是rk3568主板即arm64得。经过静态交叉编译iptables源码得到了arm64位的二进制文件，拷贝到OpenHarmony上一直无法运行。寻求社区老师帮助后，交叉编译iptables源码得到arm32位的静态二进制文件就可以在OpenHarmony上运行。解决方法是从64位的降到32位，这种情况平时安装软件的时候也有出现过。
+
+- 问题五：OpenHarmony与KubeEdge的memory.stat格式不匹配
+
+KubeEdge的edgecore在初始化的过程中会去访问系统memory.stat文件获取系统内存相关的信息。然而OpenHarmony在填充memory.stat时做了格式转换，导致edgecore无法读取memory.stat的最后四行。经过代码阅读和考虑，鉴于无法估量OpenHarmony对memory.stat数据的依赖程度，暂时修改了KubeEdge所使用的opencontainers第三方库的代码来解决这个问题。
+
+- 问题六：OpenHarmony作为边缘端成功加入到云端后，云端无法下发任务。
+
+在成功运行起来edgecore后，需要验证KubeEdge是否部署成功。需要从云端下发hello-world到边缘端并且运行起来，然而pod一直处于cannotrun状态。在请教过社区的老师后，发现是docker使用的overlay2模式下运行pod的路径与KubeEdge启动pod路径不同，需要将edgecore的defaultdir改成docker的pod路径即可。
