@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-orbslam-edge
+spec:
+  selector:
+    matchLabels:
+      app: dep-orbslam-edge
+  template:
+    metadata:
+      labels:
+        app: dep-orbslam-edge
+    spec:
+      nodeName: edge01
+      containers:
+      - name: con-orbslam-edge
+        image: jike5/edgeslam-run:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9002
+        - containerPort: 9003
+        - containerPort: 9004
+        command: ["/bin/bash"]
+        args: ["-i", "/workspace/Edgeslam/Examples/edge_run.sh"]
+        env:
+        - name: PATH_TO_SEQUENCE_FOLDER
+          value: /workspace/data/YOUR_DATA_FOLDER
+        - name: ASSOCIATIONS_FILE
+          value: /workspace/Edgeslam/Examples/RGB-D/YOUR_CONFIG.yaml
+        - name: ROS_MASTER_URI
+          value: http://localhost:11311
+        - name: ROS_IP
+          value: 127.0.0.1
+        - name: DISPLAY
+          value: :1
+        - name: QT_X11_NO_MITSHM
+          value: "1"
+        - name: XAUTHORITY
+          value: /tmp/.docker.xauth
+        volumeMounts:
+        - name: xhost-mount
+          mountPath: /tmp/.X11-unix
+        - name: data-mount
+          mountPath: /workspace/data
+      hostNetwork: false
+      volumes:
+      - name: xhost-mount
+        hostPath: 
+          path: /tmp/.X11-unix
+      - name: data-mount
+        hostPath: 
+          path: [your_absolute_path]/workspace/data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orbslam-edge
+spec:
+  selector:
+    app: dep-orbslam-edge
+  ports:
+    - name: http-0
+      port: 9002
+      protocol: TCP
+      targetPort: 9002
+    - name: http-1
+      port: 9003
+      protocol: TCP
+      targetPort: 9003
+    - name: http-2
+      port: 9004
+      protocol: TCP
+      targetPort: 9004
