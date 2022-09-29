@@ -478,11 +478,12 @@ CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y
   ./check-config.sh    /home/.config
 
 - 检测结果如图
+
 ![](image/check-1.png)
 
 ![](image/check-2.png) 
 
-​	![](image/check-3.png)
+![](image/check-3.png)
 
 
 
