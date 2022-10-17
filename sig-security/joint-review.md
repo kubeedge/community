@@ -40,7 +40,7 @@ This joint-review relied heavily on the [self-assessment](https://github.com/kub
 
 | Doc                          | url                                                          |
 | ---------------------------- | ------------------------------------------------------------ |
-| Security file                | https://github.com/kubeedge/community/tree/master/sig-security<br />https://github.com/kubeedge/community/tree/master/security-team |
+| Security file                | https://github.com/kubeedge/community/tree/master/sig-security<br />https://github.com/kubeedge/community/tree/master/team-security |
 | Default and optional configs | [cloudcore](https://github.com/kubeedge/kubeedge/blob/master/pkg/apis/componentconfig/cloudcore/v1alpha1/default.go)<br />[edgecore](https://github.com/kubeedge/kubeedge/blob/master/pkg/apis/componentconfig/edgecore/v1alpha1/default.go) |
 
 ## Overview

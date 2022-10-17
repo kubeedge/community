@@ -4,9 +4,9 @@ title: Distributors Application for <YOUR DISTRIBUTION HERE>
 about: Apply for membership of cncf-kubeedge-distrib-announce@lists.cncf.io
 ---
 
-_See [Private distributors list](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#request-to-join) for additional places the request could be posted._
+_See [Private distributors list](https://github.com/kubeedge/community/blob/master/team-security/private-distributors-list.md#request-to-join) for additional places the request could be posted._
 
-## **Please answer the following questions and provide supporting evidence for meeting the [membership criteria](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#membership-criteria).**
+## **Please answer the following questions and provide supporting evidence for meeting the [membership criteria](https://github.com/kubeedge/community/blob/master/team-security/private-distributors-list.md#membership-criteria).**
 
 ### 1. **Actively monitored security email alias for our project:**
 
@@ -23,10 +23,10 @@ _See [Private distributors list](https://github.com/kubeedge/community/blob/mast
 ### 5. **Be a participant and active contributor in the community.**
 
 
-### 6. **Accept the [Embargo Policy](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#embargo-policy).**
+### 6. **Accept the [Embargo Policy](https://github.com/kubeedge/community/blob/master/team-security/private-distributors-list.md#embargo-policy).**
 
 
-### 7. **Be willing to [contribute back](https://github.com/kubeedge/community/blob/master/security-team/private-distributors-list.md#contributing-back).**
+### 7. **Be willing to [contribute back](https://github.com/kubeedge/community/blob/master/team-security/private-distributors-list.md#contributing-back).**
 
 
 ### 8. **Have someone already on the list vouch for the person requesting membership on behalf of your distribution.**
