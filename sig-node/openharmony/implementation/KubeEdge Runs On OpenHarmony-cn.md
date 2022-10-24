@@ -200,13 +200,12 @@ edgecore
 
 
 ### 环境信息
-开发板：润和DAYU200
-芯片：RockChip RK3568（arm64）
-
-OpenHarmony版本：3.1 release
-Linux内核：5.10
-Docker：18.03.1
-KubeEdge：1.9.1 
+- 开发板：润和DAYU200
+- 芯片：RockChip RK3568（arm64）
+- OpenHarmony版本：3.1 release
+- Linux内核：5.10
+- Docker：18.03.1
+- KubeEdge：1.9.1 
 
 （提醒：这里选择1.9.1，因为k8s与KubeEdge版本是有匹配的，有些高版本的k8s是不支持的。）
 
@@ -229,7 +228,7 @@ KubeEdge：1.9.1
 - 进入源码树下/out/kernel/src_tmp/linux-5.10/
 - 输入命令：scripts/extract-ikconfig arch/arm/boot/*Image > /home/.config
 - 当然输出的.config可以到其他的路径下
-- ps：也可以在os运行时cat /proc/config.gz | gzip -d > /sdcard/config命令在/home下生成的config就是内核的配置文件类似于下面：
+- 提醒：也可以在os运行时cat /proc/config.gz | gzip -d > /sdcard/config命令在/home下生成的config就是内核的配置文件类似于下面：
 ```
 # 配置文件的部分：
 # Automatically generated file; DO NOT EDIT.
