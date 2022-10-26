@@ -40,7 +40,7 @@ This joint-review relied heavily on the [self-assessment](https://github.com/kub
 
 | Doc                          | url                                                          |
 | ---------------------------- | ------------------------------------------------------------ |
-| Security file                | https://github.com/kubeedge/community/tree/master/sig-security<br />https://github.com/kubeedge/community/tree/master/security-team |
+| Security file                | https://github.com/kubeedge/community/tree/master/sig-security<br />https://github.com/kubeedge/community/tree/master/team-security |
 | Default and optional configs | [cloudcore](https://github.com/kubeedge/kubeedge/blob/master/pkg/apis/componentconfig/cloudcore/v1alpha1/default.go)<br />[edgecore](https://github.com/kubeedge/kubeedge/blob/master/pkg/apis/componentconfig/edgecore/v1alpha1/default.go) |
 
 ## Overview
@@ -403,7 +403,7 @@ The DaoCloud Edge Computing platform uses KubeEdge to manage edge applications. 
 
 Based on KubeEdge, Intelligent EdgeFabric (IEF) of Huawei Cloud embeds cloud native into edge computing, supporting ultimate lightweight deployments, edge intelligence, and powerful computing power. It has been widely used in smart campus, industrial quality inspection, mining, and smart transportation where the collaboration between edge and cloud yields brilliant results. 
 
-QingCloud KubeSphere Enterprise Container Platform (QKCP), is an enterprise container management platform from KubeSphere open source community. Based on KubeEdge, applications and workloads are uniformly distributed and managed on the cloud and edge nodes, meeting the needs for application delivery, O&M, and management on a large number of edge and device devices. 
+KubeSphere Enterprise (KSE), is an enterprise container management platform from KubeSphere open source community. Based on KubeEdge, applications and workloads are uniformly distributed and managed on the cloud and edge nodes, meeting the needs for application delivery, O&M, and management on a large number of edge and device devices.
 
 EMQ is a software provider of open-source IoT data infrastructure. As the core product of EMQ, EMQX is a reliable open-source MQTT messaging platform, supports 100M concurrent IoT device connections per cluster while maintaining 1M message per second throughput and sub-millisecond latency, uses KubeEdge in edge side to manage middle-ware deployments.
 

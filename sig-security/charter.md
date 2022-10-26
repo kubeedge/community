@@ -13,7 +13,7 @@ SIG Security continues to manage the third-party security audits, while serving 
 
 #### Vulnerability Management Process
 
-Work with the Security Team to define the processes for fixing and disclosing vulnerabilities, as outlined in [security-release-process](../security-team/security-release-process.md). For example:
+Work with the Security Team to define the processes for fixing and disclosing vulnerabilities, as outlined in [security-release-process](../team-security/security-release-process.md). For example:
 
 - When the private fix & release process is invoked
 - How vulnerabilities are rated
@@ -56,7 +56,7 @@ SIG Security’s scope does not include:
   - Bug bounty submission triage and management
   - Non-public vulnerability collection, triage, and disclosure
 
-  Notes: Please contact the Security Team to report a vulnerability using [these instructions](../security-team/report-a-vulnerability.md).
+  Notes: Please contact the Security Team to report a vulnerability using [these instructions](../team-security/report-a-vulnerability.md).
 
 - Any projects outside of the KubeEdge project.
 
