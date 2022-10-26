@@ -2,7 +2,7 @@
 
 
 
-Take HiHope DAYU200 as an example to show the specific process of running Kubeedge on OpenHarmony device. Here, the runc used by KubeEdge is Docker.
+This tutorial is divided into two key steps: the steps of running Dcoker on OpenHarmony and the steps of running KubeEdge on OpenHarmony. It also shows the specific process of running Kubeedge on OpenHarmony devices, using HiHope DAYU200 as examples. Here, the runtime used for KubeEdge is Docker.
 
 
 
@@ -12,7 +12,7 @@ Take HiHope DAYU200 as an example to show the specific process of running Kubeed
 
 - Modify kernel configuration:
 
-  cgroup and namespace related features, main modified files is openharmony3.1 / kernel/Linux/config/Linux - 5.10 / arch/arm64 / configs/rk3568_standard_defconfig
+  cgroup and namespace related features, main modified files is kernel/Linux/config/Linux - 5.10 / arch/arm64 / configs/rk3568_standard_defconfig
 
 - Modify the network kernel configuration:
 
@@ -41,10 +41,10 @@ Create OpenHarmony's /etc/cgroups.json file to mount all cgroup subsystems.
 - Create directories needed for Docker to run
 
 ```
-# 开放root权限
+# Open the access of access
 mount -o rw,remount   -t  auto /
 
-# 创建相关目录
+# Create related directories
 mkdir /var
 mkdir /run
 mkdir /tmp
@@ -131,10 +131,10 @@ dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
 - Verify docker working status
 
 ```
-# 确保OpenHarmony已经联网，执行
+# Ensure the OpenHarmony is networked then execute hello-world
 docker run hello-world
 
-# 会看到
+# You can see
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
 93288797bd35: Pull complete 
@@ -169,120 +169,32 @@ For more examples and ideas, visit:
 
 
 
-Use KubeEdge to get through the cloud and OpenHarmony side interaction. The version of KubeEdge used here is 1.9.1 (note: k8s and KubeEdge are matched, some higher versions of k8s are not supported).
+Use KubeEdge to bridge the cloud and the OpenHarmony edge to achieve cloud-side collaboration.
 
 
 
-##### 1. Install KubeEdge cloudcore on the cloud
-
-```
-# 以centos7为例  部署k8s v1.21.0
-
-
-# 1. 关闭防火墙和selinux
-systemctl stop firewalld
-systemctl disable firewalld
-sed -i 's/enforcing/disabled/' /etc/selinux/config
-
-
-# 最终的/etc/selinux/config
-
-# This file controls the state of SELinux on the system.
-# SELINUX= can take one of these three values:
-#     enforcing - SELinux security policy is enforced.
-#     permissive - SELinux prints warnings instead of enforcing.
-#     disabled - No SELinux policy is loaded.
-#SELINUX=enforcing
-SELINUX=disabled
-# SELINUXTYPE= can take one of three two values:
-#     targeted - Targeted processes are protected,
-#     minimum - Modification of targeted policy. Only selected processes are protected. 
-#     mls - Multi Level Security protection.
-SELINUXTYPE=targeted
-
-
-setenforce 0
-
-
-# 2. 关闭swap分区
-swapoff -a    # 临时关闭
-vim /etc/fstab # 注释到swap那一行  永久关闭
-
-
-# 3. 官方仓库无法使用，建议使用阿里源的仓库，执行以下命令添加kubernetes.repo仓库
-
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes 
-baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64 
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
- 
-
-# 4. 安装 kubectl kubeamd kubelet （选择21版本是因后面安装踩过雷）
-yum install -y kubelet-1.21.0 kubeadm-1.21.0 kubectl-1.21.0
-# k8s 如何降版本可参考 https://blog.csdn.net/u012069313/article/details/125561711
-
-
-# 5. 然后在master服务器上启动kubelet
-kubeadm init   --apiserver-advertise-address=10.0.1.176 --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.21.0   --service-cidr=10.140.0.0/16 --pod-network-cidr=10.240.0.0/16
-# 这里执行完会生成一串命令用于node节点的加入，记录下来，接着执行以下命令
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
-
-
-# 6. 安装网络flannel插件（可选）
-# 安装flannel网络组件，上一步的images中有flannel的相关镜像，现在就不用下载了
-# 在master节点 启动flannel /etc/kubeedge
-kubectl create -f kube-flannel.yml
-
-
-# 7. 最终查看master节点来确定k8s master部分部署完成
-kubectl get nodes
-
-# 8. 部署KubeEdge的cloudcore(KubeEdge选择的是1.9.1并且使用keadm安装)
-
-# 下载keadm v1.9.1
-https://github.com/kubeedge/kubeedge/releases
-
-# 解压
-wget https://github.com/kubeedge/kubeedge/releases/download/v1.9.1/keadm-v1.9.1-linux-amd64.tar.gz
-
-# 进入解压后的目录
-cd keadm-v1.9.1-linux-amd64
-cd keadm/
-
-# 运行
-./keadm init --advertise-address=106.14.255.17  --kubeedge-version=1.9.1
-
-# 9. 获取token
-keadm gettoken 
-```
-
-
+##### 1. Install KubeEdge cloudcore on the cloud and get token
 
 ##### 2. KubeEdge edgecore source static compilation
 
 Compile KubeEdge source code on Arm server to obtain edgecore static binary file.
 
 ```
-# 1. 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# 1. Match OpenHamrony's memory.stat format,
+
+This is actually a third-party library that fails to include all possible memory.stat formats, which I have submitted to issues and pr to fix.
+You can also modify it yourself /vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
 	tmp := strings.Replace(t, ":", "", -1)
-	tmpm := strings.Replace(tmp, "\t", "", -1)
-	tmpmt := strings.Replace(tmpm, " kB", "", -1)
-	count := strings.Count(tmpmt, " ")
-	tmpmts := strings.Replace(tmpmt, " ", "", count-1)
+	tmpo := strings.Replace(tmp, "\t", "", -1)
+	tmpt := strings.Replace(tmpo, " kB", "", -1)
+	count := strings.Count(tmpt, " ")
+	tmps := strings.Replace(tmpt, " ", "", count-1)
 
-	parts := strings.SplitN(tmpmts, " ", 3)
+	parts := strings.SplitN(tmps, " ", 3)
 	if len(parts) != 2 {
 		return "", 0, fmt.Errorf("line %q is not in key value format", t)
 	}
@@ -296,27 +208,15 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 2. 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge-1.9.1/edge/pkg/edged/edged.go
+# 2. Since openharmony uses overlay2 to install docker, you need to change the DefaultRootDir of edged.go to the same path as docker overlay2
 
-原：
-	DefaultRootDir = "/var/lib/edged"
-	// ContainerLogsDir is the location of container logs.
-	ContainerLogsDir                 = "/var/log/containers"
-
-修改：(与docker overlay2的路径一样)
-	DefaultRootDir = "/mnt/f2fs/lib/edged"
-	// ContainerLogsDir is the location of container logs.
-	ContainerLogsDir                 = "/mnt/f2fs/log/containers"
-
-
-# 3. 编译edgecore
+# 3. Compilation edgecore
 
 cd kubeedge-1.9.1
 docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
 
-# 4. 在kubeedge-1.9.1目录下有edgecore.1.9.1可执行文件
-用hdc file send 拷贝到openharmony板子/bin/上
+# 4. In the kubeedge directory there is edgecore.tag executable file copied to the openharmony board /bin/ 
 ```
 
 
@@ -324,76 +224,24 @@ docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore
 ##### 3. Install edgecore on the OpenHarmony edge
 
 ```
-# 文件添加内容
+# The cpuset.mems file needs to add "0" initial amount
 echo "0" > /dev/cpuset/background/cpuset.mems
 
-# 添加localhost的路径
-/etc/hosts 要写入一个 127.0.0.1 localhost localhost
+# Add the path to localhost
+echo "127.0.0.1 localhost localhost" > /etc/hosts
 
-# 添加edgecore.yaml
+# Add edgecore.yaml
 mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-
-# 修改edgecore.yaml大体如下，注意cloud token  mqtt的ip
-
-# 启动edgecore
-edgecore
+# Modify cloud-token and mqtt-ip in edgecore.yaml
+# Start the edgecore program
 ```
 
-edgecore.yaml reference
 
-```
-# With --minconfig , you can easily used this configurations as reference.
-# It's useful to users who are new to KubeEdge, and you can modify/create your own configs accordingly. 
-# This configuration is suitable for beginners.
-apiVersion: edgecore.config.kubeedge.io/v1alpha1
-database:
-  dataSource: /var/lib/kubeedge/edgecore.db
-kind: EdgeCore
-modules:
-  edgeHub:
-    enable: true
-    heartbeat: 15
-    httpServer: https://cloudcoreIP:10002
-    tlsCaFile: /etc/kubeedge/ca/rootCA.crt
-    tlsCertFile: /etc/kubeedge/certs/server.crt
-    tlsPrivateKeyFile: /etc/kubeedge/certs/server.key
-    token: cloudcore获得的token
-    websocket:
-      enable: true
-      handshakeTimeout: 30
-      readDeadline: 15
-      server: cloudcoreIP:10000
-      writeDeadline: 15
-  edged:
-    cgroupDriver: cgroupfs
-    cgroupRoot: ""
-    cgroupsPerQOS: true
-    clusterDNS: 169.254.96.16
-    clusterDomain: cluster.local
-    devicePluginEnabled: false
-    dockerAddress: unix:///var/run/docker.sock
-    enable: true
-    gpuPluginEnabled: false
-    hostnameOverride: gandroid
-    customInterfaceName: wlan0
-    podSandboxImage: kubeedge/pause:3.1
-    remoteImageEndpoint: unix:///var/run/dockershim.sock
-    remoteRuntimeEndpoint: unix:///var/run/dockershim.sock
-    runtimeType: docker
-  eventBus:
-    enable: false
-    mqttMode: 2
-    mqttQOS: 0
-    mqttRetain: false
-    mqttServerExternal: tcp://127.0.0.1:1883
-    mqttServerInternal: tcp://127.0.0.1:1884
-  metaManager:
-    metaServer:
-      enable: true    
-```
+
+------
 
 
 
@@ -405,16 +253,16 @@ modules:
 
 ### Environmental information
 
-------
+- Development board：HiHope DAYU200
 
-Development board：HiHope DAYU200
+- Chip：RockChip RK3568（arm64）
 
-Chip：RockChip RK3568（arm64）
+- OpenHarmony version：3.1 release
+- Linux kernel：5.10
+- Docker：18.03.1
+- KubeEdge：1.9.1
 
-OpenHarmony version：3.1 release
-Linux kernel：5.10
-Docker：18.03.1
-KubeEdge：1.9.1
+(Reminder: 1.9.1 is chosen here because k8s and KubeEdge versions are matched and some higher versions of k8s are not supported.)
 
 
 
@@ -442,10 +290,10 @@ Test docker support of the original OpenHarmony3.1release kernel.
 
 - Of course, the output.config can go to another path
 
-- ps: Also can the OS runtime cat/proc/config. Gz | gzip - > d/sdcard/config command under/home generated config is the kernel configuration file similar to the following:
+- ps: Also can the OS run  “cat /proc/config. gz | gzip - > d/sdcard/config”  command under /home generated config to the kernel configuration file similar to the following:
 
 ```
-# 配置文件的部分：
+# The section of the configuration file：
 # Automatically generated file; DO NOT EDIT.
 # Linux/arm64 5.10.79 Kernel Configuration
 #
@@ -545,7 +393,7 @@ Modifying Kernel Configuration
 
   (Add namespace, control group, network, overlay filesystem, etc.)
 
-Added the following configuration:
+Add the following configuration:
 
 ```
 --- configbk	2022-09-19 14:54:36.873667819 +0800
@@ -696,7 +544,7 @@ Added the following configuration:
 
 - Append some directories that docker needs to function properly on openharmony
 
-  Modify openharmony3.1 / build/ohos/images/build_image.py
+  Modify  openharmony3.1/ build/ohos/images/build_image.py
 
 ```
 def _prepare_root(system_path, target_cpu):
@@ -723,10 +571,10 @@ def _prepare_root(system_path, target_cpu):
         os.symlink('/system/lib', os.path.join(root_dir, 'lib'))
 ```
 
-Modify  openharmony3.1/base/security/selinux/sepolicy/base/system/file_contexts
+​	Modify  openharmony3.1/base/security/selinux/sepolicy/base/system/file_contexts
 
 ```
-# 增加for docker
+# Add some directories for docker
 /run                u:object_r:rootfs:s0
 /var                u:object_r:rootfs:s0
 /opt                u:object_r:rootfs:s0
@@ -741,36 +589,34 @@ Modify  openharmony3.1/base/security/selinux/sepolicy/base/system/file_contexts
 - Compile
 
 ```
-# 拉取最新openharmony编译环境docker镜像，镜像较大，拉取时间较长，请耐心等待
-
+# Pull the latest OpenHarmony compiled environment docker image. The image is large, so pulling time is long, please be patient.
 docker pull swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
 
-# 进入openharmony源码目录下启动镜像
+# Go to the OpenHarmony source code directory and start the image
 cd openharmony
-
 docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
 
-# 预编译工具包：下载和编译时间较长，请耐心等待
+# Pre-compiled toolkit: download and compilation time is long, please be patient
 ./build/prebuilts_download.sh
 
-# 我使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
-# 执行编译脚本：如首次编译不成功，且不是下述错误，可考虑再次运行
+# I use the HiHope DAYU200 development board is rk3568 motherboard, you fill in the name according to the motherboard you use.
+# Execute the compilation script: If the first compilation is unsuccessful and it is not one of the following errors, consider running it again.
 ./build.sh --product-name rk3568 --ccache
 
-# 编译后的img放在在路径 out/rk3568/packages/phone/images 目录里
+# The compiled img is placed in the directory out/rk3568/packages/phone/images
 ```
 
 - Burn
 - The OH system is accessed via the hdc_std standard tool, which communicates with the PC through the blue debug line, also known as the burn line
 
 ```
-# 查看是否有oh设备
+# Check the availability of OpenHarmony equipment
 D:>hdc_std.exe list targets 
 
-# 进入oh系统
+# Enter the OpenHarmony system
 D:>hdc_std.exe shell
 
-# 修改root目录下的权限使其可以进行文件操作
+# Modify the permissions in the root directory to allow file operations
 mount -o rw,remount   -t  auto /
 ```
 
@@ -782,13 +628,13 @@ mount -o rw,remount   -t  auto /
 - Prepare an sd card and insert it into the DAYU200 board.
 
 ```
-# 查看系统文件系统格式
+# View system file system format
 blkid
 
-# 查看系统文件系统和挂载情况
+# View system file system and mounts
 df -h
 
-# 确定sd卡的名称并且格式化sd卡为f2fs
+# Determine the name of the sd card and format the sd card as f2fs
 blkid
 mkfs.f2fs     /dev/sdc1 
 ```
@@ -800,13 +646,13 @@ mkfs.f2fs     /dev/sdc1
 - Network connection via wired or wireless
 
 ```
-# 查看正在运行的
+# View the running network
 ifconfig
 
-# 查看所有的网络接口 
+# View all network interfaces 
 ifconfig  -a
 
-# 开启ip forward
+# Open ip forward
 echo "1" > /proc/sys/net/ipv4/ip_forward
 ```
 
@@ -814,51 +660,51 @@ echo "1" > /proc/sys/net/ipv4/ip_forward
 - There are three ways to get static binaries: directly on the official website, source compiled on the arm host to get static binaries and cross-compiled on the x86_64 host to get static binary components.
 
 ```
-# 交叉编译环境的搭建
-# 查看有哪些编译工具的版本可以安装
+# Cross-compiling environment construction
+# Check what versions of the compiler tools are available for installation
 apt-cache search aarch64
 
-# 选择某个版本的进行安装
+# Select a version to install
 apt-get install gcc-10-aarch64-linux-gnu
-# 如果出现缺失E: Unmet dependencies 错误，再运行下面一条命令即可
+# If output error "E: Unmet dependencies",run command
 apt --fix-broken install
 
-# 可以查看里边的版本信息，里边有host是什么，target是什么
+# You can check the version information inside, what is the host and what is the target
 aarch64-linux-gnu-gcc -v
 ```
 
 - Install iproute2
 
 ```
-# 交叉编译的方式获得静态二进制文件
+# Cross-compile to get static binaries
 
-# 下载：iproute2-4.9.0源码
-https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/
-# 解压并且进入源码文件修改configure文件
-CC和ar  修改成aarch64-linux-gnu- 的路径
+# Download iproute2-4.9.0 source code
+wget https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/iproute2-4.9.0.tar.gz 
+
+# Unzip and go to the source code file and modify the configure file,where CC and ar are changed to aarch64-linux-gnu- path
 ./configure
-# 修改修改Makefile,CC为交叉编译器的路径，修改SUBDIRS=lib ip
-# 静态编译，否则，运行时报缺少.so文件
-make LDFLAGS=-static
-# 过程可参考
-https://www.cxybb.com/article/hylaking/95336108
 
+# Modify Makefile,CC to be the path of cross-compiler, modify SUBDIRS=lib ip
 
-# 也可以直接在arm主机上直接静态编译源码
-./configure
+# Static compilation
 make LDFLAGS=-static
 
+# The process can be referred to https://www.cxybb.com/article/hylaking/95336108
 
-# 在源码文件目录下可以找到编译好的可执行二进制文件
-ip
+# If you have an arm host, you can also statically compile the source code directly on the arm host (optional)
+./configure
+make LDFLAGS=-static
 
-# 将ip程序利用hdc_std命令传到openhramony系统内
+
+# The compiled executable binaries ip can be found in the source code file directory.
+# Transfer the ip program to the openhramony system using the hdc_std command.
 hdc_std.exe file send d:\ip  /data/tmp/
-# 如果发送失败，修改一下主目录的权限
+
+# If sending fails, change the permissions of the home directory.
 hdc_std.exe shell
 mount -o rw,remount   -t  auto /
 
-# 在openharmony内给ip权限并且将其加入环境变量,便可使用iproute2命令了
+# In the OpenHarmony give the ip permission  and add it to the environment variable, then you can use the iproute2 command
 chmod +x ip
 export PATH=$PATH:/data/tmp/
 ```
@@ -866,31 +712,29 @@ export PATH=$PATH:/data/tmp/
 - Install iptables
 
 ```
-# iptables与iproute2的安装相近
+# The installation of iptables and iproute2 is similar
 
-# 源码下载并且解压
-http://www.netfilter.org/projects/iptables/files/iptables-1.8.7.tar.bz2
+# Download and unzip the source code
+wget http://www.netfilter.org/projects/iptables/files/iptables-1.8.7.tar.bz2
 
-# 交叉编译或者在arm主机直接静态编译获得静态二进制文件
-# 交叉编译过程可以参考
-https://www.cnblogs.com/eleclsc/p/11686287.html
+# Cross-compile or statically compile directly on the arm host to obtain static binaries
+# The cross-compilation process can be found in https://www.cnblogs.com/eleclsc/p/11686287.html
 
-# 通过hdc_std上传到openharmony系统内
-# 在openharmony内给iptables权限并且将其加入环境变量,便可使用iptables命令了
+# Uploading files to the openharmony system via the hdc_std tool
+hdc_std.exe file send d:\iptables-1.8.7  /data/tmp/
 
-# 比较特别的是虽然DAYU200板子是arm64位的，iptables交叉编译成32位openharmony才能正常使用
+# In the OpenHarmony give the iptables permission  and add it to the environment variable, then you can use the iptables command.
+
+# What is special is that although the DAYU200 board is arm64-bit, iptables is cross-compiled to 32-bit openharmony to work properly.
 ```
 
 - Install busybox
 
 ```
-# busybox官网直接提供了arm64静态二进制文件
-https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/
-
-# 在其他PC机上
+# The busybox website provides the arm64 static binaries directly
 wget https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/busybox-armv8l
 
-# 通过hdc_std上传到openharmony系统内,如下操作即可使用busybox的所有工具了
+# Upload to the openharmony system via hdc_std and perform the following actions to use all the tools of the busybox.
 mkdir /system/xbin/
 hdc_std.exe file send d:\busybox  /system/xbin/
 cd /system/xbin
@@ -898,18 +742,16 @@ chmod +x busybox
 export PATH=$PATH:/system/xbin/
 busybox --install .
 
-# 具体可以参考
+# Specific steps
 https://www.cnblogs.com/biang/p/6703238.html
 ```
 
 - Put in os-release component
 
 ```
-# 官网
-https://www.linux.org/docs/man5/os-release.html
+# Download os-release and the official website link is https://www.linux.org/docs/man5/os-release.html
 
-# 存放的路径
-/usr/lib/os-release
+# Path to storage os-release is /usr/lib/os-release
 ```
 
 
@@ -919,7 +761,7 @@ https://www.linux.org/docs/man5/os-release.html
 - Create cgroups.json
 
 ```
-# 在/etc/下创建cgroups.json，用busybox包含的工具创建即可
+# Create cgroups.json under /etc/
 touch /etc/cgroups.json
 cd etc
 vi cgroups.json
@@ -1037,12 +879,11 @@ vi cgroups.json
 - Installing docker static binaries
 
 ```
-# 下载docker static binaries
-https://download.docker.com/linux/static/stable/aarch64/
-若为32位选择armhf版。
+# Download docker static binaries,for 32-bit select armhf version.
+wget https://download.docker.com/linux/static/stable/aarch64/docker-18.09.2.tgz 
 
-# 解压并且加入环境变量
-tar zxvf 到/system/bin下
+# Transfer it to OpenHarmony and unzip it, add environment variables
+tar zxvf /system/bin/
 export PATH=$PATH:/system/bin/
 export PATH=$PATH:/system/bin/docker/
 ```
@@ -1085,7 +926,7 @@ if [ ! -d "/mnt/f2fs" ]; then
         mkdir /mnt/f2fs
 fi
 
-# 这里对应刚刚已经被f2fs格式化的sd卡设备，可以用blkid查看到具体的名称
+# This corresponds to the sd card device that has just been formatted with f2fs, and the specific name can be viewed with blkid.
 mount /dev/block/mmcblk0p1 /mnt/f2fs/
 
 mount tmpfs /sys/fs/cgroup -t tmpfs -o size=1G
@@ -1182,7 +1023,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 
 
-# 查看docker的信息
+# View information about docker
 docker version
 docker info
 docker ps -a
@@ -1193,6 +1034,89 @@ docker images
 
 
 
+#### Install KubeEdge cloudcore in the cloud and get token
+
+```
+# Take centos7 as an example and deployment k8s v1.21.0
+
+
+# 1. Turn off the firewall and selinux
+systemctl stop firewalld
+systemctl disable firewalld
+sed -i 's/enforcing/disabled/' /etc/selinux/config
+
+# The final /etc/selinux/config is as follows:
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+#SELINUX=enforcing
+SELINUX=disabled
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected. 
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+setenforce 0
+
+# 2. Permanently shut down swap partition
+swapoff -a
+
+# 3. The official repository is not available, it is recommended to use the Aliyuan repository, execute the following command to add the kubernetes.repo repository
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes 
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64 
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+ 
+
+# 4. Installation kubectl kubeamd kubelet
+yum install -y kubelet-1.21.0 kubeadm-1.21.0 kubectl-1.21.0
+# k8s How to downgrade version can be referred to  https://blog.csdn.net/u012069313/article/details/125561711
+
+
+# 5. Then start the kubelet on the master server
+kubeadm init   --apiserver-advertise-address=10.0.1.176 --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.21.0   --service-cidr=10.140.0.0/16 --pod-network-cidr=10.240.0.0/16
+
+# Setting the profile 
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+# 6. Install the flannel plugin (optional)
+# Start flannel on master node 
+cd /etc/kubeedge
+kubectl create -f kube-flannel.yml
+
+# 7. Finally check the master node to make sure the k8s master part is deployed.
+kubectl get nodes
+
+# 8. Deploy KubeEdge's cloudcore (KubeEdge is 1.9.1 and installed with keadm)
+
+# Download keadm v1.9.1
+https://github.com/kubeedge/kubeedge/releases
+
+# Unzip
+wget https://github.com/kubeedge/kubeedge/releases/download/v1.9.1/keadm-v1.9.1-linux-amd64.tar.gz
+
+# Run
+cd keadm-v1.9.1-linux-amd64
+cd keadm/
+./keadm init --advertise-address=106.14.255.17  --kubeedge-version=1.9.1
+
+# 9.Get token
+keadm gettoken 
+```
+
 
 
 #### KubeEdgeOnOpenHarmony
@@ -1200,18 +1124,18 @@ docker images
 - Compiling edgecore on Arm server
 
 ```
-# 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# Match openhamrony's memory.stat format, Modify kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
 	tmp := strings.Replace(t, ":", "", -1)
-	tmpm := strings.Replace(tmp, "\t", "", -1)
-	tmpmt := strings.Replace(tmpm, " kB", "", -1)
-	count := strings.Count(tmpmt, " ")
-	tmpmts := strings.Replace(tmpmt, " ", "", count-1)
+	tmpo := strings.Replace(tmp, "\t", "", -1)
+	tmpt := strings.Replace(tmpo, " kB", "", -1)
+	count := strings.Count(tmpt, " ")
+	tmps := strings.Replace(tmpt, " ", "", count-1)
 
-	parts := strings.SplitN(tmpmts, " ", 3)
+	parts := strings.SplitN(tmps, " ", 3)
 	if len(parts) != 2 {
 		return "", 0, fmt.Errorf("line %q is not in key value format", t)
 	}
@@ -1225,51 +1149,49 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge-1.9.1/edge/pkg/edged/edged.go
+# Since OpenHarmony installs docker with overlay2，so need to Modify kubeedge-1.9.1/edge/pkg/edged/edged.go
 
-原：
+Origin：
 	DefaultRootDir = "/var/lib/edged"
 	// ContainerLogsDir is the location of container logs.
 	ContainerLogsDir                 = "/var/log/containers"
 
-修改：(与docker overlay2的路径一样)
+Modify: (same path as docker overlay2)
 	DefaultRootDir = "/mnt/f2fs/lib/edged"
 	// ContainerLogsDir is the location of container logs.
 	ContainerLogsDir                 = "/mnt/f2fs/log/containers"
 
 
-# 编译edgecore
+# Compile edgecore
 
 cd kubeedge-1.9.1
 docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
 
-# 在kubeedge-1.9.1目录下有edgecore.1.9.1可执行文件
-用hdc file send 拷贝到openharmony板子/system/bin上
+# In the kubeedge-1.9.1 directory there is an executable edgecore.1.9.1, copy it to the openharmony board /system/bin
 ```
 
 - Modify the OpenHarmony runtime configuration and start edgecore
 
 ```
-# 文件添加内容
+# Cpuset.mems file adds "0" initial amount
 echo "0" > /dev/cpuset/background/cpuset.mems
 
-# 添加localhost的路径
-/etc/hosts 要写入一个 127.0.0.1 localhost localhost
+# Add the localhost path
+echo "0" > 127.0.0.1 localhost localhost  /etc/hosts
 
-# 添加edgecore.yaml
+# Add edgecore.yaml
 mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
+# Modify edgecore.yaml, e.g. cloud-token and mqtt-ip
 
-# 修改edgecore.yaml大体如下，注意cloud token  mqtt的ip
-
-# 启动edgecore
+# Start edgecore
 edgecore
 ```
 
-The reference of edgecore.yaml
+The reference of edgecore.yaml：
 
 ```
 # With --minconfig , you can easily used this configurations as reference.
@@ -1322,7 +1244,7 @@ modules:
       enable: true    
 ```
 
-The end result 
+The end result：
 
 ![](image/edgecore.jpg)
 
@@ -1332,19 +1254,19 @@ The end result
 
 # Problems and solutions that may be encountered in the project
 
-- Problem 1: Binary deployment for Docker process
+- Problem 1: Binary deployment for Docker process.
 
-Binary deployment Docker: Although there is a corresponding static binary on the official website, it is not easy to run up Docker via static binary. The teachers in the community really helped a lot, and one of them provided his tutorial on the key steps to run Docker containers on Android for me to refer to.                                                                                                                   https://github.com/ThunderSoft001/kubeedgeOnAndroid
+Binary deployment Docker: Although there is a corresponding static binary on the official website, it is not easy to run up Docker via static binary. The teachers in the community really helped a lot, and one of them provided his tutorial on the key steps to run Docker containers on Android for me to refer to.  I share to you  https://github.com/ThunderSoft001/kubeedgeOnAndroid
 
-- Problem 2: Many development boards are not adapted to run OpenHarmony 
+- Problem 2: Many development boards are not adapted to run OpenHarmony.
 
-OpenHarmony is still in the research development and promotion stage, so there are not many development boards supporting OpenHarmony. After purchasing two development boards that were not quite compatible with OpenHarmony, I contacted Huawei to apply for an official OpenHarmony development board by participating in the Runhe DAYU200 experience.
+OpenHarmony is still in the research development and promotion stage, so there are not many development boards supporting OpenHarmony. After purchasing two development boards that were not quite compatible with OpenHarmony, I contacted Huawei to apply for an official OpenHarmony development board by participating in the HiHope DAYU200 experience.
 
-- Problem 3: Some configurations of OpenHarmony kernel are invalid even if set
+- Problem 3: Some configurations of OpenHarmony kernel are invalid even if set.
 
 OpenHarmony 3.1 release is using 5.10 kernel, some configurations are turned off by default and need to be configured in deconfig to turn them on. Then some configurations could not be turned on even if they were set in deconfig. After searching and seeking help, I found that some configurations have dependent configurations and need to turn on the dependent configurations as well. Check the familiarity of the specific configuration can be viewed at https://cateee.net/lkddb/web-lkddb/CGROUPS.html.
 
-- Problem 4: Iptables does not work on OpenHarmony after static cross-compilation
+- Problem 4: Iptables does not work on OpenHarmony after static cross-compilation.
 
 Running docker requires some basic software tools, and many components of OpenHarmony need to be compiled and installed by yourself. The DAYU200 development board I am using is an rk3568 motherboard, i.e. arm64. After cross-compiling the iptables source code statically, I got the arm64 bit binary file, and copied it to OpenHarmony, but it never worked. After seeking help from community teachers, I was able to cross-compile the iptables source code to get the static binary file of arm32 bit and it will run on OpenHarmony. The solution was to downgrade from 64-bit to 32-bit, a situation that usually occurs when installing software.
 

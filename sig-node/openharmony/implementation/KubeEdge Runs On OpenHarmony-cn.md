@@ -2,7 +2,7 @@
 
 
 
-以润和DAYU200为例，展示了OpenHarmony设备上运行Kubeedge的具体过程。这里，KubeEdge所用的运行时为Docker。
+本教程主要分为了两个关键步骤：OpenHarmony运行Dcoker的步骤和OpenHarmony运行KubeEdge的步骤。同时以润和DAYU200为例，展示了OpenHarmony设备上运行Kubeedge的具体过程。这里，KubeEdge所用的运行时为Docker。
 
 
 
@@ -10,7 +10,7 @@
 
 ##### 1. 准备支持Docker容器的OpenHarmony内核
 - 修改内核配置：
-cggroup和namespace相关特性，主要修改的文件是openharmony3.1/kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
+cggroup和namespace相关特性，主要修改的文件是kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
 - 修改network内核配置：
 网络主要用的是bridge模式，所以要打开相应的配置以及支持网络包forward功能。
 - 修改overlay filesystem
@@ -107,10 +107,8 @@ dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
 
 ##### 8. 验证docker工作状态
 ```
-# 确保OpenHarmony已经联网，执行
+# 确保OpenHarmony已经联网，执行以下命令会显示“ Hello from Docker! ”
 docker run hello-world
-
-# 会看到 Hello from Docker!
 ```
 
 
@@ -126,7 +124,7 @@ docker run hello-world
 
 在Arm server上编译KubeEdge源码获得edgecore静态二进制文件
 ```
-# 1. 匹配openhamrony的memory.stat格式
+# 1. 匹配OpenHamrony的memory.stat格式
 
 这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues和pr去修补。
 也可以自行修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
@@ -134,12 +132,12 @@ docker run hello-world
 func ParseKeyValue(t string) (string, uint64, error) {
 
 	tmp := strings.Replace(t, ":", "", -1)
-	tmpm := strings.Replace(tmp, "\t", "", -1)
-	tmpmt := strings.Replace(tmpm, " kB", "", -1)
-	count := strings.Count(tmpmt, " ")
-	tmpmts := strings.Replace(tmpmt, " ", "", count-1)
+	tmpo := strings.Replace(tmp, "\t", "", -1)
+	tmpt := strings.Replace(tmpo, " kB", "", -1)
+	count := strings.Count(tmpt, " ")
+	tmps := strings.Replace(tmpt, " ", "", count-1)
 
-	parts := strings.SplitN(tmpmts, " ", 3)
+	parts := strings.SplitN(tmps, " ", 3)
 	if len(parts) != 2 {
 		return "", 0, fmt.Errorf("line %q is not in key value format", t)
 	}
@@ -154,35 +152,30 @@ func ParseKeyValue(t string) (string, uint64, error) {
 
 
 # 2. 由于openharmony安装docker用的是overlay2，所以需要修改edged.go的DefaultRootDir与docker overlay2的路径一样
-
 # 3. 编译edgecore
 
-cd kubeedge-1.9.1
-docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
-docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
+docker build -t kubeedge/edgecore:tag -f build/edge/Dockerfile .
+docker cp $(docker create --rm kubeedge/edgecore:tag):/usr/local/bin/edgecore ./edgecore.tag
 
-# 4. 在kubeedge-1.9.1目录下有edgecore.1.9.1可执行文件
-用hdc file send 拷贝到openharmony板子/bin/上
+# 4. 在kubeedge目录下有edgecore.tag可执行文件拷贝到openharmony板子/bin/上
 ```
 
 ##### 3. OpenHarmony 边缘端安装edgecore
 
 ```
-# 文件添加内容
+# 1. cpuset.mems文件添加“0”初始量
 echo "0" > /dev/cpuset/background/cpuset.mems
 
-# 添加localhost的路径
-/etc/hosts 要写入一个 127.0.0.1 localhost localhost
+# 2. 添加localhost的路径
+echo "127.0.0.1 localhost localhost" > /etc/hosts
 
-# 添加edgecore.yaml
+# 3. 添加edgecore.yaml
 mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-# 修改edgecore.yaml中的cloud token  mqtt的ip
-
-# 启动edgecore
-edgecore
+# 4. 修改edgecore.yaml中的cloud-token和mqtt-ip
+# 5. 启动edgecore程序即可
 ```
 
 
@@ -304,7 +297,7 @@ CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y
 
 ![](image/check-1.png)
 
-​                                   ![](image/check-2.png) 
+​                  ![](image/check-2.png) 
 
 ![](image/check-3.png)
 
@@ -508,18 +501,16 @@ def _prepare_root(system_path, target_cpu):
 
 
 
-##### 3. 编译并且在设备运行openharmony系统
+##### 3. 编译并且在设备运行OpenHarmony系统
 
 - 编译
 
 ```
 # 拉取最新openharmony编译环境docker镜像，镜像较大，拉取时间较长，请耐心等待
-
 docker pull swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
 
 # 进入openharmony源码目录下启动镜像
 cd openharmony
-
 docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhuaweicloud.com/openharmony-docker/openharmony-docker:1.0.0
 
 # 预编译工具包：下载和编译时间较长，请耐心等待
@@ -570,7 +561,7 @@ mkfs.f2fs     /dev/sdc1
 
 - 通过有线或者无线连接网络
 ```
-# 查看正在运行的
+# 查看正在运行的网络信息
 ifconfig
 
 # 查看所有的网络接口 
@@ -601,28 +592,27 @@ aarch64-linux-gnu-gcc -v
 ```
 # 交叉编译的方式获得静态二进制文件
 
-# 下载：iproute2-4.9.0源码
-https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/
-# 解压并且进入源码文件修改configure文件
-CC和ar  修改成aarch64-linux-gnu- 的路径
+# 下载iproute2-4.9.0源码
+wget https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/iproute2-4.9.0.tar.gz 
+
+# 解压并且进入源码文件修改configure文件,CC和ar修改成aarch64-linux-gnu- 的路径
 ./configure
-# 修改修改Makefile,CC为交叉编译器的路径，修改SUBDIRS=lib ip
+
+# 修改Makefile,CC为交叉编译器的路径，修改SUBDIRS=lib ip
+
 # 静态编译，否则，运行时报缺少.so文件
 make LDFLAGS=-static
-# 过程可参考
-https://www.cxybb.com/article/hylaking/95336108
 
+# 过程可参考 https://www.cxybb.com/article/hylaking/95336108
 
-# 也可以直接在arm主机上直接静态编译源码
+# 如果有arm主机，也可以直接在arm主机上直接静态编译源码（可选）
 ./configure
 make LDFLAGS=-static
 
-
-# 在源码文件目录下可以找到编译好的可执行二进制文件
-ip
-
-# 将ip程序利用hdc_std命令传到openhramony系统内
+# 在源码文件目录下可以找到编译好的可执行二进制文件ip
+# 将ip文件上传传到openhramony系统内
 hdc_std.exe file send d:\ip  /data/tmp/
+
 # 如果发送失败，修改一下主目录的权限
 hdc_std.exe shell
 mount -o rw,remount   -t  auto /
@@ -634,16 +624,17 @@ export PATH=$PATH:/data/tmp/
 
 - 安装iptables
 ```
-# iptables与iproute2的安装相近
+# iptables与iproute2的安装类似
 
 # 源码下载并且解压
-http://www.netfilter.org/projects/iptables/files/iptables-1.8.7.tar.bz2
+wget http://www.netfilter.org/projects/iptables/files/iptables-1.8.7.tar.bz2
 
 # 交叉编译或者在arm主机直接静态编译获得静态二进制文件
-# 交叉编译过程可以参考
-https://www.cnblogs.com/eleclsc/p/11686287.html
+# 交叉编译过程可以参考 https://www.cnblogs.com/eleclsc/p/11686287.html
 
 # 通过hdc_std上传到openharmony系统内
+hdc_std.exe file send d:\iptables-1.8.7  /data/tmp/
+
 # 在openharmony内给iptables权限并且将其加入环境变量,便可使用iptables命令了
 
 # 比较特别的是虽然DAYU200板子是arm64位的，iptables交叉编译成32位openharmony才能正常使用
@@ -652,9 +643,6 @@ https://www.cnblogs.com/eleclsc/p/11686287.html
 - 安装busybox组件
 ```
 # busybox官网直接提供了arm64静态二进制文件
-https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/
-
-# 在其他PC机上
 wget https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/busybox-armv8l
 
 # 通过hdc_std上传到openharmony系统内,如下操作即可使用busybox的所有工具了
@@ -671,8 +659,7 @@ https://www.cnblogs.com/biang/p/6703238.html
 
 - 放入os-release组件
 ```
-# 官网
-https://www.linux.org/docs/man5/os-release.html
+# 下载os-release 官网链接为 https://www.linux.org/docs/man5/os-release.html
 
 # 存放的路径
 /usr/lib/os-release
@@ -802,11 +789,10 @@ vi cgroups.json
 
 - 安装docker静态二进制文件
 ```
-# 下载docker static binaries
-https://download.docker.com/linux/static/stable/aarch64/
-若为32位选择armhf版。
+# 下载docker static binaries,若为32位选择armhf版。
+wget https://download.docker.com/linux/static/stable/aarch64/docker-18.09.2.tgz 
 
-# 解压并且加入环境变量
+# 将它传到OpenHarmony上并且解压，加入环境变量
 tar zxvf 到/system/bin下
 export PATH=$PATH:/system/bin/
 export PATH=$PATH:/system/bin/docker/
@@ -915,7 +901,7 @@ setenforce 0
 ##### 8. 运行docker
 
 ```
-# run dockerd
+# 运行 dockerd
 dockerd -D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
 ```
 
@@ -970,15 +956,13 @@ systemctl stop firewalld
 systemctl disable firewalld
 sed -i 's/enforcing/disabled/' /etc/selinux/config
 
-
-# 最终的/etc/selinux/config
-
+# 最终的/etc/selinux/config如下：
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #     enforcing - SELinux security policy is enforced.
 #     permissive - SELinux prints warnings instead of enforcing.
 #     disabled - No SELinux policy is loaded.
-#SELINUX=enforcing
+# SELINUX=enforcing
 SELINUX=disabled
 # SELINUXTYPE= can take one of three two values:
 #     targeted - Targeted processes are protected,
@@ -986,14 +970,10 @@ SELINUX=disabled
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
 
-
 setenforce 0
 
-
-# 2. 关闭swap分区
-swapoff -a    # 临时关闭
-vim /etc/fstab # 注释到swap那一行  永久关闭
-
+# 2. 关闭swap分区(临时)
+swapoff -a
 
 # 3. 官方仓库无法使用，建议使用阿里源的仓库，执行以下命令添加kubernetes.repo仓库
 
@@ -1008,25 +988,22 @@ gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
 EOF
  
-
 # 4. 安装 kubectl kubeamd kubelet
 yum install -y kubelet-1.21.0 kubeadm-1.21.0 kubectl-1.21.0
 # k8s 如何降版本可参考 https://blog.csdn.net/u012069313/article/details/125561711
 
-
 # 5. 然后在master服务器上启动kubelet
 kubeadm init   --apiserver-advertise-address=10.0.1.176 --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.21.0   --service-cidr=10.140.0.0/16 --pod-network-cidr=10.240.0.0/16
-# 这里执行完会生成一串命令用于node节点的加入，记录下来，接着执行以下命令
+
+# 设置配置文件
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
-
 # 6. 安装网络flannel插件（可选）
-# 安装flannel网络组件，上一步的images中有flannel的相关镜像，现在就不用下载了
-# 在master节点 启动flannel /etc/kubeedge
+# 在master节点启动flannel 
+cd /etc/kubeedge
 kubectl create -f kube-flannel.yml
-
 
 # 7. 最终查看master节点来确定k8s master部分部署完成
 kubectl get nodes
@@ -1039,11 +1016,9 @@ https://github.com/kubeedge/kubeedge/releases
 # 解压
 wget https://github.com/kubeedge/kubeedge/releases/download/v1.9.1/keadm-v1.9.1-linux-amd64.tar.gz
 
-# 进入解压后的目录
+# 运行
 cd keadm-v1.9.1-linux-amd64
 cd keadm/
-
-# 运行
 ./keadm init --advertise-address=106.14.255.17  --kubeedge-version=1.9.1
 
 # 9. 获取token
@@ -1056,18 +1031,18 @@ keadm gettoken
 
 - Arm server上编译edgecore
 ```
-# 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# 1. 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
 	tmp := strings.Replace(t, ":", "", -1)
-	tmpm := strings.Replace(tmp, "\t", "", -1)
-	tmpmt := strings.Replace(tmpm, " kB", "", -1)
-	count := strings.Count(tmpmt, " ")
-	tmpmts := strings.Replace(tmpmt, " ", "", count-1)
+	tmpo := strings.Replace(tmp, "\t", "", -1)
+	tmpt := strings.Replace(tmpo, " kB", "", -1)
+	count := strings.Count(tmpt, " ")
+	tmps := strings.Replace(tmpt, " ", "", count-1)
 
-	parts := strings.SplitN(tmpmts, " ", 3)
+	parts := strings.SplitN(tmps, " ", 3)
 	if len(parts) != 2 {
 		return "", 0, fmt.Errorf("line %q is not in key value format", t)
 	}
@@ -1081,7 +1056,7 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge-1.9.1/edge/pkg/edged/edged.go
+# 2. 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge-1.9.1/edge/pkg/edged/edged.go
 
 原：
 	DefaultRootDir = "/var/lib/edged"
@@ -1094,35 +1069,32 @@ func ParseKeyValue(t string) (string, uint64, error) {
 	ContainerLogsDir                 = "/mnt/f2fs/log/containers"
 
 
-# 编译edgecore
+# 3. 编译edgecore
 
 cd kubeedge-1.9.1
 docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
 
-# 在kubeedge-1.9.1目录下有edgecore.1.9.1可执行文件
-用hdc file send 拷贝到openharmony板子/system/bin上
+# 4. 在kubeedge-1.9.1目录下有edgecore.1.9.1可执行文件，拷贝到openharmony板子/system/bin上
 ```
 
 - 修改openharmony运行时配置和启动edgecore
 ```
-# 文件添加内容
+# 1. cpuset.mems文件添加“0”初始量
 echo "0" > /dev/cpuset/background/cpuset.mems
 
-# 添加localhost的路径
-/etc/hosts 要写入一个 127.0.0.1 localhost localhost
+# 2. 添加localhost的路径，
+echo "0" > 127.0.0.1 localhost localhost  /etc/hosts
 
-# 添加edgecore.yaml
+# 3. 添加edgecore.yaml
 mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
+# 4. 修改edgecore.yaml，例如cloud-token和mqtt-ip
 
-# 修改edgecore.yaml大体如下，修改cloud、token和mqtt的ip
-
-# 启动edgecore
+# 5. 启动edgecore
 edgecore
-
 ```
 
 edgecore.yaml参考
@@ -1191,7 +1163,7 @@ modules:
 
 - 问题一：二进制部署Docker流程
 
-二进制部署Docker虽然官网有相应的静态二进制，但是要通过静态二进制运行起来Docker并不是一件容易的事。社区的老师真的提供了很多帮助，其中一位老师提供了他在Android运行Docker容器关键步骤教程让我来做参考。https://github.com/ThunderSoft001/kubeedgeOnAndroid
+二进制部署Docker虽然官网有相应的静态二进制，但是要通过静态二进制运行起来Docker并不是一件容易的事。社区的老师真的提供了很多帮助，其中一位老师提供了他在Android运行Docker容器关键步骤教程让我来做参考。我分享给大家 https://github.com/ThunderSoft001/kubeedgeOnAndroid
 
 - 问题二：OpenHarmony许多开发板不适配无法运行
 
