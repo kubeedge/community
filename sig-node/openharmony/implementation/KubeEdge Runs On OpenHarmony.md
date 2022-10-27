@@ -2,7 +2,7 @@
 
 
 
-This tutorial is divided into two key steps: the steps of running Dcoker on OpenHarmony and the steps of running KubeEdge on OpenHarmony. It also shows the specific process of running Kubeedge on OpenHarmony devices, using HiHope DAYU200 as examples. Here, the runtime used for KubeEdge is Docker.
+This tutorial is divided into two key steps: the steps of running Docker on OpenHarmony and the steps of running KubeEdge on OpenHarmony. It also takes HiHope DAYU200 development board as an example to show the operation details and reference documents of the two key steps to run KubeEdge on OpenHarmony. Here, the runtime used for KubeEdge is Docker.
 
 
 
@@ -30,7 +30,7 @@ Some of the necessary tools for Docker are iproutes, iptables, and busybox. Copy
 
 ##### 4. Install the Docker container engine components
 
-Copy the Docker static binary file to the /bin/ directory on the Android device and add the execution permission.
+Copy the Docker static binary file to the /bin/ directory on the OpenHarmony device and add the execution permission.
 
 ##### 5. Mount OpenHarmony system resources
 
@@ -182,9 +182,9 @@ Compile KubeEdge source code on Arm server to obtain edgecore static binary file
 ```
 # 1. Match OpenHamrony's memory.stat format,
 
-This is actually a third-party library that fails to include all possible memory.stat formats, which I have submitted to issues and pr to fix.
-You can also modify it yourself /vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# This is actually a third-party library that fails to include all possible memory.stat formats, which I have submitted to issues to fix. https://github.com/opencontainers/runc/issues/3643
 
+# You can also modify /vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
@@ -208,7 +208,7 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 2. Since openharmony uses overlay2 to install docker, you need to change the DefaultRootDir of edged.go to the same path as docker overlay2
+# 2. Since openharmony uses overlay2 to install docker, you need to modify the path to the kubelet file in kubeedge to make it the same as the path to docker overlay2.
 
 # 3. Compilation edgecore
 
@@ -235,7 +235,7 @@ mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-# Modify cloud-token and mqtt-ip in edgecore.yaml
+# Modify cloud-token in edgecore.yaml
 # Start the edgecore program
 ```
 
@@ -282,15 +282,23 @@ Download the Test script
 
 Test docker support of the original OpenHarmony3.1release kernel.
 
-- After the source code is compiled, the kernel Img will be generated. The specific location is /out/kernel/src_tmp/linux-5.10/arch/boot/
+```
+# Way I. Directly export the config file through the kernel image
+# Find the source code and compile it to generate the kernel image and remember the path
+cd /out/kernel/src_tmp/linux-5.10/arch/arm/boot/
 
-- Go to the source tree /out/kernel/src_tmp/linux-5.10/
+# Go to the source code directory
+cd /out/kernel/src_tmp/linux-5.10/
 
-- Enter the scripts/extract-ikconfig arch/arm/boot/*Image > /home/.config command
+# Run extract-ikconfig script
+scripts/extract-ikconfig   arch/arm/boot/*Image >  /home/.config
 
-- Of course, the output.config can go to another path
+# Way II. Exporting config in the OpenHarmony runtime
+cd /home
+cat /proc/config.gz | gzip -d > /sdcard/.config
+```
 
-- ps: Also can the OS run  “cat /proc/config. gz | gzip - > d/sdcard/config”  command under /home generated config to the kernel configuration file similar to the following:
+The kernel configuration file similar to the following:
 
 ```
 # The section of the configuration file：
@@ -600,7 +608,7 @@ docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhu
 ./build/prebuilts_download.sh
 
 # I use the HiHope DAYU200 development board is rk3568 motherboard, you fill in the name according to the motherboard you use.
-# Execute the compilation script: If the first compilation is unsuccessful and it is not one of the following errors, consider running it again.
+# Execute the compilation script
 ./build.sh --product-name rk3568 --ccache
 
 # The compiled img is placed in the directory out/rk3568/packages/phone/images
@@ -681,10 +689,13 @@ aarch64-linux-gnu-gcc -v
 # Download iproute2-4.9.0 source code
 wget https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/iproute2-4.9.0.tar.gz 
 
-# Unzip and go to the source code file and modify the configure file,where CC and ar are changed to aarch64-linux-gnu- path
+# make Makefile
 ./configure
 
-# Modify Makefile,CC to be the path of cross-compiler, modify SUBDIRS=lib ip
+# Modify Makefile
+CC:=/toolchain/gcc-linux-gnueabi/bin/arm-linux-gnueabi-gcc
+AR:=/toolchain/gcc-linux-gnueabi/bin/arm-linux-gnueabi-ar
+SUBDIRS=lib ip
 
 # Static compilation
 make LDFLAGS=-static
@@ -892,7 +903,7 @@ export PATH=$PATH:/system/bin/docker/
 
 ##### 7. Docker environment preparation
 
-Run the script (if the script does not work you can also follow the script step by step)
+Execute the following script run.sh (you can also follow the script step by step if it doesn't work)
 
 ```
 # mkdir on /system
@@ -1040,75 +1051,24 @@ docker images
 # Take centos7 as an example and deployment k8s v1.21.0
 
 
-# 1. Turn off the firewall and selinux
+# 1. Turn off the firewall selinux and swap
 systemctl stop firewalld
 systemctl disable firewalld
 sed -i 's/enforcing/disabled/' /etc/selinux/config
-
-# The final /etc/selinux/config is as follows:
-# This file controls the state of SELinux on the system.
-# SELINUX= can take one of these three values:
-#     enforcing - SELinux security policy is enforced.
-#     permissive - SELinux prints warnings instead of enforcing.
-#     disabled - No SELinux policy is loaded.
-#SELINUX=enforcing
-SELINUX=disabled
-# SELINUXTYPE= can take one of three two values:
-#     targeted - Targeted processes are protected,
-#     minimum - Modification of targeted policy. Only selected processes are protected. 
-#     mls - Multi Level Security protection.
-SELINUXTYPE=targeted
-
 setenforce 0
-
-# 2. Permanently shut down swap partition
 swapoff -a
 
-# 3. The official repository is not available, it is recommended to use the Aliyuan repository, execute the following command to add the kubernetes.repo repository
+# 2. Installing k8s
 
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes 
-baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64 
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
- 
-
-# 4. Installation kubectl kubeamd kubelet
-yum install -y kubelet-1.21.0 kubeadm-1.21.0 kubectl-1.21.0
-# k8s How to downgrade version can be referred to  https://blog.csdn.net/u012069313/article/details/125561711
-
-
-# 5. Then start the kubelet on the master server
-kubeadm init   --apiserver-advertise-address=10.0.1.176 --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.21.0   --service-cidr=10.140.0.0/16 --pod-network-cidr=10.240.0.0/16
-
-# Setting the profile 
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
-
-
-# 6. Install the flannel plugin (optional)
-# Start flannel on master node 
-cd /etc/kubeedge
-kubectl create -f kube-flannel.yml
-
-# 7. Finally check the master node to make sure the k8s master part is deployed.
+# 3. Finally check the master node to make sure the k8s master part is deployed.
 kubectl get nodes
 
-# 8. Deploy KubeEdge's cloudcore (KubeEdge is 1.9.1 and installed with keadm)
+# 4. Deploy KubeEdge's cloudcore (KubeEdge is 1.9.1 and installed with keadm)
 
 # Download keadm v1.9.1
-https://github.com/kubeedge/kubeedge/releases
-
-# Unzip
 wget https://github.com/kubeedge/kubeedge/releases/download/v1.9.1/keadm-v1.9.1-linux-amd64.tar.gz
 
-# Run
+# Run cloudcore
 cd keadm-v1.9.1-linux-amd64
 cd keadm/
 ./keadm init --advertise-address=106.14.255.17  --kubeedge-version=1.9.1
@@ -1124,8 +1084,11 @@ keadm gettoken
 - Compiling edgecore on Arm server
 
 ```
-# Match openhamrony's memory.stat format, Modify kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# 1. Match OpenHamrony's memory.stat format,
 
+# This is actually a third-party library that fails to include all possible memory.stat formats, which I have submitted to issues to fix. https://github.com/opencontainers/runc/issues/3643
+
+# You can also modify /vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
@@ -1148,9 +1111,10 @@ func ParseKeyValue(t string) (string, uint64, error) {
 	return parts[0], value, nil
 }
 
+# 2. Since openharmony uses overlay2 to install docker, you need to change the path where edge stores the kubelet files.
 
-# Since OpenHarmony installs docker with overlay2，so need to Modify kubeedge-1.9.1/edge/pkg/edged/edged.go
-
+# Edged after 1.12 can be modified by adding a field "rootDirectory" to egdecore.yaml. 
+# Versions before 1.12 need to modify /edge/pkg/edged/edged.go
 Origin：
 	DefaultRootDir = "/var/lib/edged"
 	// ContainerLogsDir is the location of container logs.
@@ -1162,32 +1126,31 @@ Modify: (same path as docker overlay2)
 	ContainerLogsDir                 = "/mnt/f2fs/log/containers"
 
 
-# Compile edgecore
+# 3. Compile edgecore
 
 cd kubeedge-1.9.1
 docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
 
-# In the kubeedge-1.9.1 directory there is an executable edgecore.1.9.1, copy it to the openharmony board /system/bin
+# 4. In the kubeedge-1.9.1 directory there is an executable edgecore.1.9.1, copy it to the openharmony board /system/bin
 ```
 
 - Modify the OpenHarmony runtime configuration and start edgecore
 
 ```
-# Cpuset.mems file adds "0" initial amount
+# 1. Cpuset.mems file adds "0" initial amount
 echo "0" > /dev/cpuset/background/cpuset.mems
 
-# Add the localhost path
+# 2. Add the localhost path
 echo "0" > 127.0.0.1 localhost localhost  /etc/hosts
 
-# Add edgecore.yaml
+# 3. Add edgecore.yaml
 mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-# Modify edgecore.yaml, e.g. cloud-token and mqtt-ip
-
-# Start edgecore
+# 4. Modify edgecore.yaml, e.g. cloud-token and mqtt-ip
+# 5. Start edgecore
 edgecore
 ```
 
@@ -1247,6 +1210,8 @@ modules:
 The end result：
 
 ![](image/edgecore.jpg)
+
+![](image/cloudcore.jpg)
 
 
 

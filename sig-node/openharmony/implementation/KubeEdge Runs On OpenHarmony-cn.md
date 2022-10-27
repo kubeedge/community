@@ -2,7 +2,7 @@
 
 
 
-本教程主要分为了两个关键步骤：OpenHarmony运行Dcoker的步骤和OpenHarmony运行KubeEdge的步骤。同时以润和DAYU200为例，展示了OpenHarmony设备上运行Kubeedge的具体过程。这里，KubeEdge所用的运行时为Docker。
+本教程主要分为了两个关键步骤：OpenHarmony运行Docker的步骤和OpenHarmony运行KubeEdge的步骤。同时以润和DAYU200开发板为例，展示在OpenHarmony上运行KubeEdge两个关键步骤的操作详情和参考文档。这里，KubeEdge所用的运行时为Docker。
 
 
 
@@ -10,10 +10,10 @@
 
 ##### 1. 准备支持Docker容器的OpenHarmony内核
 - 修改内核配置：
-cggroup和namespace相关特性，主要修改的文件是kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
+cgroup和namespace相关特性，主要修改的文件是kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
 - 修改network内核配置：
 网络主要用的是bridge模式，所以要打开相应的配置以及支持网络包forward功能。
-- 修改overlay filesystem
+- 修改overlay filesystem：
 Docker使用的overlay filesystem推荐使用未加密的f2fs作为backing filesystem。
 
 ##### 2. 编译并且在设备上安装运行Openharmony
@@ -22,7 +22,7 @@ Docker使用的overlay filesystem推荐使用未加密的f2fs作为backing files
 Docker需要用到的一些必要工具有iproutes、iptables和busybox。将这些工具的静态二进制文件拷贝到OpenHarmony设备/bin/目录下，并且添加执行权限。
 
 ##### 4. 安装Docker容器引擎组件
-将Docker静态二进制文件拷贝到Android设备 /bin/ 目录下，并添加执行权限
+将Docker静态二进制文件拷贝到OpenHarmony设备 /bin/ 目录下，并添加执行权限
 
 ##### 5. 挂载OpenHarmony系统资源
 创建OpenHarmony的/etc/cgroups.json文件，挂载所有的cgroup子系统。
@@ -126,8 +126,9 @@ docker run hello-world
 ```
 # 1. 匹配OpenHamrony的memory.stat格式
 
-这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues和pr去修补。
-也可以自行修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# 这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues：https://github.com/opencontainers/runc/issues/3643。
+
+# 也可以修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
@@ -151,7 +152,8 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 2. 由于openharmony安装docker用的是overlay2，所以需要修改edged.go的DefaultRootDir与docker overlay2的路径一样
+# 2. 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge存放kubelet文件路径使其与docker overlay2的路径一样。
+
 # 3. 编译edgecore
 
 docker build -t kubeedge/edgecore:tag -f build/edge/Dockerfile .
@@ -174,7 +176,7 @@ mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-# 4. 修改edgecore.yaml中的cloud-token和mqtt-ip
+# 4. 修改edgecore.yaml中的cloud-token
 # 5. 启动edgecore程序即可
 ```
 
@@ -217,11 +219,24 @@ edgecore --minconfig > edgecore.yaml
 - 检测脚本就是check-config.sh
 
 检测原始OpenHarmony3.1release内核对docker的支持
-- 源码编译后会产生内核Img，具体位置在/out/kernel/src_tmp/linux-5.10/arch/boot/
-- 进入源码树下/out/kernel/src_tmp/linux-5.10/
-- 输入命令：scripts/extract-ikconfig arch/arm/boot/*Image > /home/.config
-- 当然输出的.config可以到其他的路径下
-- 提醒：也可以在os运行时cat /proc/config.gz | gzip -d > /sdcard/config命令在/home下生成的config就是内核的配置文件类似于下面：
+```
+# 方式一、通过内核镜像直接导出config文件
+# 找到源码编译后会产生内核img镜像并且记住路径
+cd /out/kernel/src_tmp/linux-5.10/arch/arm/boot/
+
+# 进入源码目录下
+cd /out/kernel/src_tmp/linux-5.10/
+
+# 执行extract-ikconfig脚本
+scripts/extract-ikconfig   arch/arm/boot/*Image >  /home/.config
+
+# 方式二、在OpenHarmony运行态导出config
+cd /home
+cat /proc/config.gz | gzip -d > /sdcard/.config
+```
+
+生成的.config就是内核的配置文件类似于下面：
+
 ```
 # 配置文件的部分：
 # Automatically generated file; DO NOT EDIT.
@@ -312,7 +327,7 @@ CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y
 
 修改内核配置
 - 修改openharmony3.1/kernel/linux/config/linux-5.10/arch/arm64/configs/rk3568_standard_defconfig 
-（主要集中再namespace, control group, network, overlay filesystem等方面支持的追加）
+（主要集中在namespace, control group, network, overlay filesystem等方面支持的追加）
 
 增加如下配置：
 ```
@@ -516,11 +531,11 @@ docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhu
 # 预编译工具包：下载和编译时间较长，请耐心等待
 ./build/prebuilts_download.sh
 
-# 我使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
-# 执行编译脚本：如首次编译不成功，且不是下述错误，可考虑再次运行
+# 这边使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
+# 执行编译脚本
 ./build.sh --product-name rk3568 --ccache
 
-# 编译后的img放在在路径 out/rk3568/packages/phone/images 目录里
+# 编译后的img放在路径 out/rk3568/packages/phone/images 目录里
 ```
 
 - 烧录
@@ -529,7 +544,7 @@ docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhu
 ```
 # 查看是否有oh设备
 D:>hdc_std.exe list targets 
-
+ 
 # 进入oh系统
 D:>hdc_std.exe shell
 
@@ -595,12 +610,15 @@ aarch64-linux-gnu-gcc -v
 # 下载iproute2-4.9.0源码
 wget https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/iproute2-4.9.0.tar.gz 
 
-# 解压并且进入源码文件修改configure文件,CC和ar修改成aarch64-linux-gnu- 的路径
+# 生成 Makefile
 ./configure
 
-# 修改Makefile,CC为交叉编译器的路径，修改SUBDIRS=lib ip
+# 修改 Makefile 
+CC:=/toolchain/gcc-linux-gnueabi/bin/arm-linux-gnueabi-gcc
+AR:=/toolchain/gcc-linux-gnueabi/bin/arm-linux-gnueabi-ar
+SUBDIRS=lib ip
 
-# 静态编译，否则，运行时报缺少.so文件
+# 静态编译
 make LDFLAGS=-static
 
 # 过程可参考 https://www.cxybb.com/article/hylaking/95336108
@@ -802,7 +820,7 @@ export PATH=$PATH:/system/bin/docker/
 
 ##### 7. docker环境准备
 
-运行脚本（如果脚本无法运行也可以按脚本一步一步来）
+执行下述脚本run.sh（如果脚本无法运行也可以按脚本一步一步来）
 
 ```
 # mkdir on /system
@@ -893,7 +911,6 @@ echo "{\"registry-mirrors\":[\"https://docker.mirrors.ustc.edu.cn\"],\"experimen
 # 打开br_netfilter模块
 # modprobe br_netfilter
 setenforce 0
-
 ```
 
 
@@ -951,77 +968,29 @@ docker images
 # 以centos7为例  部署k8s v1.21.0
 
 
-# 1. 关闭防火墙和selinux
+# 1. 关闭防火墙、selinux和swap分区
 systemctl stop firewalld
 systemctl disable firewalld
 sed -i 's/enforcing/disabled/' /etc/selinux/config
-
-# 最终的/etc/selinux/config如下：
-# This file controls the state of SELinux on the system.
-# SELINUX= can take one of these three values:
-#     enforcing - SELinux security policy is enforced.
-#     permissive - SELinux prints warnings instead of enforcing.
-#     disabled - No SELinux policy is loaded.
-# SELINUX=enforcing
-SELINUX=disabled
-# SELINUXTYPE= can take one of three two values:
-#     targeted - Targeted processes are protected,
-#     minimum - Modification of targeted policy. Only selected processes are protected. 
-#     mls - Multi Level Security protection.
-SELINUXTYPE=targeted
-
 setenforce 0
-
-# 2. 关闭swap分区(临时)
 swapoff -a
-
-# 3. 官方仓库无法使用，建议使用阿里源的仓库，执行以下命令添加kubernetes.repo仓库
-
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes 
-baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64 
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
  
-# 4. 安装 kubectl kubeamd kubelet
-yum install -y kubelet-1.21.0 kubeadm-1.21.0 kubectl-1.21.0
-# k8s 如何降版本可参考 https://blog.csdn.net/u012069313/article/details/125561711
+# 2. 安装 k8s
 
-# 5. 然后在master服务器上启动kubelet
-kubeadm init   --apiserver-advertise-address=10.0.1.176 --image-repository registry.aliyuncs.com/google_containers   --kubernetes-version v1.21.0   --service-cidr=10.140.0.0/16 --pod-network-cidr=10.240.0.0/16
-
-# 设置配置文件
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
-
-# 6. 安装网络flannel插件（可选）
-# 在master节点启动flannel 
-cd /etc/kubeedge
-kubectl create -f kube-flannel.yml
-
-# 7. 最终查看master节点来确定k8s master部分部署完成
+# 3. 最终查看master节点来确定k8s master部分部署完成
 kubectl get nodes
 
-# 8. 部署KubeEdge的cloudcore(KubeEdge选择的是1.9.1并且使用keadm安装)
+# 4. 部署KubeEdge的cloudcore(KubeEdge选择的是1.9.1并且使用keadm安装)
 
 # 下载keadm v1.9.1
-https://github.com/kubeedge/kubeedge/releases
-
-# 解压
 wget https://github.com/kubeedge/kubeedge/releases/download/v1.9.1/keadm-v1.9.1-linux-amd64.tar.gz
 
-# 运行
+# 运行cloudcore
 cd keadm-v1.9.1-linux-amd64
 cd keadm/
 ./keadm init --advertise-address=106.14.255.17  --kubeedge-version=1.9.1
 
-# 9. 获取token
+# 5. 获取云端token
 keadm gettoken 
 ```
 
@@ -1031,8 +1000,11 @@ keadm gettoken
 
 - Arm server上编译edgecore
 ```
-# 1. 匹配openhamrony的memory.stat格式, 修改kubeedge-1.9.1/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
+# 1. 匹配OpenHamrony的memory.stat格式
 
+# 这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues：https://github.com/opencontainers/runc/issues/3643。
+
+# 也可以修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
 func ParseKeyValue(t string) (string, uint64, error) {
 
@@ -1056,8 +1028,10 @@ func ParseKeyValue(t string) (string, uint64, error) {
 }
 
 
-# 2. 由于openharmony安装docker用的是overlay2，所以需要修改kubeedge-1.9.1/edge/pkg/edged/edged.go
+# 2. 由于openharmony安装docker用的是overlay2，所以需要修改edge存放kubelet文件的路径。
 
+# 1.12版本之后的edged可以在egdecore.yaml加入一个字段 “rootDirectory”来修改路径。 
+# 1.12之前的版本则需要修改/edge/pkg/edged/edged.go
 原：
 	DefaultRootDir = "/var/lib/edged"
 	// ContainerLogsDir is the location of container logs.
@@ -1091,8 +1065,7 @@ mkdir -p /etc/kubeedge/config
 cd /etc/kubeedge/config
 edgecore --minconfig > edgecore.yaml
 
-# 4. 修改edgecore.yaml，例如cloud-token和mqtt-ip
-
+# 4. 修改edgecore.yaml，例如cloud-token
 # 5. 启动edgecore
 edgecore
 ```
@@ -1152,6 +1125,8 @@ modules:
 最终效果是：
 
 ![](image/edgecore.jpg)
+
+![](image/cloudcore.jpg)
 
 
 
