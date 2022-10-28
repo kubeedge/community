@@ -2,7 +2,7 @@
 
 
 
-This tutorial is divided into two key steps: the steps of running Docker on OpenHarmony and the steps of running KubeEdge on OpenHarmony. It also takes HiHope DAYU200 development board as an example to show the operation details and reference documents of the two key steps to run KubeEdge on OpenHarmony. Here, the runtime used for KubeEdge is Docker.
+This tutorial is divided into two key steps: running Docker on OpenHarmony and running KubeEdge on OpenHarmony. It also takes HiHope DAYU200 development board as an example to show the operation details and reference documents of the two key steps to run KubeEdge on OpenHarmony. Here, the runtime used for KubeEdge is Docker.
 
 
 
@@ -12,7 +12,7 @@ This tutorial is divided into two key steps: the steps of running Docker on Open
 
 - Modify kernel configuration:
 
-  cgroup and namespace related features, main modified files is kernel/Linux/config/Linux - 5.10 / arch/arm64 / configs/rk3568_standard_defconfig
+  cgroup and namespace related features, main modified files is kernel/Linux/config/Linux - 5.10/arch/arm64/configs/rk3568_standard_defconfig
 
 - Modify the network kernel configuration:
 
@@ -169,13 +169,27 @@ For more examples and ideas, visit:
 
 
 
-Use KubeEdge to bridge the cloud and the OpenHarmony edge to achieve cloud-side collaboration.
+Use KubeEdge to bridge the cloud and the OpenHarmony edge to achieve cloud-edge collaboration.
 
 
 
-##### 1. Install KubeEdge cloudcore on the cloud and get token
+##### 1. Install K8s
 
-##### 2. KubeEdge edgecore source static compilation
+##### 2. Deploy KubeEdge's cloudcore with keadm and get token
+
+```
+# Download keadm
+wget https://github.com/kubeedge/kubeedge/releases/download/keadm-linux-amd64.tar.gz
+
+# Run cloudcore
+cd keadm/
+./keadm init --advertise-address=xxx  --kubeedge-version=xxx
+
+# 9.Get token
+keadm gettoken 
+```
+
+##### 3. KubeEdge edgecore source static compilation
 
 Compile KubeEdge source code on Arm server to obtain edgecore static binary file.
 
@@ -216,12 +230,10 @@ cd kubeedge-1.9.1
 docker build -t kubeedge/edgecore:v1.9.1 -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:v1.9.1):/usr/local/bin/edgecore ./edgecore.1.9.1
 
-# 4. In the kubeedge directory there is edgecore.tag executable file copied to the openharmony board /bin/ 
+# 4. Copy the edgecore.tag executable file in the KubeEdge directory to the openharmony board /bin/.
 ```
 
-
-
-##### 3. Install edgecore on the OpenHarmony edge
+##### 4. Install edgecore on the OpenHarmony edge
 
 ```
 # The cpuset.mems file needs to add "0" initial amount
@@ -247,7 +259,7 @@ edgecore --minconfig > edgecore.yaml
 
 
 
-## The reference is implemented on HiHope DAYU200
+## Implemented on HiHope DAYU200
 
 
 
@@ -270,7 +282,7 @@ edgecore --minconfig > edgecore.yaml
 
 ------
 
-#### DockerOnOpenHarmony
+#### Install Docker On OpenHarmony
 
 ##### 1. Export the original configuration for detection
 
@@ -1058,7 +1070,7 @@ sed -i 's/enforcing/disabled/' /etc/selinux/config
 setenforce 0
 swapoff -a
 
-# 2. Installing k8s
+# 2. Install k8s
 
 # 3. Finally check the master node to make sure the k8s master part is deployed.
 kubectl get nodes
@@ -1079,7 +1091,7 @@ keadm gettoken
 
 
 
-#### KubeEdgeOnOpenHarmony
+#### Install KubeEdge EdgeCore On OpenHarmony
 
 - Compiling edgecore on Arm server
 
@@ -1113,8 +1125,8 @@ func ParseKeyValue(t string) (string, uint64, error) {
 
 # 2. Since openharmony uses overlay2 to install docker, you need to change the path where edge stores the kubelet files.
 
-# Edged after 1.12 can be modified by adding a field "rootDirectory" to egdecore.yaml. 
-# Versions before 1.12 need to modify /edge/pkg/edged/edged.go
+# Edged after 1.12.0 can be modified by adding a field "rootDirectory" to egdecore.yaml. 
+# Versions before 1.12.0 need to modify /edge/pkg/edged/edged.go
 Origin：
 	DefaultRootDir = "/var/lib/edged"
 	// ContainerLogsDir is the location of container logs.

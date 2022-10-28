@@ -2,7 +2,7 @@
 
 
 
-本教程主要分为了两个关键步骤：OpenHarmony运行Docker的步骤和OpenHarmony运行KubeEdge的步骤。同时以润和DAYU200开发板为例，展示在OpenHarmony上运行KubeEdge两个关键步骤的操作详情和参考文档。这里，KubeEdge所用的运行时为Docker。
+本教程主要分为了两个关键步骤：OpenHarmony运行Docker与OpenHarmony运行KubeEdge。同时以润和DAYU200开发板为例，展示在OpenHarmony上运行KubeEdge两个关键步骤的操作详情和参考文档。这里，KubeEdge所用的运行时为Docker。
 
 
 
@@ -119,14 +119,29 @@ docker run hello-world
 
 利用KubeEdge打通云端和OpenHarmony边端，实现云边协同。
 
-##### 1. 云端安装KubeEdge cloudcore并且获得token
-##### 2. KubeEdge edgecore 源码静态编译
+##### 1. 云端安装K8s
+
+##### 2. 使用keadm部署KubeEdge cloudcore并且获取云端的token
+
+```
+# Download keadm
+wget https://github.com/kubeedge/kubeedge/releases/download/keadm-linux-amd64.tar.gz
+
+# Run cloudcore
+cd keadm/
+./keadm init --advertise-address=xxx  --kubeedge-version=xxx
+
+# 9.Get token
+keadm gettoken 
+```
+
+##### 3. KubeEdge edgecore 源码静态编译
 
 在Arm server上编译KubeEdge源码获得edgecore静态二进制文件
 ```
 # 1. 匹配OpenHamrony的memory.stat格式
 
-# 这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues：https://github.com/opencontainers/runc/issues/3643。
+# 其实是第三方库未能包含所有可能得memory.stat格式，我已提交issues：https://github.com/opencontainers/runc/issues/3643。
 
 # 也可以修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
@@ -159,10 +174,10 @@ func ParseKeyValue(t string) (string, uint64, error) {
 docker build -t kubeedge/edgecore:tag -f build/edge/Dockerfile .
 docker cp $(docker create --rm kubeedge/edgecore:tag):/usr/local/bin/edgecore ./edgecore.tag
 
-# 4. 在kubeedge目录下有edgecore.tag可执行文件拷贝到openharmony板子/bin/上
+# 4. 将kubeedge目录下的edgecore.tag可执行文件拷贝到openharmony板子/bin/上
 ```
 
-##### 3. OpenHarmony 边缘端安装edgecore
+##### 4. OpenHarmony 边缘端安装edgecore
 
 ```
 # 1. cpuset.mems文件添加“0”初始量
@@ -189,7 +204,7 @@ edgecore --minconfig > edgecore.yaml
 
 
 
-## 在润和DAYU200上实现参考
+## 在润和DAYU200上实现
 
 
 
@@ -209,7 +224,7 @@ edgecore --minconfig > edgecore.yaml
 ### 操作过程与参考文件
 
 ------------------------------------------------------------------
-#### DockerOnOpenHarmony
+#### 在OpenHarmony上安装Docker
 
 ##### 1. 原配置导出检测
 
@@ -312,7 +327,7 @@ CONFIG_GENERIC_CLOCKEVENTS_BROADCAST=y
 
 ![](image/check-1.png)
 
-​                  ![](image/check-2.png) 
+​                                   ![](image/check-2.png) 
 
 ![](image/check-3.png)
 
@@ -531,7 +546,7 @@ docker run --name ohos_build -it -v $(pwd):/home/openharmony swr.cn-south-1.myhu
 # 预编译工具包：下载和编译时间较长，请耐心等待
 ./build/prebuilts_download.sh
 
-# 这边使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
+# 使用的润和DAYU200开发板是rk3568主板，大家根据自己使用的主板进行name的填写
 # 执行编译脚本
 ./build.sh --product-name rk3568 --ccache
 
@@ -996,13 +1011,13 @@ keadm gettoken
 
 
 
-#### KubeEdgeOnOpenHarmony
+#### 在OpenHarmony上安装Kubeedge Edgecore
 
 - Arm server上编译edgecore
 ```
 # 1. 匹配OpenHamrony的memory.stat格式
 
-# 这边其实是第三方库未能包含所有可能得memory.stat格式，这边我已提交issues：https://github.com/opencontainers/runc/issues/3643。
+# 其实是第三方库未能包含所有可能得memory.stat格式，我已提交issues：https://github.com/opencontainers/runc/issues/3643。
 
 # 也可以修改/vendor/github.com/opencontainers/runc/libcontainer/cgroups/fscommon/utils.go
 
@@ -1030,8 +1045,8 @@ func ParseKeyValue(t string) (string, uint64, error) {
 
 # 2. 由于openharmony安装docker用的是overlay2，所以需要修改edge存放kubelet文件的路径。
 
-# 1.12版本之后的edged可以在egdecore.yaml加入一个字段 “rootDirectory”来修改路径。 
-# 1.12之前的版本则需要修改/edge/pkg/edged/edged.go
+# 1.12.0版本之后的edged可以在egdecore.yaml加入一个字段 “rootDirectory”来修改路径。 
+# 1.12.0之前的版本则需要修改/edge/pkg/edged/edged.go
 原：
 	DefaultRootDir = "/var/lib/edged"
 	// ContainerLogsDir is the location of container logs.
