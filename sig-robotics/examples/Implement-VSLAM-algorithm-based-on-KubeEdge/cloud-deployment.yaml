@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-orbslam-cloud
+spec:
+  selector:
+    matchLabels:
+      app: dep-orbslam-cloud
+  template:
+    metadata:
+      labels:
+        app: dep-orbslam-cloud
+    spec:
+      nodeName: edge02
+      containers:
+      - name: con-orbslam-cloud
+        image: jike5/edgeslam-run:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9002
+        - containerPort: 9003
+        - containerPort: 9004
+        command: ["/bin/bash"]
+        args: ["-i", "/workspace/Edgeslam/Examples/cloud_run.sh"]
+        env:
+        - name: ROS_MASTER_URI
+          value: http://localhost:11311
+        - name: ROS_IP
+          value: 127.0.0.1
+        - name: TUM_NAME
+          value: TUM2
+      hostNetwork: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orbslam-cloud
+spec:
+  selector:
+    app: dep-orbslam-cloud
+  ports:
+    - name: http-0
+      port: 9002
+      protocol: TCP
+      targetPort: 9002
+    - name: http-1
+      port: 9003
+      protocol: TCP
+      targetPort: 9003
+    - name: http-2
+      port: 9004
+      protocol: TCP
+      targetPort: 9004
