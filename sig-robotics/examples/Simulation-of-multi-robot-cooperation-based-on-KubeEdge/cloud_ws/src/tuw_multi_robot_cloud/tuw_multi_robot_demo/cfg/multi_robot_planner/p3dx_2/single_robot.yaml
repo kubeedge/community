@@ -1,0 +1,3 @@
+use_segment_as_goal: false
+allow_endpoint_off_segments: true
+path_optimization_segment_no: 1

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<arg name="room"                                default="cave"      />
+<arg name="launch_rviz"                         default="true"      />
+<arg name="launch_stage"                        default="true"      />
+<arg name="launch_map_server"                   default="true"      />
+<arg name="launch_multi_robot_route_planner"    default="true"      />
+<arg name="launch_local_controller"             default="true"      />
+<arg name="launch_local_controller_one_for_all" default="false"      />
+<arg name="nr_of_robots"                        default="3"         /> 
+
+<arg name="launch_graph_generator"              default="true"      />
+<arg name="cfg"                                 default="default"   />
+<arg name="launch_path_synchronizer"            default="false"     />
+<arg name="load_segments"                       default="false"     />
+<arg name="map_name"                            default=""          />
+<arg name="update_rate_info"                    default="1.0"       />
+
+<!-- map server -->
+<group if="$(arg launch_map_server)">
+  <include file="$(find tuw_multi_robot_demo)/launch/map_server.launch">
+    <arg name="room" value="$(arg room)" />
+  </include>
+</group>
+
+<!-- <group if="$(arg launch_stage)">
+  <include file="$(find tuw_multi_robot_demo)/launch/stage.launch">
+    <arg name="room" value="$(arg room)" />
+  </include>
+</group> -->
+
+<group if="$(arg launch_graph_generator)">
+  <group if="$(arg load_segments)">
+  <include file="$(find tuw_multi_robot_demo)/launch/graph_generator.launch">
+    <arg name="cfg" value="$(arg room)" />
+    <arg name="custom_graph_path" value="$(find tuw_multi_robot_demo)/cfg/graph/$(arg room)/cache/$(arg map_name)" />
+  </include>
+  </group>
+  <group unless="$(arg load_segments)">
+  <include file="$(find tuw_multi_robot_demo)/launch/graph_generator.launch">
+    <arg name="cfg" value="$(arg room)" />
+  </include>
+  </group>
+</group>
+  
+<group if="$(arg launch_multi_robot_route_planner)">
+  <include file="$(find tuw_multi_robot_demo)/launch/multi_robot_route_planner.launch">
+    <arg name="cfg" value="$(arg cfg)" />
+  </include>
+</group>
+
+<!-- start rviz -->
+<group if="$(arg launch_rviz)">
+  <include file="$(find tuw_multi_robot_demo)/launch/rviz.launch">
+  <arg name="cfg" value="$(arg room)"/> 
+  </include>
+</group>
+
+</launch>

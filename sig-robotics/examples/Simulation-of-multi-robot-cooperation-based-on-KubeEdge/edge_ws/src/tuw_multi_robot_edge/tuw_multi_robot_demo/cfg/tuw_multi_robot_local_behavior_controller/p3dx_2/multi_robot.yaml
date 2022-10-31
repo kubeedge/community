@@ -1,0 +1,5 @@
+robot_names:            ["r0,r1"]
+robot_default_radius:   0.4
+path_topic:             "global_planner/planner/plan"
+odom_topic:             "odom"
+route_topic:            "route"

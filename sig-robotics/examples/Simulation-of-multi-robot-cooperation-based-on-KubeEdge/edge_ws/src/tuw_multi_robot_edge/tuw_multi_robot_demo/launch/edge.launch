@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<arg name="room"                                default="cave"      />
+<arg name="launch_rviz"                         default="true"      />
+<arg name="launch_stage"                        default="true"      />
+<arg name="launch_map_server"                   default="true"      />
+<arg name="launch_multi_robot_route_planner"    default="true"      />
+<arg name="launch_local_controller"             default="true"      />
+<arg name="launch_local_controller_one_for_all" default="false"      />
+<arg name="nr_of_robots"                        default="3"         /> 
+
+<arg name="launch_graph_generator"              default="true"      />
+<arg name="cfg"                                 default="default"   />
+<arg name="launch_path_synchronizer"            default="false"     />
+<arg name="load_segments"                       default="false"     />
+<arg name="map_name"                            default=""          />
+<arg name="update_rate_info"                    default="1.0"       />
+
+
+<group if="$(arg launch_stage)">
+  <include file="$(find tuw_multi_robot_demo)/launch/stage.launch">
+    <arg name="room" value="$(arg room)" />
+  </include>
+</group>
+
+<group if="$(arg launch_path_synchronizer)">
+  <include file="$(find tuw_multi_robot_demo)/launch/path_synchronizer.launch">
+    <arg name="cfg" value="$(arg cfg)" />
+  </include>
+</group>
+
+<group if="$(arg launch_local_controller)">
+  <group if="$(arg launch_local_controller_one_for_all)">  
+    <include file="$(find tuw_multi_robot_demo)/launch/local_multi_robot_controller.launch">
+      <arg name="nr_of_robots" value="$(arg nr_of_robots)" />
+      <arg name="update_rate_info" value="$(arg update_rate_info)" />
+      <arg name="node_name" value="local_controller_one_for_all" />
+    </include>
+  </group>
+  <group unless="$(arg launch_local_controller_one_for_all)">
+    <include file="$(find tuw_multi_robot_demo)/launch/local_controller_recursive.launch">
+      <arg name="nr_of_robots" default="$(arg nr_of_robots)"/> 
+      <arg name="robot_name_prefix" default="robot_"/>
+    </include>
+  </group>
+</group> 
+  
+
+</launch>
