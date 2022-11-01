@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/msi/1008_catkin_ws/src/robot_simulation/cmake-build-debug/devel/setup.sh

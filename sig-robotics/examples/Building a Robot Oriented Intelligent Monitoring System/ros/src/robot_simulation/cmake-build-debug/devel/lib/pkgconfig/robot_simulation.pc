@@ -1,0 +1,8 @@
+prefix=/home/msi/1008_catkin_ws/src/robot_simulation/cmake-build-debug/devel
+
+Name: robot_simulation
+Description: Description of robot_simulation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs roscpp std_msgs tf xacro

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding='utf-8'?>
+<robot name="single" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find jaka_zu7_v2)/urdf/jaka_zu7_v2.xacro" ns="right"/>
+    <xacro:right.jaka_robot prefix=""/>
+    
+    <material name="gripper_color">
+        <color rgba="0.2 0.6 0.8 0.75"/>
+    </material>
+    
+    <material name="obj_color">
+        <color rgba="1.0 0.6 0.6 1.0"/>
+    </material>
+    
+    <link name="gripper_base_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+            <material name="gripper_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://jaka_zu7_v2/meshes/gripper-raw.STL"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="ee_joint" type="fixed">
+        <parent link="link_6"/>
+        <child link="gripper_base_link"/>
+        <origin xyz="0 0 0.039" rpy="0 0 0"/>
+    </joint>
+    
+    <link name="obj">
+        <visual>
+            <geometry>
+                <sphere radius="0.03"/>
+            </geometry>
+            <material name="obj_color"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.03"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <link name="dummy"/>
+    <joint name="dummy_joint" type="fixed">
+        <parent link="dummy"/>
+        <child link="base_link"/>
+    </joint>
+    
+    <joint name="obj_to_base" type="fixed">
+        <parent link="base_link"/>
+        <child link="obj"/>
+        <origin xyz="0.5 0.2 0.1" rpy="0 0 0"/>
+    </joint>
+</robot>

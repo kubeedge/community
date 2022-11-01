@@ -1,0 +1,16 @@
+<launch>
+
+  <arg name="model" />
+
+  <!--<arg name="rvizconfig" default="$(find Zu7)/rviz/urdf.rviz" />-->
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find Zu7)/urdf/jaka.urdf.xacro" />
+  <!--<param name="use_gui" value="true"/>-->
+  
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find Zu7)/rviz/urdf.rviz" required="true" />
+
+</launch>
+
