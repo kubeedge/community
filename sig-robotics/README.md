@@ -37,4 +37,4 @@ The Technical Leads of the SIG establish new subprojects, decommission existing 
 > The co-chairs will be elected on an annual basis in November for a one year term. The co-chairs will be responsible for making day-to-day decisions and overseeing Sig-Robotics’ growth.
 > If any individual or organization is willing to participate in our community work, please send an email to [kubeedge](kubeedge@googlegroups.com).
 
-- Fujita Tomoya (@@fujitatomoya)
+- Fujita Tomoya (@fujitatomoya)
