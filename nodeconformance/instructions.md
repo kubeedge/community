@@ -1,12 +1,12 @@
-# How to submit conformance results
+# How to submit node conformance results
 
-## About the KubeEdge conformance tests
+## About the KubeEdge node conformance tests
 
-The standard set of conformance tests of KubeEdge is currently those defined by the `[Conformance]` tag in the [KubeEdge e2e](https://github.com/kubeedge/kubeedge/tree/master/tests/e2e) suite, plus a part of kubernetes conformance tests included at [here](https://github.com/kubeedge/kubeedge/blob/master/build/conformance/kubernetes/kube_conformance_test.go).
+The standard set of node conformance tests of KubeEdge is currently those defined by the `[sig-node] * [Conformance]` tag in the [KubeEdge e2e](https://github.com/kubeedge/kubeedge/tree/master/tests/e2e) suite, plus a part of kubernetes node conformance tests included at [here](https://github.com/kubeedge/kubeedge/blob/master/build/conformance/kubernetes/kube_node_conformance_test.go).
 
 ## Running
 
-KubeEdge has provided the docker image of the conformance test, which contains the scripts and related files of the conformance test. Follow these steps to perform a conformance test.
+KubeEdge has provided the docker image of the node conformance test, which contains the scripts and related files of the node conformance test. Follow these steps to perform a node conformance test.
 
 ### Prerequisite
 
@@ -15,10 +15,10 @@ KubeEdge has provided the docker image of the conformance test, which contains t
 
 ### Launch the conformance test container
 
-Pull conformance test image `kubeedge/conformance` 
+Pull node conformance test image `kubeedge/nodeconformance` 
 
 ```
-$ docker pull kubeedge/conformance
+$ docker pull kubeedge/nodeconformance
 ```
 
 Or build the image locally.
@@ -26,13 +26,13 @@ Or build the image locally.
 ```
 $ git clone https://github.com/kubeedge/kubeedge.git
 $ cd kubeedge
-$ docker build -t {image_name}:{tag_name} -f build/conformance/Dockerfile .
+$ docker build -t {image_name}:{tag_name} -f build/conformance/nodeconformance.Dockerfile .
 ```
 
 Examples of running the conformance test containers:
 
 ```
-docker run --env KUBECONFIG=/root/.kube/config  --env RESULTS_DIR=/tmp/results -v /root/.kube/config:/root/.kube/config -v /tmp/results:/tmp/results --network host -it kubeedge/conformance-test
+docker run --env KUBECONFIG=/root/.kube/config  --env RESULTS_DIR=/tmp/results -v /root/.kube/config:/root/.kube/config -v /tmp/results:/tmp/results --network host -it kubeedge/nodeconformance
 ```
 
 Description of container environment variables:
@@ -41,7 +41,7 @@ Description of container environment variables:
 |-----------------------|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | E2E_DRYRUN            | dryRun                              | If set, ginkgo will walk the test hierarchy without actually running anything. Best paired with -v.                             |
 | E2E_SKIP              | skip                                | If set, ginkgo will only run specs that do not match this regular expression. Can be specified multiple times, values are ORed. |
-| E2E_FOCUS             | focus                               | If set, ginkgo will only run specs that match this regular expression. Can  be specified multiple times, values are ORed.       |
+| E2E_FOCUS             | focus                               | If set, ginkgo will only run specs that match this regular expression. Can be specified multiple times, values are ORed.        |
 | RESULTS_DIR           | NA                                  | Output report path, default /tmp/results                                                                                        |
 | REPORT_PREFIX         | NA                                  | Report file prefix, optional                                                                                                    |
 | IMAGE_URL             | NA                                  | The name of the image used by the test case                                                                                     |
@@ -53,20 +53,20 @@ Description of container environment variables:
 
 ## Uploading
 
-Prepare a PR to [https://github.com/kubeedge/community](https://github.com/kubeedge/community) to upload the report files to the directory `conformance`. In the descriptions below, `X.Y` refers to the KubeEdge major and minor version, and `$dir` is a short subdirectory name to hold the results for your product.
+Prepare a PR to [https://github.com/kubeedge/community](https://github.com/kubeedge/community) to upload the report files to the directory `nodeconformance`. In the descriptions below, `X.Y` refers to the KubeEdge major and minor version, and `$dir` is a short subdirectory name to hold the results for your product.
 
-Description: `Conformance results for vX.Y/$dir`
+Description: `Node Conformance results for vX.Y/$dir`
 
 ### Contents of the PR
 
 For simplicity you can submit the tarball or extract the relevant information from the tarball to compose your submission.
 
-If submitting test results for multiple versions, submit a PR for each product, ie. one PR for vX.Y results and a second PR for vX.Z
+If submitting test results for multiple versions, submit a PR for each product, i.e. one PR for vX.Y results and a second PR for vX.Z
 
 ```
 vX.Y/$dir/README.md: A script or human-readable description of how to reproduce your results.
-vX.Y/$dir/e2e.log: Test log output (from the container kubeedge/conformance).
-vX.Y/$dir/junit_conformance.xml: Machine-readable test log (from the container kubeedge/conformance).
+vX.Y/$dir/e2e.log: Test log output (from the container kubeedge/nodeconformance).
+vX.Y/$dir/junit_conformance.xml: Machine-readable test log (from the container kubeedge/nodeconformance).
 vX.Y/$dir/PRODUCT.yaml: See below.
 ```
 

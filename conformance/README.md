@@ -4,6 +4,6 @@ With the iteration of the KubeEdge version, the KubeEdge conformance test cases 
 
 ### How to test
 
-As prerequisites, please read the document `Certified_KubeEdge_Terms.md`. 
+As prerequisites, please read the document [Certified_KubeEdge_Terms.md](terms-conditions/Certified_KubeEdge_Terms.md). 
 
-Please refer to the instructions.md document to run the tests, and  before starting the test.
+Please refer to the `instructions.md` document to run the tests, and  before starting the test.
