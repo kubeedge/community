@@ -32,49 +32,52 @@ project scope：
 
 The scope of this project includes
 
-- Providing a series of CRDs  and an Operator for managing cloud robotics based on KubeEdge architecture
+- Providing a set of CRDs  and an Operators for managing cloud robotics based on KubeEdge architecture
   - CRDs to define robot properties and states
   - CRDs to extend teh robot API, through which we can control the robot
-  - A series of controllers to realize the automatic control of the robot
-- This project is to design the robot CRD based on the interface definition of industrial mobile robots proposed by the Mobile Robot Industry Alliance
+  - A series of operators to realize the automatic control of the robot
+- This project is to design the robot CRD based on the [interface definition of industrial mobile robots](https://www.ttbz.org.cn/Pdfs/Index/?ftype=st&pms=79882) proposed by the Mobile Robot Industry Alliance
 
 targeting users：
 
-- Developers：Building a complete solution for cloud robot management based on KubeEdge
-- End users：Publishing tasks according to requirements and realizing automatic robot control
+- Smart warehouse manager: As a manager in a real industrial scene, I hope to have a common robot management and control scheme to reduce management and maintenance costs.
+- System user: As a system user, I want to release a task and the system will automatically assign these tasks to specific robot nodes.
+- Robot maintainer: As a robot maintainer, I want the robot to have the ability to handle simple failures, and perform operations such as charging, thereby liberating manpower.
 
 ## Design Details
 
 ### Architecture
 
-For this project, the architecture adopted basically follows the overall architecture of KubeEdge. The structure diagram of the project is shown in the figure below
+For this project, the architecture adopted basically follows the overall architecture of KubeEdge. The architecture diagram of the project is shown in the figure below:
 
 <img src="./images/architecture.png" alt="architecture" style="zoom:90%;" />
 
 The current predominant approach for managing cloud robots is to treat the robot as a unified entity, considering it as a Device and accessing the KubeEdge platform for management and scheduling purposes.
 
-However, given that a robot is inherently composed of diverse sensors and controllers, it is more appropriate to view it as a combination of heterogeneous components rather than an indivisible arrangement. Consequently, in this solution, a robot is treated as an edge node, with its sensors and controllers serving as the device access platform for that node.
+However, given that a robot is inherently composed of diverse sensors and controllers, it is more appropriate to view it as a combination of heterogeneous components rather than an indivisible arrangement. Consequently, in this solution, a robot is treated as an edge node, with its sensors serving as the device access platform for that node.
+
+The Robot node should apply an agent to parse the command from the cloud and send heartbeat message to cloud.
 
 ## CRD design
 
 The purpose of this proposal is to propose a set of universal CRD and Operator for cloud robot. Since most industrial robot companies in China have joined the Mobile Robot Industry Alliance, the data interface specifications for robots and their scheduling systems proposed by them are widely applicable. This proposal refers to this specification to design the robot CRD.
 
-To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** and **robotSync CRD**. The robot CRD and task CRD describe the robot status and task information respectively, and the robotSync CRD is used to record the number of robot CR and their configuration informations. When the key information of the robot changes, the status information must be reported immediately, otherwise the information is reported in the form of a heartbeat frame at a period set by the user. Task resources are created by users and delivered by the Controller.
+To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** and **robotSync CRD**. The robot CRD and task CRD describe the robot status and task information respectively, and the robotSync CRD is used to record the registed robots' information. When the key information of the robot changes, the status information will be reported immediately, otherwise the information is reported in the form of a heartbeat frame at a period set by the user. Task resources are created by users and delivered by the Controller.
 
 - The fields contained in the **robot** resource can be described as the table below:
 
 |        Fields       |   Type   |              Description               |
 | :-----------------: | :------: | :------------------------------------: |
 |       robotID       |   uint   |            Unique ID of a robot        |
-| registration_status | boolean  |  Indicates whether robot is registrated  |
 |      position       |  struct  | Indicates the location of the robot, including coordinates, the last point passed, etc. |
 |   running_status    |  struct  | Represents information related to robot motion, including linear velocity and angular velocity |
 |     task_info     |  struct  | Including the identification of orders and tasks, a task can be represented by a series of points and segments |
 |    battery_status    |  struct  | Including information such as remaining battery power, charging status, etc. |
 |   abnormal_events   | struct[] |         Record the exception information of the node         |
-|    robot_status     | boolean  |  indicates whether robot is ready for scheduling  |
+|   sensors   |   string[]    |   A list of robot sensors   |
+|   resource_status   |     sruct     |   Including informations of CPU, GPU, memory, etc.  |
 
--  The fields contained in the task resource can be described as the table below:
+-  The fields contained in the **task** resource can be described as the table below:
 
 |          Field          |   Type   |                 Description                 |
 | :---------------------: | :------: | :-----------------------------------------: |
@@ -85,43 +88,49 @@ To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** an
 | segment_status_sequence | struct[] |    Sequence of segment already received and not executed     |
 | task_destination_ID  |  uint  | Describe the task destination point ID  |
 
-- The fields contained in the robotSync resource can be describe as follow:
+- The fields contained in the **robotSync** resource can be describe as follow:
 
 |          Field          |   Type   |             Description         |
 | :---------------------: | :------: | :-----------------------------: |
-|     registed_robots     | string[] | Keep a list of registered nodes, including nodes name and a list of node devices |
+|     registed_robots     |  uint[]  |    A list of registed robotID   |
+|     last_heartbeat      |   map[uint]Time   |    The last time a heartbeat packet was received  |
 
 ## Controller design
 
 The Controller is mainly used to monitor the newly added custom resources in the cluster, or the changes of existing resources, and execute corresponding logic based on these informations.
 
-For *taskController*
+For *Task Controller*
 
-1. When a new task resource is created in the cluster, taskController should monitor this change
-2. The taskController match the task to a node that can execute the task
-3. Then the Controller should modify the task_info field of the node
+1. When a new task resource is created in the cluster, Task Controller should monitor this change
+2. The Task Controller assign the task to a node that can execute the task
+3. Then the Controller should update the corresponding fields of the robot and task CR
 
-For the *robotControlelr*
+For the *Robot Controller*
 
-1. The robotController monitors the changes of the robot resources
+1. The Robot Controller monitors the changes of the robot resources
 2. According to the changes, the Controller send the corresponding command to the node
 
-For the *registrationController*
+For the *Registration Controller*
 
-1. Listen for registration messages from robot nodes, and monitor the status of node at the same time
-2. Creating the robot CR if it receives the registration message and maintain the informations of robotSync CR. If the node goes offline, set the DeletionTimeStamp for the corresponding robot CR
+1. The Registration Controller listen for registration messages and heartbeat from robot nodes, and monitor the status of node at the same time
+2. Creating the robot CR if it receives the registration message and maintaining the informations of robotSync CR. If the node goes offline, set the DeletionTimeStamp for the corresponding robot CR
 
-The processing logic of each Controller is shown in the figure below:
+The processing logic of enach Cotroller is shown in the figure below:
 
-<img src="./images/controllers.png" alt="controllers" style="zoom:80%;" />
+<img src="./images/controllers.png" alt="controllers" style="zoom:60%;" />
 
 ### Robot Registration
 
-<img src="./images/registration.png" alt="registration" style="zoom:90%;" />
+<img src="./images/registration.png" alt="registration" style="zoom:70%;" />
 
-1. Registration Controller judges whether the node has been registered by comparing the number of nodes and robot CR
-2. If a node is not registered, send a message to the node to remind the registration
-3. When receiving a registration request, on the one hand, create a robot CR, and on the other hand, fill in the information in the registration request to robotSync
+Robot registration process:
+1. Once the robot node join in the cluster, it will send heartbeat message to the cloud
+2. When receiving the heartbeat, Registration Controller will update the heartbeat information, if the node is not registed it will, on the one hand, create a robot CR, and on the other hand, update the last heartbeat.
+
+Robot offline condition:
+1. When the robot fails or is manually shut down, the node will no longer send heartbeat packets.
+2. If the Registration Controller finds that the heartbeat packet has not been received for a certain period of time, it will determine that the robot is offline.
+3. Remove the corresponding robot ID from the registered list.
 
 ### Use case
 
@@ -132,14 +141,14 @@ Take the fleet scheduling system as an example:
 Fleet scheduling can be divided into four stages
 
 1. vehicle registration:
-   - The registrationController checks the number of registered robots in the robotSync CR(create it if not exist) and the number of nodes ,  if they are inconsistent, it sends a message to the unregistered node to remind the registration
-   - After the Registration Controller receives the registration request, it creates a robot CR and updates the registration information to the robotSync CR at the same time
+   - When the vehicles join in the cluster, they will send heartbeat message including the necessary vehicle informations.
+   - After the Registration Controller receives the heatbeat message, it will query the last_heartbeat map, if the key does not exist, it creates a robot CR and updates the information to the robotSync CR. Otherwise, the controller updates the robot CR and robotSync CR.
 2. task release:
    - The user creates a task CR on the cloud according to the specific task process
 3. task assignment:
-   - The taskController monitors the creation of the task CR and obtains the task content then selects a suitable robot from the registered robot list in robotSync to assign this task. It also modifies the task_info field in the corresponding robot CR
+   - The Task Controller monitors the creation of the task CR and obtains the task content then selects a suitable robot from the registered robot list in robotSync to assign this task. It also update the necessary fields in the  robot and task CR.
 4. task execution:
-   - The robotController listens to changes in the fields of the robot CR and obtains task-related information then it sends action messages to the corresponding nodes
+   - The Robot Controller listens to changes in the fields of the robot CR and obtains task-related information then it sends action messages to the corresponding nodes
 
 ## Roadmap
 
