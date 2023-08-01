@@ -13,14 +13,14 @@ Current research：
 - Microsoft [PromptCraft-Robotics](https://github.com/microsoft/PromptCraft-Robotics/tree/main)
 - Nvidia [VOYAGER](https://github.com/MineDojo/Voyager)
 
-This proposal provides a basic robot LLM Agent (RoboAgent) for RoboSDK, enabling robot developers and users to use LLM prompt to drive robots in an intelligent manner.
+This proposal provides a basic robot LLM Agent (RoboAgent) based on [RoboSDK](https://github.com/KubeEdge4Robotics/robosdk), enabling robot developers and users to use LLM prompt to drive robots in an intelligent manner.
 
 # 2. Goals
 For developers or end users of RoboSDK, the goals of the RoboAgent are:
 
-1. Test the perception, planning, and control algorithms of a robot in complex navigation and grasping tasks, both indoors and outdoors, based on given instructions (e.g. "Go to the front of that BYD car and check if anything important has been left behind"). Utilize large language models like ChatGPT for this purpose.
+1. Test the perception, planning, and control algorithms of a robot in complex navigation and grasping tasks, both indoors and outdoors, based on given instructions (e.g. "Go to the kitchen and help me get an apple."). Utilize large language models like gpt-3.5-turbo for this purpose.
 
-2. Perform closed-loop verification of the developed algorithms in **Gazebo** simulation environment.
+2. Perform closed-loop verification of the developed algorithms in **[Gazebo](https://gazebosim.org/home)** simulation environment.
 
 3. Deploy the data transmission model and other development processes using RoboSDK.
 
@@ -30,7 +30,7 @@ By building RoboAgent and its related components on RoboSDK, RoboSDK can have th
 
 The scope of RoboAgent and its related suite includes:
 - Building a RoboAgent capable of task planning, environment observation, and phenomena reasoning based on prompt techniques such as ReAct, self-ask, tree-of-thoughts, to enable complex task planning and processing abilities.
-- Providing a generic interface for large language models (LLM) to empower RoboAgent with inference and planning capabilities.
+- Providing the ability to utilize large language models for suites such as RoboAgent and RoboToolKit.
 - Building the RoboToolKit suite based on prompt techniques like ReAct, which interfaces with the control interface built on RoboSDK to provide action-related instructions and control capabilities to RoboAgent.
 - Providing the ability for RoboAgent to perceive the environment by accessing the sensor interface data of RoboSDK.
 - Providing relevant documentation, sample templates, and auxiliary tools to reduce the learning curve for users.
@@ -41,13 +41,22 @@ This design targets developers aiming to build complex robots based on LLM using
 # 4. Design Details
 
 ## Architecture Design
-To better build the capabilities of RoboAgent in task planning, environment perception, and reasoning, and to enable RoboAgent to handle complex robot instructions, we need to build the RoboAgent and related tool suites, including Planning, Action, Reasoning, and Observation. The following diagram illustrates the system architecture built based on this concept.
+To better build the capabilities of RoboAgent in task planning, environment perception, and reasoning, and to enable RoboAgent to handle complex robot instructions, we need to build the RoboAgent and related tool suites, including Planning, Action, Reasoning, and Observation. In addition, we need to address issues regarding the illusion of large language models and the effectiveness of result outputs. It is necessary to incorporate validators and evaluation components into the system architecture for proper assessment. The following diagram illustrates the system architecture built based on this concept.
 
-![System Architecture](./images/image_2.png)
+![System Architecture](./images/image_3.png)
 
 
 
-In this architecture, after RoboAgent receives a user input, it performs task planning to generate a sequence of sub-tasks. Then, RoboAgent constructs the required actions based on the sub-task sequence and executes the Robot instructions through the relevant controller. After execution, RoboAgent observes the environment to observe the changes that occurred as a result of the executed actions. For example, the distance to the car ahead is 5 meters (thing, distance, x, y, z). Based on the observed data, the Robot performs next-action reasoning to determine whether to execute the next sub-task or revise/update the task planning. This process continues until RoboAgent determines the completion of all sub-tasks, marking the entire task as finished and ending the task scheduling process.
+In this architecture:
+- Users send commands to ROS robots through KubeEdge edge nodes. KubeEdge provides the communication and management infrastructure across edge and cloud.
+- In ROS, a node or module is created to communicate with KubeEdge, which integrates directly with the existing RoboAgent for communication.
+- After receiving user requests from KubeEdge, the RoboAgent uses LLM for task planning and generates a sequence of subtasks. Task planning is based on user input and robot capabilities, determining the optimal way to accomplish the required tasks.
+- RoboAgent constructs the actions to be executed based on the subtask sequence and executes robot commands through relevant controllers. This involves invoking ROS robot controllers to perform specific actions such as movement and object manipulation.
+- After executing a single command, RoboAgent performs environmental perception, observing the changes in the environment after the execution. For example, the distance to the car in front is 5 meters (thing, distance, x, y, z). Upon receiving the environmental perception data, the robot engages in reasoning for the next step based on its current behavior and environmental perception.
+- Based on the observed data, the robot engages in reasoning for the next action, determining whether to execute the next subtask or modify/update the task plan. If task plan modification is necessary, RoboAgent returns to the task planning step to regenerate the subtask sequence.
+- The above cycle of control, perception, and reflection is repeated until RoboAgent determines the completion of all subtasks, indicating the completion of the entire task and concluding the task scheduling.
+
+
 
 > It should be noted that the Planning, Action, and Observation capabilities of RoboAgent are driven by large language models combined with techniques like ReAct and self-ask.
 
@@ -112,7 +121,7 @@ def main():
 
 ```python
 def main():
-    robot_agent.run("请帮我去客厅的桌子上拿一个苹果")
+    robot_agent.run("Go to the kitchen and help me get an apple.")
 ```
 
 **The internal execution process of a RoboAgent is roughly as follows**
