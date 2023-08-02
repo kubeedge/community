@@ -74,7 +74,7 @@ To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** an
 |     task_info     |  struct  | Including the identification of orders and tasks, a task can be represented by a series of points and segments |
 |    battery_status    |  struct  | Including information such as remaining battery power, charging status, etc. |
 |   abnormal_events   | struct[] |         Record the exception information of the node         |
-|   sensors   |   string[]    |   A list of robot sensors   |
+|   sensors   |   struct[]    |   A list of robot sensors   |
 |   resource_status   |     sruct     |   Including informations of CPU, GPU, memory, etc.  |
 
 -  The fields contained in the **task** resource can be described as the table below:
@@ -93,7 +93,7 @@ To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** an
 |          Field          |   Type   |             Description         |
 | :---------------------: | :------: | :-----------------------------: |
 |     registed_robots     |  uint[]  |    A list of registed robotID   |
-|     last_heartbeat      |   map[uint]Time   |    The last time a heartbeat packet was received  |
+|     last_heartbeat      |   map[string]Time   |    The last time a heartbeat packet was received  |
 
 ## Controller design
 
