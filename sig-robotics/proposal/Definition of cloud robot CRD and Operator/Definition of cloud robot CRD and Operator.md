@@ -19,7 +19,7 @@ CRDs are defined to achieve
 
 Operator is designed to achieve
 
-- automatizing  robotic operations
+- automatizing robotic operations
 - Monitoring robot status
 - automatizing fault handling
 - adaptive controlling
@@ -32,9 +32,9 @@ project scope：
 
 The scope of this project includes
 
-- Providing a set of CRDs  and an Operators for managing cloud robotics based on KubeEdge architecture
+- Providing a set of CRDs and an Operators for managing cloud robotics based on KubeEdge architecture
   - CRDs to define robot properties and states
-  - CRDs to extend teh robot API, through which we can control the robot
+  - CRDs to extend the robot API, through which we can control the robot
   - A series of operators to realize the automatic control of the robot
 - This project is to design the robot CRD based on the [interface definition of industrial mobile robots](https://www.ttbz.org.cn/Pdfs/Index/?ftype=st&pms=79882) proposed by the Mobile Robot Industry Alliance
 
