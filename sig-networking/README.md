@@ -29,6 +29,7 @@ The Technical Leads of the SIG establish new subprojects, decommission existing 
 
 - Jiezhang Wang (@Poorunga), Huawei
 - khalid-huang (@khalid-jobs), Huawei
+- Jiawei Liu (@JiaweiGithub), DaoCloud
 
 ## Subprojects
 
