@@ -21,7 +21,7 @@ The [charter](charter.md) defines the scope and governance of the Networking Spe
 
 The Chairs of the SIG run operations and processes governing the SIG.
 
-*TODO*
+- Panggang Cheng (@cheng-hunter), SF Express
 
 ### Technical Leads
 
