@@ -4,23 +4,27 @@ Interested in how we can most effectively test KubeEdge. We're interested specif
 
 The [charter](https://github.com/kubeedge/community/blob/master/sig-testing/charter.md) defines the scope and governance of the Testing Special Interest Group.
 
-- ## Meetings
+## Meetings
 
-  - Regular SIG Meeting: [Monday at 15:30 UTC+8](https://zoom.us/j/4167237304) (biweekly, starts on Jun. 28th 2022). [Convert to your timezone](https://www.thetimezoneconverter.com/?t=10%3A00 am&tz=GMT%2B8&).
-  - [Meeting notes and Agenda](https://docs.google.com/document/d/1PeuZzfLjU8oIduKI2nFeckKAhhckME4tqCZ33WmORBI/edit#heading=h.252sw1n3b1vb).
-  - [Meeting Calendar](https://calendar.google.com/calendar/embed?src=8rjk8o516vfte21qibvlae3lj4%40group.calendar.google.com) | [Subscribe](https://calendar.google.com/calendar?cid=OHJqazhvNTE2dmZ0ZTIxcWlidmxhZTNsajRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
+*TBD*
 
-  ## Contact
+## Contact
 
-  - [#sig-testing slack channel](https://kubeedge.slack.com)
-  - [Open Community Issues](https://github.com/kubeedge/community/issues)
-  - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
+- [#sig-testing slack channel](https://kubeedge.slack.com)
+- [Open Community Issues](https://github.com/kubeedge/community/issues)
+- [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 
-  ## Leadership
+## Leadership
 
-  ### Chairs
+### Chairs
 
-  The Chairs of the SIG run operations and processes governing the SIG.
+The Chairs of the SIG run operations and processes governing the SIG.
 
-  - XsWack (**[@wackxu](https://github.com/wackxu)**)
+*TODO*
+
+### Technical Leads
+
+The Technical Leads of the SIG establish new subprojects, decommission existing subprojects, and resolve cross-subproject technical issues and decisions.
+
+- Shelley Bao (@Shelley-BaoYue), Huawei
 
