@@ -23,18 +23,15 @@ The [charter](charter.md) defines the scope and governance of the Robotics Speci
 
 The Chairs of the SIG run operations and processes governing the SIG.
 
-*TODO*
+- Tomoya Fujita (@fujitatomoya), Sony Corp of America
+- Zhengguang Ou (@ugvddm), Huawei
 
 ### Technical Leads
 
 The Technical Leads of the SIG establish new subprojects, decommission existing subprojects, and resolve cross-subproject technical issues and decisions.
 
-- Zhengguang Ou (@ugvddm)
 - JoeyHwong (@JoeyHwong-gk)
 
-### Co-Chairs
+> If any individual or organization is willing to participate in the management of our sig, please send an email to [kubeedge](kubeedge@googlegroups.com).
 
-> The co-chairs will be elected on an annual basis in November for a one year term. The co-chairs will be responsible for making day-to-day decisions and overseeing Sig-Robotics’ growth.
-> If any individual or organization is willing to participate in our community work, please send an email to [kubeedge](kubeedge@googlegroups.com).
 
-- Fujita Tomoya (@fujitatomoya)
