@@ -21,7 +21,8 @@ The [charter](charter.md) defines the scope and governance of the Networking Spe
 
 The Chairs of the SIG run operations and processes governing the SIG.
 
-*TODO*
+- Jiawei Liu (@JiaweiGithub), DaoCloud
+- Jiezhang Wang (@Poorunga), Huawei
 
 ### Technical Leads
 
