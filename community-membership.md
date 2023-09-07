@@ -138,7 +138,36 @@ Has deep understanding of KubeEdge and related domain and facilitates major agre
 - Participate & Drive design/development of multiple features
 
 
-**Note :** These roles are applicable only for KubeEdge github organization and repositories. Currently KubeEdge doesn't have a formal process for review and acceptance into these roles. We will come-up with a process soon.
+## Inactive members
+
+_Members are continuously active contributors in the community._
+
+A core principle in maintaining a healthy community is encouraging active
+participation. It is inevitable that people's focuses will change over time and
+they are not expected to be actively contributing forever.
+
+Therefore members with an extended period away from the project with no activity
+will emeritus or be removed from the KubeEdge GitHub Organizations and will be required to
+go through the org membership process again after re-familiarizing themselves
+with the current state.
+
+
+### How inactivity is measured
+
+Inactive members are defined as members of one of the KubeEdge Organizations
+with **no** contributions across any organization within 12 months. This is
+measured by the CNCF [DevStats project].
+
+**Note:** Devstats does not take into account non-code contributions. If a
+non-code contributing member is accidentally removed this way, they may open an
+issue to quickly be re-instated.
+
+
+After an extended period away from the project with no activity
+those members would need to re-familiarize themselves with the current state
+before being able to contribute effectively.
+
 
 [Code of Conduct]: https://github.com/kubeedge/community/blob/master/CODE_OF_CONDUCT.md
 [two-factor authentication]: https://help.github.com/articles/about-two-factor-authentication
+[Devstats project]: https://kubeedge.devstats.cncf.io/
