@@ -1,6 +1,6 @@
 # KubeEdge Graduation Proposal
 
-Since becoming a CNCF incubation-level project in September 2020, the KubeEdge project has made significant progress in developing contributors and users. In the past few years, the project also **helps the cloud native ecosystem to expand to more industries outside the data center** , and has been widely used in various new fields such as Smart CDN, Smart Campus, Intelligent Transpiration, Vehicle, Aerospace, Smart logistics, Financial, Blockchain and other fields. On behalf of KubeEdge team, we believe that KubeEdge is ready for graduation.
+Since becoming a CNCF incubation-level project in September 2020, the KubeEdge project has made significant progress in developing contributors and users. In the past few years, the project also **helps the cloud native ecosystem to expand to more industries outside the data center**, and has been widely used in various new fields such as Smart CDN, Smart Campus, Intelligent Transpiration, Vehicle, Aerospace, Smart logistics, Financial, Blockchain and other fields. On behalf of KubeEdge team, we believe that KubeEdge is ready for graduation.
 
 ## Background
 
@@ -13,15 +13,15 @@ It aims to resolve three major challenges for edge computing: 1) network reliabi
 KubeEdge provides:
 
 1. **Seamless Cloud-Edge Communication** for both metadata and data
-2. **Edge Autonomy** : Autonomous operation of Edge even when disconnected from cloud.
-3. **Low Resource Requirement** : KubeEdge can work in constrained resource situations (low memory, low bandwidth, low compute)
-4. **Simplified Device Communication** : Easy communication between applications and devices for IOT and Industrial Internet of Things (_IIoT_)
+2. **Edge Autonomy**: Autonomous operation of Edge even when disconnected from cloud.
+3. **Low Resource Requirement**: KubeEdge can work in constrained resource situations (low memory, low bandwidth, low compute)
+4. **Simplified Device Communication**: Easy communication between applications and devices for IOT and Industrial Internet of Things (_IIoT_)
 5. **Service discovery and traffic proxy** for edge application
 
 In addition to these basic capabilities, the community is constantly exploring new directions for edge scenarios, including:
 
-1. **Edge-cloud synergy AI** , Sedna subproject implement across edge-cloud collaborative training and collaborative inference capabilities, such as joint inference, incremental learning, federated learning, and lifelong learning. Sedna supports popular AI frameworks, such as TensorFlow, Pytorch, PaddlePaddle, MindSpore.
-2. **Edge-Cloud synergy robots** , based on KubeEdge, to implement cloud robot platform, to integrate cloud computing technologies(cloud native, AI, storage etc) with robots, to support heterogeneous robots, including mobile robots, robotics arm, and many other robot platforms.
+1. **Edge-cloud synergy AI**, Sedna subproject implement across edge-cloud collaborative training and collaborative inference capabilities, such as joint inference, incremental learning, federated learning, and lifelong learning. Sedna supports popular AI frameworks, such as TensorFlow, Pytorch, PaddlePaddle, MindSpore.
+2. **Edge-Cloud synergy robots**, based on KubeEdge, to implement cloud robot platform, to integrate cloud computing technologies(cloud native, AI, storage etc) with robots, to support heterogeneous robots, including mobile robots, robotics arm, and many other robot platforms.
 
 Link to GitHub repos:
 
@@ -37,7 +37,7 @@ KubeEdge falls in the scope of [CNCF Runtime TAG](https://github.com/cncf/sig-ru
 
 ### Value-add to the CNCF ecosystem
 
-As the CNCF's first cloud-native edge computing framework and the only incubation project, KubeEdge has always helped the **cloud native ecosystem to expand to more industries outside the data center**, such as Smart CDN, Smart Campus, Intelligent Transpiration, Vehicle, Aerospace, Smart logistics, Financial, Blockchain and other fields.
+As the CNCF's first cloud-native edge computing framework and incubation project, KubeEdge has helped **expanding cloud native ecosystem to more industries outside the data center**, including Smart CDN, Smart Campus, Intelligent Transpiration, Vehicle, Aerospace, Smart logistics, Financial, Blockchain and other fields.
 
 - Building an open edge computing platform with cloud native technologies to **extend the boundary of cloud native**
 - Helping users extending their business architecture, applications, services, etc. from cloud to edge in same experience
@@ -71,10 +71,10 @@ In the future, we are planning to expand these integrations including edge servi
 Since 2018, the community has witnessed more than 50 releases. With excellent capabilities, KubeEdge has made technological breakthroughs along the way:
 
 - Support for **100,000 edge nodes** in a Single Cluster
-- **DMI** : cloud native edge device management framework
-- **EdgeMesh** : HA edge computing architecture
-- **Sedna:** edge-cloud synergy AI framework
-- **Ianvs** : distributed collaborative AI benchmarking platform
+- **DMI**: cloud native edge device management framework
+- **EdgeMesh**: HA edge computing architecture
+- **Sedna**: edge-cloud synergy AI framework
+- **Ianvs**: distributed collaborative AI benchmarking platform
 - Support KubeEdge on Android
 - White Paper on Cloud Native Edge Computing Threat Model and Security Protection Technical
 - CNCF's **first** batch of integrated fuzzing projects
@@ -90,7 +90,7 @@ The figure below shows the key nodes in the evolution of the KubeEdge project：
   - Governance doc
     - <https://github.com/kubeedge/community/blob/master/GOVERNANCE.md>
   - Established Technical Steering Committee:
-    - **7 members** from **6 companies** , 1 Arm, 1 Google, 2 Huawei, 1 DaoCloud, 1 HarmonyCloud, 1 KubeShpere
+    - **7 members** from **6 companies**, 1 Arm, 1 Google, 2 Huawei, 1 DaoCloud, 1 HarmonyCloud, 1 KubeShpere
     - <https://github.com/kubeedge/community/tree/master/commitee-technical-steering>
   - Multiple SIGs established:
     - SIG AI
@@ -105,7 +105,7 @@ The figure below shows the key nodes in the evolution of the KubeEdge project：
   - Multiple Special Teams established:
     - Security Team
       - <https://github.com/kubeedge/community/tree/master/team-security>
-    - **WIP** : PM Team
+    - WIP: PM Team
 
 - Community Events:
   - KubeEdge Summit 2022
@@ -181,7 +181,7 @@ Ref: <https://bestpractices.coreinfrastructure.org/en/projects/3018>
 
 ### 3. Have completed an independent and third party security audit
 
-KubeEdge community in 2022 cooperates with Ada Logics Ltd. and The Open Source Technology Improvement Fund performed a holistic security audit of KubeEdge and output a **security auditing report** , including the security threat model and security issues related to the KubeEdge project, which has important guiding significance for the security protection of the KubeEdge project.
+KubeEdge community in 2022 cooperates with Ada Logics Ltd. and The Open Source Technology Improvement Fund performed a holistic security audit of KubeEdge and output a **security auditing report**, including the security threat model and security issues related to the KubeEdge project, which has important guiding significance for the security protection of the KubeEdge project.
 
 The discovered security issues have been fixed and patched to the releases(v1.11.1, v1.10.2, v1.9.4) by KubeEdge maintainers according to the [kubeedge security policy](https://github.com/kubeedge/kubeedge/security/policy).
 
@@ -189,7 +189,7 @@ The discovered security issues have been fixed and patched to the releases(v1.11
 
 **KubeEdge Threat Model and Security Protection Analysis**: <https://github.com/kubeedge/community/blob/master/sig-security/sig-security-audit/KubeEdge-threat-model-and-security-protection-analysis.md>
 
-**KubeEdge Ssecurity Policy**: <https://github.com/kubeedge/community/blob/master/team-security/SECURITY.md>
+**KubeEdge Security Policy**: <https://github.com/kubeedge/community/blob/master/team-security/SECURITY.md>
 
 ### 4. Explicitly define a project governance and committer process
 
