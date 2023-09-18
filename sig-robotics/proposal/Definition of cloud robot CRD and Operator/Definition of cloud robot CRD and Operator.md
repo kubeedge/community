@@ -14,7 +14,7 @@ For developers or end users of CRDs and Operators, the goal of this project is t
 
 CRDs are defined to achieve
 
-- Difining robot resources
+- Defining robot resources
 - Extending the robot API to enable robot control
 
 Operator is designed to achieve

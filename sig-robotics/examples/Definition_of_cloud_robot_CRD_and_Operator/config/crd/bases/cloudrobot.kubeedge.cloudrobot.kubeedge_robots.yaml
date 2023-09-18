@@ -1,0 +1,167 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.12.0
+  name: robots.cloudrobot.kubeedge.cloudrobot.kubeedge
+spec:
+  group: cloudrobot.kubeedge.cloudrobot.kubeedge
+  names:
+    kind: Robot
+    listKind: RobotList
+    plural: robots
+    singular: robot
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: Robot is the Schema for the robots API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RobotSpec defines the desired state of Robot
+            properties:
+              robotID:
+                type: integer
+            type: object
+          status:
+            description: RobotStatus defines the observed state of Robot
+            properties:
+              abnormalEvents:
+                items:
+                  properties:
+                    description:
+                      type: string
+                    eventCode:
+                      type: integer
+                    exceptionLevel:
+                      type: integer
+                    identifier:
+                      type: integer
+                  type: object
+                type: array
+              batteryStatus:
+                properties:
+                  batterySerialNumber:
+                    format: byte
+                    type: string
+                  batteryStatus:
+                    type: integer
+                  chargingTimes:
+                    type: integer
+                  powerPercentage:
+                    type: number
+                type: object
+              position:
+                properties:
+                  previousPoint:
+                    type: integer
+                  segmentEndPointID:
+                    type: integer
+                  segmentStartPointID:
+                    type: integer
+                  x:
+                    type: number
+                  "y":
+                    type: number
+                type: object
+              resourceStatus:
+                properties:
+                  cpuUsagePercentage:
+                    type: number
+                  diskAvailable:
+                    type: number
+                  diskUsage:
+                    type: number
+                  gpuUsagePercentage:
+                    type: number
+                  memAvailable:
+                    type: number
+                  memUsage:
+                    type: number
+                  networkBandwidth:
+                    type: number
+                type: object
+              runningStatus:
+                properties:
+                  angularVelocity:
+                    type: number
+                  imrStatus:
+                    type: integer
+                  linearVelocity:
+                    type: integer
+                type: object
+              sensors:
+                items:
+                  description: first edition
+                  properties:
+                    description:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              taskInfo:
+                properties:
+                  orderID:
+                    type: integer
+                  pointStateSequence:
+                    items:
+                      properties:
+                        allocated:
+                          type: integer
+                        pointID:
+                          type: integer
+                        position_x:
+                          type: number
+                        position_y:
+                          type: number
+                        sequenceID:
+                          type: integer
+                      type: object
+                    type: array
+                  requiredSensors:
+                    items:
+                      description: first edition
+                      properties:
+                        description:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                  segmentStateSequence:
+                    items:
+                      properties:
+                        allocated:
+                          type: integer
+                        segmentID:
+                          type: integer
+                        sequenceID:
+                          type: integer
+                      type: object
+                    type: array
+                  taskID:
+                    type: integer
+                type: object
+              underTask:
+                type: boolean
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

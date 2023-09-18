@@ -1,0 +1,12 @@
+apiVersion: cloudrobot.kubeedge.cloudrobot.kubeedge/v1beta1
+kind: Robot
+metadata:
+  labels:
+    app.kubernetes.io/name: robot
+    app.kubernetes.io/instance: robot-sample
+    app.kubernetes.io/part-of: ospp2023
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: ospp2023
+  name: robot-sample
+spec:
+  # TODO(user): Add fields here

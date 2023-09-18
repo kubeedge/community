@@ -1,0 +1,84 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robots
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robots/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robots/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robotsyncs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robotsyncs/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robotsyncs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - tasks
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - tasks/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - tasks/status
+  verbs:
+  - get
+  - patch
+  - update
