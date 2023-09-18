@@ -20,6 +20,8 @@ This document gives a brief overview of the KubeEdge community roles with the re
 Members are active participants in the community who contribute by authoring PRs,
 reviewing issues/PRs or participate in community discussions on slack/mailing list.
 
+**Note:** If you meet the following requirements, welcome to [open an issue](https://github.com/kubeedge/community/issues/new?assignees=&labels=membership&projects=&template=membership-request.md&title=REQUEST%3A+New+membership+for+%3Cyour+name%3E) and apply to become a KubeEdge Organization member!
+
 
 ### Requirements
 
