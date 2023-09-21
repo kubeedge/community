@@ -6,7 +6,7 @@ Since becoming a CNCF incubation-level project in September 2020, the KubeEdge p
 
 KubeEdge is an open source system for extending native containerized application orchestration capabilities to hosts at the edge. It's built upon Kubernetes and provides fundamental infrastructure support for networking, application deployment and metadata synchronization between cloud and edge. In addition, KubeEdge supports MQTT, allowing developers to design logic and enable resource constraints for device communications at the edge. KubeEdge decouples and simplifies Kubernetes modules.
 
-![KubeEdge Architecture](https://raw.githubusercontent.com/kubeedge/kubeedge/26f47ccdb47b4fcd3c6eef9a7d97dffa49d619be/docs/images/kubeedge_arch.png)
+![KubeEdge Architecture](./kubeedge_arch.png)
 
 It aims to resolve three major challenges for edge computing: 1) network reliability and bandwidth limit between cloud and edge, 2) resource constraint at edge, 3) highly distributed and heterogeneous device management.
 
@@ -82,7 +82,7 @@ Since 2018, the community has witnessed more than 50 releases. With excellent ca
 
 The figure below shows the key nodes in the evolution of the KubeEdge project：
 
-![KubeEdge Innovative Journey](https://raw.githubusercontent.com/kevin-wangzefeng/kubeedge-community/kubeedge-graduation/graduation/kubeedge_innovative_journey.png)
+![KubeEdge Innovative Journey](./kubeedge_innovative_journey.png)
 
 ### 3. Community
 
