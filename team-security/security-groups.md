@@ -10,6 +10,11 @@ cncf-kubeedge-distrib-announce@lists.cncf.io
 
 Maintained by [Security Team](#the-security-team).
 
+Members:
+
+- kubeedge-security@daocloud.io
+
+
 ### The Security Team
 
 Email:
