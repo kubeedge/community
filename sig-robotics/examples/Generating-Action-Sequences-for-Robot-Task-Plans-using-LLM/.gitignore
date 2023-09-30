@@ -1,0 +1,6 @@
+build/**
+install/**
+log/**
+src/navigation
+src/cartographer_code/cartographer
+src/cartographer_code/cartographer_ros
