@@ -6,27 +6,28 @@ This charter adheres to the conventions described in [KubeEdge Open Governance](
 
 The SIG Robotics focuses on technical discussion, API definition, reference architecture, implementation in robots, to empower existing robotics ecosystems with KubeEdge, based on the edge-cloud synergy architecture, to improve robot intelligence and development efficiency.
 
-### In scope
-#### Areas of Focus
-1. Based on KubeEdge, to implement cloud robot platform, to integrate cloud computing technologies(cloud native, AI, storage etc) with robots:
-    - Support heterogeneous robots, including mobile robots, robotics arm, and many other robot platforms.
-    - Integrate popular open source robotics technologies with KubeEdge to make the robots development, debug, simulation, deployment and management easier.
-    - Cooperate with other open source communities, e.g.,  [ROS](https://www.ros.org/), [Gazebo](http://gazebosim.org/), also with other SIGs like [SIG AI](https://github.com/kubeedge/community/tree/master/sig-ai) and [SIG IoT](https://github.com/kubeedge/community/tree/master/sig-device-iot)
-1. Synergy mechanisms research for robotics workloads, **including but not limited to**:
-    - Cloud environment for robot programming, compilation, simulation, packaging and deployment
-    - Integration with cloud services like AI training, data storage, monitoring
-    - Edge-cloud synergy system for robots
-        - Robot application deployment to robot base on edge
-        - Fleet ops
-        - Tele ops
-        - Cloud service integration like AI(training and inference), data storage, monitoring
-    - Additional protocol integration like [Micro-XRCE-DDS](https://github.com/eProsima/Micro-XRCE-DDS)
-- Provide basic container environment, examples.
-- Cooperate with partners to make use cases to promote cloud robot technology.
-### Out of scope
-- Re-invent existing robotics framework or tooling, e.g., ROS, Gazebo, DDS
-- Offer domain/application-specific algorithms, e.g., robot hardware, path planning, SLAM
+### Areas of Focus
 
+- Based on KubeEdge, to implement cloud robot platform, to integrate cloud computing technologies(cloud native, AI, storage etc) with robots:
+  - Support heterogeneous robots, including mobile robots, robotics arm, and many other robot platforms
+  - Integrate popular open source robotics technologies with KubeEdge to make the robots development, debug, simulation, deployment and management easier
+  - Cooperate with other open source communities, e.g.,  [ROS](https://www.ros.org/), [Gazebo](http://gazebosim.org/), also with other SIGs like [SIG AI](https://github.com/kubeedge/community/tree/master/sig-ai) and [SIG IoT](https://github.com/kubeedge/community/tree/master/sig-device-iot)
+- Synergy mechanisms research for robotics workloads, **including but not limited to**:
+  - Cloud environment for robot programming, compilation, simulation, packaging and deployment
+  - Integration with cloud services like AI training, data storage, monitoring
+  - Edge-cloud synergy system for robots
+    - Robot application deployment to robot base on edge
+    - Fleet management and control
+    - Teleoperation / Remote control
+    - Cloud service integration like AI(training and inference), data storage, monitoring
+    - Additional protocol extension like [Micro-XRCE-DDS](https://github.com/eProsima/Micro-XRCE-DDS) and [Micro-ROS](https://micro.ros.org/)
+- Provide basic container environment, examples
+- Cooperate with partners to make use cases to promote cloud robot technology
+
+### Out of Scope
+
+- Re-invent existing robotics framework or tooling, e.g. ROS, Gazebo, DDS
+- Offer domain/application-specific algorithms, e.g. robot hardware, path planning, SLAM
 
 ## Roles and Organization Management
 
