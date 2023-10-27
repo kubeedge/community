@@ -30,7 +30,7 @@ For developers or end users of ROS2, the goals are:
 
 By building RobotAgent and its related components.The scope of RobotAgent and its related suite includes:
 
-- Building a RobotAgent capable of task planning, environment observation, and phenomena reasoning based on structural prompt to enable complex task planning and processing abilities.
+- Building a RobotAgent capable of task planning, environment observation, and phenomena reasoning based on structural prompt to enable complex task planning and processing abilities based on the ability of LLM.
 - Providing the ability to utilize large language models for RobotAgent.
 - Building the RobotController. RobotAgent can use RobotController to control the robot. Developer need to implement all abilities of the robot.
 - Building the RobotObserver. RobotAgent can use RobotObserver know about current environment information, which helps RobotAgent make a better decision-making.
@@ -42,7 +42,7 @@ This design targets developers aiming to build complex robots based on LLM using
 
 ## Architecture Design
 
-To better build the capabilities of RobotAgent in task planning, environment perception, and reasoning, and to enable RobotAgent to handle complex robot instructions, we need to build the RobotAgent and related tool suites, including Planning, Action, Reasoning, and Observation. In addition, we need to address issues regarding the illusion of large language models and the effectiveness of result outputs. It is necessary to incorporate validators and evaluation components into the system architecture for proper assessment. The following diagram illustrates the system architecture built based on this concept.
+To better build the capabilities of RobotAgent in task planning, environment perception, and reasoning, and to enable RobotAgent to handle complex robot instructions based on the ability of LLM, we need to build the RobotAgent and related tool suites, including Planning, Action, Reasoning, and Observation. In addition, we need to address issues regarding the illusion of large language models and the effectiveness of result outputs. It is necessary to incorporate validators and evaluation components into the system architecture for proper assessment. The following diagram illustrates the system architecture built based on this concept.
 
 ![System Architecture](./images/image_3.png)
 
