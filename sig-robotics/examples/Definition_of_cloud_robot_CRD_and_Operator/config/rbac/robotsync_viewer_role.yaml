@@ -1,0 +1,27 @@
+# permissions for end users to view robotsyncs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: robotsync-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: ospp2023
+    app.kubernetes.io/part-of: ospp2023
+    app.kubernetes.io/managed-by: kustomize
+  name: robotsync-viewer-role
+rules:
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robotsyncs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cloudrobot.kubeedge.cloudrobot.kubeedge
+  resources:
+  - robotsyncs/status
+  verbs:
+  - get
