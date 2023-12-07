@@ -7,7 +7,7 @@ If you need support, start with the [troubleshooting guide](https://github.com/k
 
 **Slack channel:**
 
-We use Slack for public discussions. To chat with us or the rest of the community, join us in the [KubeEdge Slack](https://kubeedge.slack.com) team channel #general. To sign up, use our Slack inviter link [here](https://kubeedge.io/docs/community/slack/).
+We use Slack for public discussions. To chat with us or the rest of the community, join us in the KubeEdge Slack. To sign up, use our Slack inviter link [here](https://kubeedge.io/docs/community/slack/).
 
 **Mailing List**  
 
