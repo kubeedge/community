@@ -9,6 +9,6 @@ to build end to end platforms, and provides necessary use cases to demonstrate t
   -  [Meeting Calendar](https://calendar.google.com/calendar/u/0?cid=Y19nODluOXAwOG05MzFiYWM3NmZsajgwZzEwOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t) | [Subscribe](https://calendar.google.com/calendar?cid=OHJqazhvNTE2dmZ0ZTIxcWlidmxhZTNsajRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
  
 ## Contact
-- Slack: [#sig-mec](https://kubeedge.slack.com/archives/C0120QT37PD)
+- Slack: [#sig-mec](https://kubeedge.io/docs/community/slack/)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
     

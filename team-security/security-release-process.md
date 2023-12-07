@@ -120,7 +120,7 @@ Communications process:
   announcement should be actionable, and include any mitigating steps users can take prior to
   upgrading to a fixed version. The announcement will be sent via the following channels:
   - General announcement email ([template](comms-templates/distributors-announcement-email.md)) to multiple KubeEdge lists
-  - [#announcement slack channel](https://kubeedge.slack.com/archives/CUABZBD55) ([template](comms-templates/vulnerability-announcement-slack.md))
+  - [#announcement slack channel](https://kubeedge.io/docs/community/slack/) ([template](comms-templates/vulnerability-announcement-slack.md))
   - Tracking issue opened in https://github.com/kubeedge/kubeedge/issues ([template](comms-templates/vulnerability-announcement-issue.md)) and prefixed with the associated CVE ID (if applicable)
   - [GitHub Security Advisories](https://github.com/kubeedge/kubeedge/security/advisories) of KubeEdge
   - [Patch release](https://github.com/kubeedge/kubeedge/releases), will have the fix details included in the patch release notes. Any public announcement sent for these fixes will link to the release notes.

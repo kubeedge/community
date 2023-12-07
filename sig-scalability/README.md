@@ -12,7 +12,7 @@ The [charter](https://github.com/kubeedge/community/blob/master/sig-scalability/
 
 ## Contact
 
-- [#sig-scalability slack channel](https://kubeedge.slack.com)
+- [#sig-scalability slack channel](https://kubeedge.io/docs/community/slack/)
 - [Open Community Issues](https://github.com/kubeedge/community/issues)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 

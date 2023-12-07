@@ -10,7 +10,7 @@ The [charter](https://github.com/kubeedge/community/blob/master/sig-node/charter
 
 ## Contact
 
-- Slack: [#sig-node slack channel](https://kubeedge.slack.com)
+- Slack: [#sig-node slack channel](https://kubeedge.io/docs/community/slack/)
 
 - [Open Community Issues](https://github.com/kubeedge/kubeedge/issues)
 

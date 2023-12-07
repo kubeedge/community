@@ -14,7 +14,7 @@ KubeEdge Wireless Working group is responsible to simplify, develop, and optimiz
 
 ## Contact
 
-- Slack: [#sig-mec](https://kubeedge.slack.com/archives/C0120QT37PD)
+- Slack: [#sig-mec](https://kubeedge.io/docs/community/slack/)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 
 This working group currently sponsored by sig-mec with a focus on improving ability of management and developing of KubeEdge in wireless scenario.

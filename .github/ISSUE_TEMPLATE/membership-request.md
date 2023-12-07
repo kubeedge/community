@@ -40,7 +40,7 @@ assignees: ''
 <!-- Please don't edit the following lines -->
 [community membership guidelines]: https://github.com/kubeedge/community/blob/master/community-membership.md
 [mailing list]: https://groups.google.com/forum/#!forum/kubeedge
-[slack]: https://kubeedge.slack.com/
+[slack]: https://kubeedge.io/docs/community/slack/
 [watchers list]: https://github.com/kubeedge/kubeedge/watchers
 [two-factor authentication]: https://help.github.com/en/github/authenticating-to-github/about-two-factor-authentication
 [devstats]: https://kubeedge.devstats.cncf.io/d/56/company-commits-table?orgId=1
