@@ -276,12 +276,12 @@ All code is maintained in [GitHub](https://github.com/kubeedge/kubeedge) and cha
 - Internal. How do team members communicate with each other?
   
 
-Team members communicate with each other frequently through [Slack Channel](https://join.slack.com/t/kubeedge/shared_invite/enQtNjc0MTg2NTg2MTk0LWJmOTBmOGRkZWNhMTVkNGU1ZjkwNDY4MTY4YTAwNDAyMjRkMjdlMjIzYmMxODY1NGZjYzc4MWM5YmIxZjU1ZDI), [KubeEdge sync meeting](https://zoom.us/my/kubeedge), and team members will open a new [issue](https://github.com/kubeedge/kubeedge/issues) to further discuss if necessary.
+Team members communicate with each other frequently through [Slack Channel](https://kubeedge.io/docs/community/slack/), [KubeEdge sync meeting](https://zoom.us/my/kubeedge), and team members will open a new [issue](https://github.com/kubeedge/kubeedge/issues) to further discuss if necessary.
 
 - Inbound. How do users or prospective users communicate with the team?
   
 
-Users or prospective users usually communicate with the team through [Slack Channel](https://kubeedge.slack.com/archives/CDXVBS085), you can open a new [issue](https://github.com/kubeedge/kubeedge/issues) to get further help from the team, and [KubeEdge mailing list](https://groups.google.com/forum/#!forum/kubeedge) is also available. Besides, we have regular [community meeting](https://zoom.us/my/kubeedge) (includes SIG meetings) alternative between Europe friendly time and Pacific friendly time. All these meetings are publicly accessible and meeting records are uploaded to YouTube.
+Users or prospective users usually communicate with the team through [Slack Channel](https://kubeedge.io/docs/community/slack/), you can open a new [issue](https://github.com/kubeedge/kubeedge/issues) to get further help from the team, and [KubeEdge mailing list](https://groups.google.com/forum/#!forum/kubeedge) is also available. Besides, we have regular [community meeting](https://zoom.us/my/kubeedge) (includes SIG meetings) alternative between Europe friendly time and Pacific friendly time. All these meetings are publicly accessible and meeting records are uploaded to YouTube.
 
 Regular Community Meetings:
 
@@ -291,7 +291,7 @@ Regular Community Meetings:
 - Outbound. How do you communicate with your users? (e.g. flibble-announce@ mailing list)
   
 
-KubeEdge communicates with users through [Slack Channel](https://kubeedge.slack.com/archives/CUABZBD55), [issues](https://github.com/kubeedge/kubeedge/issues), [KubeEdge sync meetings](https://zoom.us/my/kubeedge), [KubeEdge mailing list](https://groups.google.com/forum/#!forum/kubeedge). As for security issues, we provide the following channel:
+KubeEdge communicates with users through [Slack Channel](https://kubeedge.io/docs/community/slack/), [issues](https://github.com/kubeedge/kubeedge/issues), [KubeEdge sync meetings](https://zoom.us/my/kubeedge), [KubeEdge mailing list](https://groups.google.com/forum/#!forum/kubeedge). As for security issues, we provide the following channel:
 
 - Security email group
 

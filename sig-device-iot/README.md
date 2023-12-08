@@ -13,7 +13,7 @@ The [charter](./charter.md) defines the scope and governance of the Device IoT S
  
 ## Contact
 
-- Slack: [#sig-device-iot](https://kubeedge.slack.com/archives/C01239D6PM4)
+- Slack: [#sig-device-iot](https://kubeedge.io/docs/community/slack/)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 
 ## Leadership

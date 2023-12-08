@@ -11,7 +11,7 @@ The SIG SECURITY members will work with the security team for fixing and disclos
 
 ## Contact
 
-- [#sig-security slack channel](https://kubeedge.slack.com)
+- [#sig-security slack channel](https://kubeedge.io/docs/community/slack/)
 - [Open Community Issues](https://github.com/kubeedge/community/issues)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubeedge)
 

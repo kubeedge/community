@@ -30,7 +30,7 @@ If you need support, start with the [troubleshooting guide], and work your way t
 If you have questions, feel free to reach out to us in the following ways:
 
 - [mailing list](https://groups.google.com/forum/#!forum/kubeedge)
-- [slack](https://join.slack.com/t/kubeedge/shared_invite/enQtNjc0MTg2NTg2MTk0LWJmOTBmOGRkZWNhMTVkNGU1ZjkwNDY4MTY4YTAwNDAyMjRkMjdlMjIzYmMxODY1NGZjYzc4MWM5YmIxZjU1ZDI)
+- [slack](https://kubeedge.io/docs/community/slack/)
 - [twitter](https://twitter.com/kubeedge)
 
 
