@@ -1,7 +1,7 @@
 ---
 name: Repository creation
-description: Create a repository into KubeEdge Org
-title: "REQUEST: <Create> <github repo>"
+about: Create a repository into KubeEdge Org
+title: "REQUEST: Create <github repo>"
 ---
 
 ### 1. **Name for new repository:**
