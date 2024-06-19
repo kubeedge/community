@@ -26,9 +26,11 @@ Owners:
 - [wangzefeng@huawei.com](mailto:wangzefeng@huawei.com)
 - [xufei40@huawei.com](mailto:xufei40@huawei.com)
 - [linguohui1@huawei.com](mailto:linguohui1@huawei.com)
+- [wei.hu@daocloud.io](mailto:wei.hu@daocloud.io)
 
 Members:
 
 - [wangzefeng@huawei.com](mailto:wangzefeng@huawei.com)
 - [xufei40@huawei.com](mailto:xufei40@huawei.com)
 - [linguohui1@huawei.com](mailto:linguohui1@huawei.com)
+- [wei.hu@daocloud.io](mailto:wei.hu@daocloud.io)
