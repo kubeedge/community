@@ -20,11 +20,12 @@ The [charter](https://github.com/kubeedge/community/blob/master/sig-testing/char
 
 The Chairs of the SIG run operations and processes governing the SIG.
 
-*TODO*
+- Yue Li (@liyuerich), DaoCloud
+- Shelley Bao (@Shelley-BaoYue), Huawei
 
 ### Technical Leads
 
 The Technical Leads of the SIG establish new subprojects, decommission existing subprojects, and resolve cross-subproject technical issues and decisions.
 
 - Shelley Bao (@Shelley-BaoYue), Huawei
-
+- Yue Li (@liyuerich), DaoCloud
