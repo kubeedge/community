@@ -1,6 +1,6 @@
 # Security Team
 
-The Security Team is responsible for receiving and responding to reports of security issues in KubeEdge projects.
+The Security Team is responsible for receiving and responding to reports of vulnerability in KubeEdge projects.
 
 ## Contact
 
