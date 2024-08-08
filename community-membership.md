@@ -8,8 +8,8 @@ This document gives a brief overview of the KubeEdge community roles with the re
 | -----| ---------------- | ------------ | -------|
 | [Member](#member) | Sponsor from 2 reviewers, active in community, multiple contributions to KubeEdge | Active contributor in the community | KubeEdge GitHub organization Member |
 | [Reviewer](#member) | Sponsor from 2 approvers, has good experience and history of review in specific package | Review contributions from other members | Add `lgtm` label to specific PRs |
-| [Approver](#approver) | Sponsor from 2 maintainers, highly experienced and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packagies in relevant repository |
-| [Maintainer](#maintainer) | Sponsor from 2 owners, shown good technical judgement in feature design/development and PR review | Participate in release planning and feature development/maintenance | Top level write access to relevant repository. Name entry in Maintainers file of the repository |
+| [Approver](#approver) | Sponsor from 2 approvers, highly experienced and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packagies in relevant repository |
+| [Maintainer](#maintainer) | Approved by 2 TSC members. SIG Chair, SIG tech leader, Approver, Reviewer can apply as maintainer of KubeEdge | Responsible for coordinating with CNCF on tasks such as voting, surveys, etc. | Name entry in Maintainers file of the repository |
 | [Owner](#owner) | Sponsor from 3 owners, helps drive the overall KubeEdge project | Drive the overall technical roadmap of the project and set priorities of activities in release planning | KubeEdge GitHub organization Admin access |
 
 
@@ -93,25 +93,24 @@ They have actively participated in the issue/PR reviews and have identified rele
 
 ## Maintainer
 
-Maintainers are approvers who have shown good technical judgement in feature design/development in the past.
+KubeEdge SIG Chair, SIG tech leader, Approver, Reviewer can apply as maintainer, approved by 2 TSC members.
+TSC members are project maintainers by default.
 Has overall knowledge of the project and features in the project.
 
 ### Requirements
 
-- Sponsor from 2 owners
-- Approver for at least 2 months
-- Nominated by a project owner
+- Must be TSC, SIG Chair, SIG tech leader, Approver or Reviewer of KubeEdge
 - Good technical judgement in feature design/development
 
 ### Responsibilities and privileges
 
+- Listed in the official CNCF maintainer list and mailing list, responsible for coordinating with CNCF on tasks such as voting, surveys, etc.
 - Participate in release planning
 - Maintain project code quality
 - Ensure API compatibility with forward/backward versions based on feature graduation criteria
 - Analyze and propose new features/enhancements in KubeEdge project
 - Demonstrate sound technical judgement
 - Mentor contributors and approvers
-- Have top level write access to relevant repository (able click Merge PR button when manual check-in is necessary)
 - Name entry in Maintainers file of the repository
 - Participate & Drive design/development of multiple features
 
