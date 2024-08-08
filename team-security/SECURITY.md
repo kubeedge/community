@@ -13,6 +13,7 @@ The information of the Security Team members is described as follows:
 | Kevin Wang ([@kevin-wangzefeng](https://github.com/kevin-wangzefeng)) | wangzefeng@huawei.com |
 | Fisher Xu ([@fisherxu](https://github.com/fisherxu))         | xufei40@huawei.com    |
 | Vincent Lin ([@vincentgoat](https://github.com/vincentgoat)) | linguohui1@huawei.com |
+| Wei Hu ([@WillardHu](https://github.com/WillardHu))          | wei.hu@daocloud.io |
 
 ### E-mail Response
 
