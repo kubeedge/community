@@ -34,8 +34,9 @@ For developers and end users, the goals of this project are:
 
 
 ![framework](./images/framework.png "overall framework")
-**Fig. 1. Overall framework.** (a) SCALE first pretrains a self-consistent representation space $z$ by the VAE-style loss, then fine-tunes it by the gradients from $Q(s, a, g)$ in the IQL. Next, we train the policy network $π$, temporal affordance model $ψ$ and the novelty predictor $f_ω$ over the trained representation space. (b) When the robot gets lost, SCALE randomly samples some transition $u$ from the prior $p(u)$ and feds it to the temporal affordance model to generate some multi-step latent trajectories recursively. Then it evaluates the candidates in terms of the reachability, anti-novelty and aggressiveness. Finally, it selects the optimal trajectory and executes the first step, then repeats until being successfully localized again.    
-
+**Fig. 1. Overall framework.**
+(a) SCALE first pretrains a self-consistent representation space $z$ by the VAE-style loss, then fine-tunes it by the gradients from $Q(s, a, g)$ in the IQL. Next, we train the policy network $π$, temporal affordance model $ψ$ and the novelty predictor $f_ω$ over the trained representation space.
+(b) When the robot gets lost, SCALE randomly samples some transition $u$ from the prior $p(u)$ and feds it to the temporal affordance model to generate some multi-step latent trajectories recursively. Then it evaluates the candidates in terms of the reachability, anti-novelty and aggressiveness. Finally, it selects the optimal trajectory and executes the first step, then repeats until being successfully localized again.    
 
 The framework is shown in Fig. 1, which consists of 1) an image-goal conditioned visual navigation policy and value function, 2) a neural topological SLAM module, and 3) a self-correcting module for autonomously recovering the localization.
 
