@@ -17,6 +17,7 @@ For developers and end users, the goals of this project are:
 ## Proposal
 
 ### Project scope
+
 - This project considers the image-goal visual navigation task in both indoor and outdoor scenarios, which **inputs a RGB image and a specified goal image** and **outputs the actions (linear and angular velocities)** of the mobile robot at timestep t without LIDAR, GPS or IMU information. Its **downstream tasks** can include park delivery, mobile manipulation, or offline training a generic agent. 
 
 - The method first collects some trajectories of the scene for pre-building a topological map where images as nodes and the number of traversing steps as edges for topological planning and localization. Then, the navigation system conducts image-goal conditioned travels in the scene while is robust against the localization lost issue.
