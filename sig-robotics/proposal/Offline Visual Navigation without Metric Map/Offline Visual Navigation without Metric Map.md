@@ -55,6 +55,7 @@ The framework is shown in Fig. 1, which consists of 1) an image-goal conditioned
 ![topological_navigation](./images/topological_navigation.png  "topological_navigation" )-->
   
 ### Data Collection Module
+
 We manually teleoperate the mobile robot to collect the trajectory datasets in the deployed scenarios. Commonly, a totally 30-minute dataset in each scenario is enough for training the navigation policy. In each trajectory of the dataset, the data consists of an onboard RGB image $o_t$ and the estimated pose $p_t = (x, y, θ)$ from odometry at each timestep. Note that the estimated pose in offline dataset is only used to calculate the robot action for offline training, while we only use RGB image as the observation during inference.
 
 ## References
