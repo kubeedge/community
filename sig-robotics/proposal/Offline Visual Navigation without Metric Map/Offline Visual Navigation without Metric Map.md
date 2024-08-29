@@ -10,9 +10,9 @@ Anti-Novelty Estimation*", has been accepted by 2024 ICRA, see paper: https://ar
 ## Goals
 
 For developers and end users, the goals of this project are:
-- Building a navigation system with only visual input and without metric maps. The policy is trained by directly learning from real-world offline datasets that does not suffer from any sim-to-real gap.
-- Enabling the system to be low-cost by using purely vision input for supporting neural topological SLAM, and can be easily integrated into an instruction-followed navigation tasks by grounding the languages on the visual semantics similar to LM-Nav [5]. 
-- Enabling the system to be robust to the OOD observations induced by illumination and scenario changes and accumulative error issues using the proposed self-correcting method so as to achieve long-horizon navigation with little human intervention during the process. 
+- Building a image-goal conditioned visual navigation system with only visual input and without metric maps. The models are trained by directly learning from real-world offline datasets that does not suffer from any sim-to-real gap.
+- The system can be easily integrated into an instruction-followed navigation tasks by grounding the languages on the visual semantics similar to LM-Nav [5]. 
+- The system can be robust to the OOD observations induced by illumination and scenario changes and accumulative error issues using the proposed self-correcting method so as to achieve long-horizon navigation with little human intervention during the process. 
 - Providing an offline dataset collection method to enable the users to finetune on the new environments. Meanwhile, curating a large real-world trajectory dataset collected from diverse end devices in different scenarios, with different illuminations and seasons, and on different robots, which is absent in the current open-source datasets and is important to facilitate the models to be more generalized and robust.
 
 ## Proposals
@@ -45,11 +45,12 @@ The complete navigation system consists of 1) an image-goal conditioned visual n
 - **Self-correction for localization recovery**: we self-supervisedly learn an affordance model from offline dataset for generating potential future trajectories in the latent space. On the one hand, to predict multi-step trajectories, we use conditional generation model to learn the latent space with forward-inverse cycle consistency (FICC). On the other hand, we take advantage of the surrounding pixels in history frames using recurrent neural network (RNN) to predict some aggressive trajectories that are largely beyond the current field-of-view. Furthermore, we learn a novelty estimator via random network distillation (RND) [7] technique to evaluate the predicted future states. Intuitively, the reachability and aggressiveness facilitate the reasonability and diversity, while the anti-novelty strategy can induce the robot to the familiar places.
 - **Neural topological SLAM**: we construct a topological map in the environment where each node is a previously observed image and each edge refers to the traversability between two nodes that is estimated by the learned value function. The localization process is conducted by searching the highest value prediction between current image and all the images on the map. 
 
-An example of the integration of visual navigation, neural topological SLAM, and localization recovery modules is illustrated in Fig.2.
+An example of the integration of visual navigation, neural topological SLAM, and localization recovery modules is illustrated in Fig.2. Our method combines the topological visual navigation with a novel localization recovery module. We first build a topological map (gray cycles and lines) based on the offline dataset. Next, starting at the yellow cycle, we use the localization module to do active initialization. Then, given a goal image, we search a route (orange cycles) on the topological graph and execute to the goal (red cycle) step by step.
 <div align=center>  
   <img src="./images/topological_navigation.png" alt="architecture" width="80%" />
 </div>
-**Fig. 2. Visual navigation with neural topological SLAM and localization recovery**. SCALE combines the topological visual navigation with a novel localization recovery module. We first build a topological map (gray cycles and lines) based on the offline dataset. Next, starting at the yellow cycle, we use the localization module to do active initialization. Then, given a goal image, we search a route (orange cycles) on the topological graph and execute to the goal (red cycle) step by step.
+
+**Fig. 2. Visual navigation with neural topological SLAM and localization recovery**. 
 
 
 ### Data Collection
