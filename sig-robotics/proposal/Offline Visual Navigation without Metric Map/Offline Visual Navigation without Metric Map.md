@@ -58,6 +58,7 @@ An example of the integration of visual navigation, neural topological SLAM, and
 
 We manually teleoperate the mobile robot to collect the trajectory datasets in the deployed scenarios. Commonly, a totally 30-minute dataset in each scenario is enough for training the navigation policy. In each trajectory of the dataset, the data consists of an onboard RGB image $o_t$ and the estimated pose $p_t = (x, y, θ)$ from odometry at each timestep. Note that the estimated pose in offline dataset is only used to calculate the robot action for offline training, while we only use RGB image as the observation during inference.
 
+
 ## References
 [1] D. Shah et al., “ViNG: Learning Open-World Navigation with Visual Goals”, 2021.  
 [2] D. Shah et al., “Offline Reinforcement Learning for Visual Navigation”, 2022.  
