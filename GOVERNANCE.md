@@ -192,4 +192,5 @@ Sections of this documents have been borrowed from [Kubernetes governance](https
 
 
 [community members]: /community-membership.md
-[tsc charter]: /commitee-technical-steering/charter.md
+[tsc charter]: /committee-technical-steering/charter.md
+
