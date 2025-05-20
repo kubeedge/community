@@ -25,7 +25,7 @@ Members:
 
 Members are responsible for receiving and handling vulnerabilities. The appointment or replacement of members is recommended by existing members or the TSC, and is approved by a TSC vote finally.
 
+- [baoyue2@huawei.com](mailto:baoyue2@huawei.com)
+- [dingyin@gmail.com](mailto:dingyin@gmail.com)
 - [wangzefeng@huawei.com](mailto:wangzefeng@huawei.com)
-- [xufei40@huawei.com](mailto:xufei40@huawei.com)
-- [linguohui1@huawei.com](mailto:linguohui1@huawei.com)
 - [wei.hu@daocloud.io](mailto:wei.hu@daocloud.io)
