@@ -9,18 +9,21 @@ The KubeEdge Technical Steering Committee (TSC) is the governing body for the Ku
 The initial TSC members are picked by the [project maintainers](https://github.com/kubeedge/kubeedge/blob/v1.11.0/MAINTAINERS.md) based on contributions and experience.
 
 **Initial TSC members**
-- Benjamin Huo - KubeShpere
-- Fei Xu - Huawei
-- Hongbing Zhang - DaoCloud
-- Huan Wei - HarmonyCloud
-- Kevin Wang - Huawei
-- Tina Tsou - Arm
-- Yin Ding - Google
+
+| Name           | Employer     | Term End |
+|----------------|--------------|----------|
+| Benjamin Huo   | QingCloud    | 2025     |
+| Fei Xu         | Huawei       | 2025     | 
+| Hongbing Zhang | DaoCloud     | 2025     | 
+| Huan Wei       | HarmonyCloud | 2026     |
+| Kevin Wang     | Huawei       | 2026     |
+| Tina Tsou      | TikTok       | 2026     |
+| Yin Ding       | Google       | 2025     |
 
 
-*We would like to have 2-year terms finally, and for the first election, we can have 4 seats 2-year term and 3 seats 1-year term.*
+*We would like to have 2-year terms finally.*
 
-**The first election will come in Sep/Oct 2024.**
+**The first election will come in Sep 2025.**
 
 ## Meetings
 
