@@ -26,8 +26,8 @@ If I have opportunity to continue TSC role, I will try all my ways to help KubeE
 Resources About Me
 
 * Some of my recent KubeCon talks:
-    * KubeCon Japan 2025 Keynote: Make Cloud-Native Ubiquitous: KubeEdge's Graduation Journey with Innovation and Collaborative
-    * KubeCon China 2025: KubeEdge DeepDive: Architecture, Use Cases, and Project Graduation Updates
+    * KubeCon Japan 2025 Keynote: Make Cloud-Native Ubiquitous: KubeEdge's Graduation Journey with Innovation and Collaborative (https://www.youtube.com/watch?v=gbPFjRMpAEs)
+    * KubeCon China 2025: KubeEdge DeepDive: Architecture, Use Cases, and Project Graduation Updates (https://www.youtube.com/watch?v=fwLzZsYOAeo)
 * Part of community meetup/activities
     * https://mp.weixin.qq.com/s/29i7paxAKWR-_qov45UfUw
     * https://mp.weixin.qq.com/s/HTrlCbsnr_RqG_Mrn7yZ8Q
