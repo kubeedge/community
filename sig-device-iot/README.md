@@ -22,16 +22,17 @@ The [charter](./charter.md) defines the scope and governance of the Device IoT S
 
 The Chairs of the SIG run operations and processes governing the SIG.
 
-- Fei Xu (@fisherxu), Huawei
-- Chenlin Liu (@cl2017), DaoCloud
+- Bincheng Wang (@wbc6080), Huawei
+- Jiawei Liu (@JiaweiGithub), DaoCloud
 
 
 ### Technical Leads
 
 The Technical Leads of the SIG establish new subprojects, decommission existing subprojects, and resolve cross-subproject technical issues and decisions.
 
-- Fei Xu (@fisherxu), Huawei
-- Chenlin Liu (@cl2017), DaoCloud
+- Bincheng Wang (@wbc6080), Huawei
+- Jiawei Liu (@JiaweiGithub), DaoCloud
+- Zhijia Yang (@luomengY), Southwest Automation Research Institute
 
 ## Subprojects
 
