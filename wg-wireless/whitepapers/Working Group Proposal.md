@@ -9,7 +9,7 @@ Author: Jiahong Ning
 
 ## Overview:
 
--  With the development of computing and communication technologies, powerful computing equipments constitutes multi-agent systems. The agents have both computing and communication capacities and interact with each others. Therefore, the problem of wireless agents interaction between multiple agents and system management is the main scenario discussed here. 
+-  With the development of computing and communication technologies, powerful computing equipment constitutes multi-agent systems. The agents have both computing and communication capacities and interact with each others. Therefore, the problem of wireless agents interaction between multiple agents and system management is the main scenario discussed here. 
 - The communication relationship between different KubeEdge nodes can not be easily seen as connect or disconnect,  it should be more fine-grain communication management.
 
 This proposal is about to carry out the wireless network issues under KubeEdge management. 
@@ -41,7 +41,7 @@ This proposal is about to carry out the wireless network issues under KubeEdge m
 **Description**:  In the mobile scenario, multiple vehicles support similar services, and vehicles wireless connected with each other as KubeEdge nodes. 
 
 - Off-line autonomy and node management: Five cars form an mesh network, which can transfer information processing between each other in off-line conditions.
-- Leader selection: Choose a node as a cluster head, to do the overall management of other equipments.
+- Leader selection: Choose a node as a cluster head, to do the overall management of other equipment.
 - KubeEdge-wireless should monitor the whole or partly network status, to aid in networking decisions.
 - According to the Service Level Agreement, KubeEdge can make decisions on the networking modes and limit the network scope.
 - Inspired by 3GPP 36.885 standards.

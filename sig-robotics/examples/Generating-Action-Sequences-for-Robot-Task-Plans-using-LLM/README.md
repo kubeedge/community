@@ -9,7 +9,7 @@
 
 ## Setup
 
-**Clone the community/sig-robotics respository**
+**Clone the community/sig-robotics repository**
 
 ```shell
 git clone https://github.com/kubeedge/community
