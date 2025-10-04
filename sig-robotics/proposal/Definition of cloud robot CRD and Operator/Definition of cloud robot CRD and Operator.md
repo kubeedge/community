@@ -115,7 +115,7 @@ For the *Registration Controller*
 1. The Registration Controller listen for registration messages and heartbeat from robot nodes, and monitor the status of node at the same time
 2. Creating the robot CR if it receives the registration message and maintaining the information of robotSync CR. If the node goes offline, set the DeletionTimeStamp for the corresponding robot CR
 
-The processing logic of enach Controller is shown in the figure below:
+The processing logic of each Controller is shown in the figure below:
 
 <img src="./images/controllers.png" alt="controllers" style="zoom:60%;" />
 

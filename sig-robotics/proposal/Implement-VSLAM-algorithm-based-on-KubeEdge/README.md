@@ -64,7 +64,7 @@ We will introduce the functions of each module in the form of sub-modules. The o
 
 Firstly, the edge part contains the Tracking module and the Local map module. The Tracking module performs data preprocessing and local tracking on the sensor data, and determines whether the current frame is a key frame. We use condition 3, 4 and 5 on the Tracking module and use 1, 2 on the cloud. We hope to achieve robust pose tracking while reduce communication usage by select less key-frames. 
 
-If the tracking is loss, the algorithm will recovers pose through global re-localization. The current frame will be transferred to cloud and used to calculate the bag of words, query the recognition database for key-frame candidates.
+If tracking is lost, the algorithm will recover pose through global re-localization. The current frame will be transferred to cloud and used to calculate the bag of words, query the recognition database for key-frame candidates.
 
 ### 3.3 Map Maintenance
 
