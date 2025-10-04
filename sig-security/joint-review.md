@@ -4,26 +4,55 @@ This joint-review relied heavily on the [self-assessment](https://github.com/kub
 
 ## Table of Contents
 
-* [Metadata](#metadata)
-  * [Security links](#security-links)
-* [Overview](#overview)
-  * [Background](#background)
-  * [Goals](#goals)
-  * [Non-goals](#non-goals)
-* [Joint-review use](#joint-review-use)
-* [Intended use](#intended-use)
-* [Project design](#project-design)
-  * [Functions and features](#functions-and-features)
-    * [Security functions and features](#security-functions-and-features)
-* [Configuration and set-up](#configuration-and-set-up)
-* [Project compliance](#project-compliance)
-* [Security analysis](#security-analysis)
-* [Secure development practices](#secure-development-practices)
-* [Security issue resolution](#security-issue-resolution)
-  * [Closed security issues and vulnerabilities](#closed-security-issues-and-vulnerabilities)
-* [Hands-on review](#hands-on-review)
-* [Roadmap](#roadmap)
-* [Appendix](#appendix)
+- [Joint-review of KubeEdge](#joint-review-of-kubeedge)
+  - [Table of Contents](#table-of-contents)
+  - [Metadata](#metadata)
+    - [Security links](#security-links)
+  - [Overview](#overview)
+    - [Background](#background)
+    - [Goals](#goals)
+    - [Non-goals](#non-goals)
+  - [Joint-review use](#joint-review-use)
+  - [Intended Use](#intended-use)
+    - [Target Users](#target-users)
+    - [Use Cases](#use-cases)
+    - [Operation](#operation)
+  - [Project Design](#project-design)
+    - [Functions and features](#functions-and-features)
+      - [Security functions and features](#security-functions-and-features)
+  - [Configuration and Set-Up](#configuration-and-set-up)
+    - [Defaults](#defaults)
+    - [Advanced Security](#advanced-security)
+  - [Project Compliance](#project-compliance)
+    - [Existing Audits](#existing-audits)
+  - [Security Analysis](#security-analysis)
+    - [Attacker Motivations](#attacker-motivations)
+    - [Predisposing Conditions](#predisposing-conditions)
+    - [Expected Attacker Capabilities](#expected-attacker-capabilities)
+    - [Attack Risks and Effects](#attack-risks-and-effects)
+    - [Security Degradation](#security-degradation)
+    - [Compensating Mechanisms](#compensating-mechanisms)
+  - [Threat Model](#threat-model)
+    - [Identity Theft](#identity-theft)
+    - [Compromise](#compromise)
+    - [Denial of Service](#denial-of-service)
+  - [Secure Development Practices](#secure-development-practices)
+    - [Development Pipeline](#development-pipeline)
+    - [Communication Channels](#communication-channels)
+    - [Ecosystem](#ecosystem)
+  - [Security Issue Resolution](#security-issue-resolution)
+    - [Responsible Disclosures Process](#responsible-disclosures-process)
+    - [Incident Response](#incident-response)
+    - [Closed security issues and vulnerabilities](#closed-security-issues-and-vulnerabilities)
+  - [Hands-on review](#hands-on-review)
+    - [Hands-on review result](#hands-on-review-result)
+  - [Roadmap](#roadmap)
+  - [Appendix](#appendix)
+    - [Known Issues Over Time.](#known-issues-over-time)
+    - [Case Studies](#case-studies)
+    - [Related Projects / Vendors](#related-projects--vendors)
+      - [Related Projects](#related-projects)
+      - [Vendors and products](#vendors-and-products)
 
 ## Metadata
 
@@ -143,7 +172,7 @@ The features of KubeEdge include:
 
   Easy communication between application and devices for IoT and Industrial Internet.
 
-- **Heterogenous**
+- **Heterogeneous**
 
   Native support of x86, ARMv7, ARMv8. Heterogeneous access capability avoids a lot of adaptation work and enables customers to quickly access and deploy services. It can help extend more edge scenarios.
 
@@ -323,7 +352,7 @@ According to the vulnerability release process, the KubeEdge team published the 
 
 ## Hands-on review
 
-The hands-on review is a lightweight review of the project's internal security as well as the current recommendation configuration, deployment, and interaction with regard to security.  Hands-on reviews are subject to security reviewer availability and expertise.  They are not intended to serve as an audit or formal assessment and are no gurantee of the actual security of the project.
+The hands-on review is a lightweight review of the project's internal security as well as the current recommendation configuration, deployment, and interaction with regard to security.  Hands-on reviews are subject to security reviewer availability and expertise.  They are not intended to serve as an audit or formal assessment and are no guarantee of the actual security of the project.
 
 **KubeEdge did not receive a hands-on review from TAG-Security.**
 

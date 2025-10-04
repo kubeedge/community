@@ -37,7 +37,7 @@ Typically, for real-time localization problem in an **unknown environment**, we 
 
 The first strategy ensures that the edge has a long-term offline autonomy capability, but increases the computing and memory resource occupation of the edge. On the other hand, how to synchronize local map in the edge and global map in the cloud becomes a new problem.
 
-The second method offloads all optimizations to the cloud, which greatly reduces the pressure on edge resources, but requires strong network stability. At the same time, the edge side only needs to maintain a small-scale local map (below 10 frames), and the local map can be updated easily by clearing local map on the edge and repalcing it with new received local map update from the cloud.
+The second method offloads all optimizations to the cloud, which greatly reduces the pressure on edge resources, but requires strong network stability. At the same time, the edge side only needs to maintain a small-scale local map (below 10 frames), and the local map can be updated easily by clearing local map on the edge and replacing it with new received local map update from the cloud.
 
 Based on the above discussion, based on the reliable network communication provided by kubeedge and edgemesh and some open source work available for reference(such as [edge-slam](https://github.com/droneslab/edgeslam), we intend to **use the second method** for this work.
 
@@ -64,7 +64,7 @@ We will introduce the functions of each module in the form of sub-modules. The o
 
 Firstly, the edge part contains the Tracking module and the Local map module. The Tracking module performs data preprocessing and local tracking on the sensor data, and determines whether the current frame is a key frame. We use condition 3, 4 and 5 on the Tracking module and use 1, 2 on the cloud. We hope to achieve robust pose tracking while reduce communication usage by select less key-frames. 
 
-If the tracking is loss, the algorithm will recovers pose through global re-localization. The current frame will be transfered to cloud and used to calculate the bag of words, query the recognition database for key-frame candidates.
+If the tracking is loss, the algorithm will recovers pose through global re-localization. The current frame will be transferred to cloud and used to calculate the bag of words, query the recognition database for key-frame candidates.
 
 ### 3.3 Map Maintenance
 

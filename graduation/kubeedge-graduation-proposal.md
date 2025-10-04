@@ -112,7 +112,7 @@ The figure below shows the key nodes in the evolution of the KubeEdge project：
     - 2-days event, **1,000+ registrations**, **51,800** all-platform viewers
     - **50 speakers** from **35 orgs** (24 enterprises, 5 non-profits, 6 collages)
     - **28** community supporters
-  - KubeEdge Acadamic Workshop 2022 (KEAW '22)
+  - KubeEdge Academic Workshop 2022 (KEAW '22)
     - 2-days event, **800+ registrations**,**41,000+** all-platform viewers
     - **35 speakers** from **20 colleges**
   - KubeEdge Online Courses

@@ -4059,7 +4059,7 @@
       <latitude_deg>47.840640</latitude_deg>
       <longitude_deg>10.619944</longitude_deg>
       <elevation>740.0</elevation>
-      <!-- currently gazebo has a bug: instead of outputing lat, long, altitude in ENU
+      <!-- currently gazebo has a bug: instead of outputting lat, long, altitude in ENU
       (x = East, y = North and z = Up) as the default configurations, it's outputting (-E)(-N)U,
       therefore we rotate the default frame 180 so that it would go back to ENU -->
       <heading_deg>180</heading_deg>
