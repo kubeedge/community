@@ -12,13 +12,13 @@ The initial TSC members are picked by the [project maintainers](https://github.c
 
 | Name           | Employer     | Term End |
 |----------------|--------------|----------|
-| Benjamin Huo   | QingCloud    | 2025     |
-| Fei Xu         | Huawei       | 2025     | 
-| Hongbing Zhang | DaoCloud     | 2025     | 
+| Benjamin Huo   | QingCloud    | 2027     |
+| Hongbing Zhang | DaoCloud     | 2027     |
 | Huan Wei       | HarmonyCloud | 2026     |
 | Kevin Wang     | Huawei       | 2026     |
 | Tina Tsou      | TikTok       | 2026     |
-| Yin Ding       | Google       | 2025     |
+| Yin Ding       | VMware       | 2027     |
+| Yue Bao        | Huawei       | 2027     |
 
 
 *We would like to have 2-year terms finally.*
