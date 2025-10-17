@@ -16,7 +16,7 @@ With the development of computing, powerful computing equipment could be seen as
 **Description**:  In the mobile scenario, multiple vehicles support similar service, and each vehicles wireless connected with each other as a KubeEdge node. (e.g. NIO ET7 with NVIDIA Orin * 4 , which has computing power of 1016 TOPS)
 
 - Off-line autonomy and node management: Five cars form an mesh network, which can trans information processing between each other in off-line conditions.
-- Leader Selection: Choose a Kube as cluster head, to do the overall management of other equipments.
+- Leader Selection: Choose a Kube as cluster head, to do the overall management of other equipment.
 - KubeEdge-wireless should monitor the whole or partly state of network, to aid in networking decisions.
 - According to the Service Level Agreement, KubeEdge makes decisions on the networking mode and limits the networking scope.
 - Inspired by 3GPP 36.885 standards.
