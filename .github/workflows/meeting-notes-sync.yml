@@ -16,8 +16,6 @@ jobs:
       MEETING_NOTES_SYNC_DOC_ID: ${{ vars.MEETING_NOTES_SYNC_DOC_ID }} # Google Docs file ID to sync from
       MEETING_NOTES_SYNC_TARGET_FILE_PATH: ${{ vars.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} # Target file path in the repository
       TARGET_BRANCH: 'master'
-      DCO_SIGNATURE: 'Signed-off-by: github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -84,7 +82,10 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "docs: update ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} via GitHub Action\n\n${{ env.DCO_SIGNATURE }}"
+          commit-message: "docs: update ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} via GitHub Action."
+          commit-user-name: "${{ github.actor }}"
+          commit-user-email: "${{ github.actor }}@users.noreply.github.com"
+          signoff: true
           branch: 'action-sync-${{ github.event.repository.name }}-${{ github.sha }}'
           base: ${{ env.TARGET_BRANCH }}
           title: '[Docs] Auto Sync: ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }}'
