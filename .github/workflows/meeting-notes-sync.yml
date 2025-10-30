@@ -72,8 +72,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "docs: update ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} via GitHub Action."
-          commit-user-name: "${{ github.actor }}"
-          commit-user-email: "${{ github.actor }}@users.noreply.github.com"
+          committer: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           signoff: true
           branch: 'action-sync-${{ github.event.repository.name }}-${{ github.sha }}'
           base: ${{ env.TARGET_BRANCH }}
