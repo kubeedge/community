@@ -14,10 +14,13 @@ TARGET_FILE_PATH = os.environ.get('MEETING_NOTES_SYNC_TARGET_FILE_PATH')
 # --- Google Docs API Authentication and Download ---
 def download_markdown_from_drive(doc_id):
     SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-    SERVICE_ACCOUNT_FILE = 'service_account.json'
-
-    creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    import json
+    service_account_json = os.environ.get('SERVICE_ACCOUNT_JSON')
+    if not service_account_json:
+        raise RuntimeError('SERVICE_ACCOUNT_JSON env not set')
+    service_account_info = json.loads(service_account_json)
+    creds = service_account.Credentials.from_service_account_info(
+        service_account_info, scopes=SCOPES)
     
     # Build Drive API client
     service = build('drive', 'v3', credentials=creds)
@@ -68,9 +71,3 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"An error occurred during sync: {e}")
         exit(1)
-
-    finally:
-        # Delete key document at the end of the task to prevent inclusion in subsequent steps (e.g., git status)
-        if os.path.exists("service_account.json"):
-            os.remove("service_account.json")
-            print("Cleaned up service_account.json.")
