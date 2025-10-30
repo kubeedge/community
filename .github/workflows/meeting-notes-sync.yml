@@ -13,11 +13,9 @@ jobs:
 
     env:
       # Variables specific to the meeting-notes-sync workflow
-      MEETING_NOTES_SYNC_DOC_ID: ${{ vars.MEETING_NOTES_SYNC_DOC_ID }} # Google Docs file ID to sync from
-      MEETING_NOTES_SYNC_TARGET_FILE_PATH: ${{ vars.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} # Target file path in the repository
+      MEETING_NOTES_SYNC_DOC_ID: '1Sr5QS_Z04uPfRbA7PrXr3aPwCRpx7EtsyHq7mp6CnHs' # Google Docs file ID to sync from
+      MEETING_NOTES_SYNC_TARGET_FILE_PATH: 'meeting-notes/kubeedge-community-meeting-notes.md' # Target file path in the repository
       TARGET_BRANCH: 'master'
-      DCO_SIGNATURE: 'Signed-off-by: github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -34,20 +32,8 @@ jobs:
       - name: Install Google Drive SDK and GitPython
         run: pip install google-auth google-api-python-client GitPython packaging
 
-      # Write service account key document
-      - name: Configure Google Service Account
-        id: config_sa
-        run: |
-          # Use Here Document (cat << EOF) to write multi-line Secret content as is
-          cat << EOF > service_account.json
-          ${{ secrets.MEETING_NOTES_SYNC_SERVICE_ACCOUNT_KEY }}
-          EOF
-
-          # Verify if the document was written successfully and is valid JSON (optional, but recommended)
-          # python -m json.tool will try to parse JSON, if successful no error will be reported
-          echo "Verifying JSON integrity..."
-          python -m json.tool service_account.json > /dev/null
-          echo "Service Account JSON file successfully created and validated."
+      # Pass service account key as environment variable
+      # (No need to write service_account.json)
           
       - name: Run Python Sync Script
         id: sync
@@ -56,6 +42,7 @@ jobs:
           REPO_OWNER: '${{ github.repository_owner }}'
           REPO_NAME: '${{ github.event.repository.name }}'
           GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          SERVICE_ACCOUNT_JSON: ${{ secrets.MEETING_NOTES_SYNC_SERVICE_ACCOUNT_KEY }}
           
       # Check for document changes
       - name: Check for Changes
@@ -84,7 +71,12 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "docs: update ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} via GitHub Action\n\n${{ env.DCO_SIGNATURE }}"
+          commit-message: "docs: update ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} via GitHub Action."
+          committer: >-
+            ${{ github.actor == 'github-actions[bot]' && 'github-actions[bot] <github-actions-bot@users.noreply.github.com>' || format('{0} <{0}@users.noreply.github.com>', github.actor) }}
+          author: >-
+            ${{ github.actor == 'github-actions[bot]' && 'github-actions[bot] <github-actions-bot@users.noreply.github.com>' || format('{0} <{0}@users.noreply.github.com>', github.actor) }}
+          signoff: true
           branch: 'action-sync-${{ github.event.repository.name }}-${{ github.sha }}'
           base: ${{ env.TARGET_BRANCH }}
           title: '[Docs] Auto Sync: ${{ env.MEETING_NOTES_SYNC_TARGET_FILE_PATH }}'
