@@ -62,7 +62,7 @@ The Robot node should apply an agent to parse the command from the cloud and sen
 
 The purpose of this proposal is to propose a set of universal CRD and Operator for cloud robot. Since most industrial robot companies in China have joined the Mobile Robot Industry Alliance, the data interface specifications for robots and their scheduling systems proposed by them are widely applicable. This proposal refers to this specification to design the robot CRD.
 
-To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** and **robotSync CRD**. The robot CRD and task CRD describe the robot status and task information respectively, and the robotSync CRD is used to record the registed robots' information. When the key information of the robot changes, the status information will be reported immediately, otherwise the information is reported in the form of a heartbeat frame at a period set by the user. Task resources are created by users and delivered by the Controller.
+To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** and **robotSync CRD**. The robot CRD and task CRD describe the robot status and task information respectively, and the robotSync CRD is used to record the registered robots' information. When the key information of the robot changes, the status information will be reported immediately, otherwise the information is reported in the form of a heartbeat frame at a period set by the user. Task resources are created by users and delivered by the Controller.
 
 - The fields contained in the **robot** resource can be described as the table below:
 
@@ -75,7 +75,7 @@ To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** an
 |    battery_status    |  struct  | Including information such as remaining battery power, charging status, etc. |
 |   abnormal_events   | struct[] |         Record the exception information of the node         |
 |   sensors   |   struct[]    |   A list of robot sensors   |
-|   resource_status   |     sruct     |   Including informations of CPU, GPU, memory, etc.  |
+|   resource_status   |     struct     |   Including information of CPU, GPU, memory, etc.  |
 
 -  The fields contained in the **task** resource can be described as the table below:
 
@@ -92,12 +92,12 @@ To achieve our goal, we need three kinds of CRDs: **robot CRD**, **task CRD** an
 
 |          Field          |   Type   |             Description         |
 | :---------------------: | :------: | :-----------------------------: |
-|     registed_robots     |  uint[]  |    A list of registed robotID   |
+|     registed_robots     |  uint[]  |    A list of registered robotID   |
 |     last_heartbeat      |   map[string]Time   |    The last time a heartbeat packet was received  |
 
 ## Controller design
 
-The Controller is mainly used to monitor the newly added custom resources in the cluster, or the changes of existing resources, and execute corresponding logic based on these informations.
+The Controller is mainly used to monitor the newly added custom resources in the cluster, or the changes of existing resources, and execute corresponding logic based on these information.
 
 For *Task Controller*
 
@@ -113,9 +113,9 @@ For the *Robot Controller*
 For the *Registration Controller*
 
 1. The Registration Controller listen for registration messages and heartbeat from robot nodes, and monitor the status of node at the same time
-2. Creating the robot CR if it receives the registration message and maintaining the informations of robotSync CR. If the node goes offline, set the DeletionTimeStamp for the corresponding robot CR
+2. Creating the robot CR if it receives the registration message and maintaining the information of robotSync CR. If the node goes offline, set the DeletionTimeStamp for the corresponding robot CR
 
-The processing logic of enach Cotroller is shown in the figure below:
+The processing logic of each Controller is shown in the figure below:
 
 <img src="./images/controllers.png" alt="controllers" style="zoom:60%;" />
 
@@ -125,7 +125,7 @@ The processing logic of enach Cotroller is shown in the figure below:
 
 Robot registration process:
 1. Once the robot node join in the cluster, it will send heartbeat message to the cloud
-2. When receiving the heartbeat, Registration Controller will update the heartbeat information, if the node is not registed it will, on the one hand, create a robot CR, and on the other hand, update the last heartbeat.
+2. When receiving the heartbeat, Registration Controller will update the heartbeat information, if the node is not registered it will, on the one hand, create a robot CR, and on the other hand, update the last heartbeat.
 
 Robot offline condition:
 1. When the robot fails or is manually shut down, the node will no longer send heartbeat packets.
@@ -141,8 +141,8 @@ Take the fleet scheduling system as an example:
 Fleet scheduling can be divided into four stages
 
 1. vehicle registration:
-   - When the vehicles join in the cluster, they will send heartbeat message including the necessary vehicle informations.
-   - After the Registration Controller receives the heatbeat message, it will query the last_heartbeat map, if the key does not exist, it creates a robot CR and updates the information to the robotSync CR. Otherwise, the controller updates the robot CR and robotSync CR.
+   - When the vehicles join in the cluster, they will send heartbeat message including the necessary vehicle information.
+   - After the Registration Controller receives the heartbeat message, it will query the last_heartbeat map, if the key does not exist, it creates a robot CR and updates the information to the robotSync CR. Otherwise, the controller updates the robot CR and robotSync CR.
 2. task release:
    - The user creates a task CR on the cloud according to the specific task process
 3. task assignment:

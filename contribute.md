@@ -2,19 +2,21 @@
 
 Welcome to KubeEdge!
 
--   [Before you get started](#before-you-get-started)
-    -   [Code of Conduct](#code-of-conduct)
-    -   [Community Expectations](#community-expectations)
--   [Getting started](#getting-started)
--   [Your First Contribution](#your-first-contribution)
-    -   [Find something to work on](#find-something-to-work-on)
-        -   [Find a good first topic](#find-a-good-first-topic)
-        -   [Work on an Issue](#work-on-an-issue)
-        -   [File an Issue](#file-an-issue)
--   [Contributor Workflow](#contributor-workflow)
-    -   [Creating Pull Requests](#creating-pull-requests)
-    -   [Code Review](#code-review)
-    -   [Testing](#testing)
+- [Welcome](#welcome)
+- [Before you get started](#before-you-get-started)
+  - [Code of Conduct](#code-of-conduct)
+  - [Community Expectations](#community-expectations)
+- [Getting started](#getting-started)
+- [Your First Contribution](#your-first-contribution)
+  - [Find something to work on](#find-something-to-work-on)
+    - [Find a good first topic](#find-a-good-first-topic)
+      - [Work on an issue](#work-on-an-issue)
+    - [File an Issue](#file-an-issue)
+- [Contributor Workflow](#contributor-workflow)
+  - [Creating Pull Requests](#creating-pull-requests)
+  - [Code Review](#code-review)
+    - [Format of the commit message](#format-of-the-commit-message)
+  - [Testing](#testing)
 
 # Before you get started
 
@@ -112,7 +114,7 @@ The subject line should feature the what and the body of the commit should descr
 ```
 scripts: add test codes for metamanager
 
-this add some unit test codes to imporve code coverage for metamanager
+this add some unit test codes to improve code coverage for metamanager
 
 Fixes #12
 ```

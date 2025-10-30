@@ -11,7 +11,7 @@ This project aims to develop a Visiual SLAM application on an edge-side robot an
 
 1. Make sure your cluster is set up and [edgemesh](https://kubeedge.io/en/docs/advanced/edgemesh/) is enabled.
 
-2. Clone the community/sig-robotics respository.
+2. Clone the community/sig-robotics repository.
 
    ```bash
    git clone https://github.com/kubeedge/community
