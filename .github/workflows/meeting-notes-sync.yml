@@ -13,8 +13,8 @@ jobs:
 
     env:
       # Variables specific to the meeting-notes-sync workflow
-      MEETING_NOTES_SYNC_DOC_ID: ${{ vars.MEETING_NOTES_SYNC_DOC_ID }} # Google Docs file ID to sync from
-      MEETING_NOTES_SYNC_TARGET_FILE_PATH: ${{ vars.MEETING_NOTES_SYNC_TARGET_FILE_PATH }} # Target file path in the repository
+      MEETING_NOTES_SYNC_DOC_ID: '1Sr5QS_Z04uPfRbA7PrXr3aPwCRpx7EtsyHq7mp6CnHs' # Google Docs file ID to sync from
+      MEETING_NOTES_SYNC_TARGET_FILE_PATH: 'meeting-notes/kubeedge-community-meeting-notes.md' # Target file path in the repository
       TARGET_BRANCH: 'master'
     steps:
       - name: Checkout Repository
