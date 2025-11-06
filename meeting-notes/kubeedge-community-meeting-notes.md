@@ -44,7 +44,20 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Oct.29th, 2025**
+## **Next Meeting is Nov.5th, 2025**
+
+## **Nov.5th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release:
+
+* New release 1.22 Introduction [https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md](https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md)   
+* Release 1.23 feature plan discussion [https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA\_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723\#gid=539809723](https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723#gid=539809723) 
 
 ## **Oct.29th, 2025**
 
