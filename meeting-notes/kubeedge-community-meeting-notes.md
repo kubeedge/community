@@ -44,7 +44,40 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Nov.5th, 2025**
+## **Next Meeting is Nov.19th, 2025**
+
+## **Nov.19th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**
+
+## **Nov.12th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- 军伟  
+- Willard Hu  
+- haojiezhang  
+- cy  
+- makesure10  
+- 周  
+- 阅码谈芯  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release:
+
+* New release 1.22 Introduction [https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md](https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md)   
+* Release 1.23 feature plan discussion [https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA\_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723\#gid=539809723](https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723#gid=539809723) 
+
+SIG Device-IoT:
+
+* Discussion on splitting Device CRD into Device CRD and DeviceStatus CRD [https://github.com/kubeedge/kubeedge/pull/6534](https://github.com/kubeedge/kubeedge/pull/6534) – Haojie Zhang
 
 ## **Nov.5th, 2025**
 
@@ -85,7 +118,7 @@ SIG Device-IoT:
 * Make the device model more meaningful [https://github.com/kubeedge/kubeedge/pull/6415](https://github.com/kubeedge/kubeedge/pull/6415)  – Chunkai Wang  
 * A topic-based Device Data Pub/Sub Framework Based on KubeEdge – @Boxiong Zhang   
 * Cloud-Edge Video Stream Communication Extension Based on KubeEdge – @Qiurui Huang   
-* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
+* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  c
 
 ## **Oct.22nd, 2025**
 
