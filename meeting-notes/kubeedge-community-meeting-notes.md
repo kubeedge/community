@@ -44,7 +44,40 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Nov.5th, 2025**
+## **Next Meeting is Nov.19th, 2025**
+
+## **Nov.19th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**
+
+## **Nov.12th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- 军伟  
+- Willard Hu  
+- haojiezhang  
+- cy  
+- makesure10  
+- 周  
+- 阅码谈芯  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release:
+
+* New release 1.22 Introduction [https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md](https://github.com/kubeedge/kubeedge/blob/595c9ea2760648cf1b6c48acc0cb32dc66e18a6a/CHANGELOG/CHANGELOG-1.22.md)   
+* Release 1.23 feature plan discussion [https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA\_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723\#gid=539809723](https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit?gid=539809723#gid=539809723) 
+
+SIG Device-IoT:
+
+* Discussion on splitting Device CRD into Device CRD and DeviceStatus CRD [https://github.com/kubeedge/kubeedge/pull/6534](https://github.com/kubeedge/kubeedge/pull/6534) – Haojie Zhang
 
 ## **Nov.5th, 2025**
 
@@ -85,7 +118,7 @@ SIG Device-IoT:
 * Make the device model more meaningful [https://github.com/kubeedge/kubeedge/pull/6415](https://github.com/kubeedge/kubeedge/pull/6415)  – Chunkai Wang  
 * A topic-based Device Data Pub/Sub Framework Based on KubeEdge – @Boxiong Zhang   
 * Cloud-Edge Video Stream Communication Extension Based on KubeEdge – @Qiurui Huang   
-* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
+* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  c
 
 ## **Oct.22nd, 2025**
 
@@ -2679,7 +2712,7 @@ SIG Device-IOT
 
 SIG Node: 
 
-* Disscussion on supporting edge pods using InClusterConfig.   – @Yue Bao鲍玥 \[[Shelley-BaoYue](https://github.com/kubeedge/kubeedge/issues?q=is%3Apr+is%3Aopen+author%3AShelley-BaoYue)\]
+* Discussion on supporting edge pods using InClusterConfig.   – @Yue Bao鲍玥 \[[Shelley-BaoYue](https://github.com/kubeedge/kubeedge/issues?q=is%3Apr+is%3Aopen+author%3AShelley-BaoYue)\]
 
 ## **Feb.28st, 2024**
 
@@ -2884,7 +2917,7 @@ SIG Node：
 
 SIG Releases：
 
-* Disscussion on v1.17 Feature/Enhancement plan   
+* Discussion on v1.17 Feature/Enhancement plan   
   [https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA\_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit\#gid=1932764723](https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit#gid=1932764723) – @Yue Bao鲍玥 \[[Shelley-BaoYue](https://github.com/kubeedge/kubeedge/issues?q=is%3Apr+is%3Aopen+author%3AShelley-BaoYue)\]
 
 ## **Jan.10th, 2024**
@@ -2913,7 +2946,7 @@ SIG Releases：
 **Agenda**: **(please enter your topic below）**  
 SIG Releases：
 
-* Disscussion on v1.17 Feature/Enhancement plan   
+* Discussion on v1.17 Feature/Enhancement plan   
   [https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA\_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit\#gid=1932764723](https://docs.google.com/spreadsheets/d/17cCqHE06Z2AG7AA_3UkQMOoLjK8v9vBUgaLsJoK7nu0/edit#gid=1932764723) – @Yue Bao鲍玥 \[[Shelley-BaoYue](https://github.com/kubeedge/kubeedge/issues?q=is%3Apr+is%3Aopen+author%3AShelley-BaoYue)\]
 
 ## **Jan.3rd, 2024**
@@ -4481,7 +4514,7 @@ Cancelled for most developers on vacation.
 
 * KubeEdge v1.12.2  
   * [https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.12.md\#v1122](https://github.com/kubeedge/kubeedge/blob/master/CHANGELOG/CHANGELOG-1.12.md#v1122)  
-* SIG Node intoduction  
+* SIG Node introduction  
   * [https://github.com/kubeedge/community/tree/master/sig-node](https://github.com/kubeedge/community/tree/master/sig-node)
 
 ## 
@@ -6455,7 +6488,7 @@ Cancelled for publishing v1.9 release
 * Enhance containerized deployment for CloudCore \- Zhuhan @ KubeSphere  
 * Propose new Device Interface: Device Management Interface (DMI) \- Zilong Wang @DaoCloud  
   * [https://github.com/kubeedge/kubeedge/issues/3264](https://github.com/kubeedge/kubeedge/issues/3264)  
-* Enhance reliabe message transmission   
+* Enhance reliable message transmission   
   * [https://github.com/kubeedge/kubeedge/pull/3244](https://github.com/kubeedge/kubeedge/pull/3244)
 
 
@@ -7038,7 +7071,7 @@ Skipped due to mid-autumn vacation in China
 * the edgesite(cluster at edge) demo presentation  
   * Proposal: [https://github.com/kubeedge/kubeedge/pull/2650](https://github.com/kubeedge/kubeedge/pull/2650)  
   * [https://github.com/kubeedge/kubeedge/blob/4a08e3a6b327121982fb7e3ff90a7e70cc1b539e/docs/proposals/edge-cluster.md](https://github.com/kubeedge/kubeedge/blob/4a08e3a6b327121982fb7e3ff90a7e70cc1b539e/docs/proposals/edge-cluster.md)  
-  * reademe:[https://github.com/kubeedge/kubeedge/blob/1caa24f44d4a99f808b87840affabf763f6601f1/edgesite/README.md](https://github.com/kubeedge/kubeedge/blob/1caa24f44d4a99f808b87840affabf763f6601f1/edgesite/README.md)
+  * readme:[https://github.com/kubeedge/kubeedge/blob/1caa24f44d4a99f808b87840affabf763f6601f1/edgesite/README.md](https://github.com/kubeedge/kubeedge/blob/1caa24f44d4a99f808b87840affabf763f6601f1/edgesite/README.md)
 
 ## **May 19th, 2021 (Pacific Time)**
 
@@ -8047,7 +8080,7 @@ Skip as most of the contributors are on vacation
   * We can rely on “go module replace” to hack original implementation at compile time.  
 * HA and HC（high concurrency）about cloudcore  
   * Resource occupancy of cloudcore is not a problem.  
-  * 300 nodes register successed but too slow(98s), 500 nodes failed to register.  
+  * 300 nodes register succeeded but too slow(98s), 500 nodes failed to register.  
   * Multiple sets of cloudcore.  
   * Stateless cloudhub, extract out cloudhub only.  
   * \[Kevin\]:   
@@ -8466,7 +8499,7 @@ Skip as most of the contributors are on vacation
   * SIG Device IOT  
     * Under discussion to start the SIG  
     * Slack channel: [channel link](https://app.slack.com/client/TDZ5TGXQW/C01239D6PM4)  
-    * SIG scope under discussion, [Chater Draft](https://docs.google.com/document/d/1Ieh-e-4cO_Uvtjv38D45wlafFN4yZvL9zgw353JxYMs/edit)
+    * SIG scope under discussion, [Charter Draft](https://docs.google.com/document/d/1Ieh-e-4cO_Uvtjv38D45wlafFN4yZvL9zgw353JxYMs/edit)
 
 ## **May 20th, 2020 (Pacific Time)**
 
@@ -8521,7 +8554,7 @@ Skip as most of the contributors are on vacation
   * SIG Device IOT  
     * Under discussion to start the SIG  
     * Slack channel: [channel link](https://app.slack.com/client/TDZ5TGXQW/C01239D6PM4)  
-    * SIG scope under discussion, [Chater Draft](https://docs.google.com/document/d/1Ieh-e-4cO_Uvtjv38D45wlafFN4yZvL9zgw353JxYMs/edit)
+    * SIG scope under discussion, [Charter Draft](https://docs.google.com/document/d/1Ieh-e-4cO_Uvtjv38D45wlafFN4yZvL9zgw353JxYMs/edit)
 
 ## **May 6th, 2020 (Pacific Time)**
 
@@ -8642,7 +8675,7 @@ Skip as most of the contributors are on vacation
       
 * KubeEdge CNCF Incubation strategy   
   * End users names: kevin to provide  
-  * Commiters  
+  * Committers  
       
 * KubeEdge annual review for CNCF sandbox  
   * Answer questions listed in the doc, by this week.  
@@ -8895,7 +8928,7 @@ GsssC
 
 * KubeEdge v1.2 updates about known issues & fixes  
   * Fix pod with hostpath volume can't running [\#1463](https://github.com/kubeedge/kubeedge/pull/1463)  
-  * Fix create controller-manager and schduler pod to edge [\#1461](https://github.com/kubeedge/kubeedge/pull/1461)  
+  * Fix create controller-manager and scheduler pod to edge [\#1461](https://github.com/kubeedge/kubeedge/pull/1461)  
   * Fix keadm install cluster failed(**WIP**)  [\#1475](https://github.com/kubeedge/kubeedge/pull/1475)  
   * V1.2.1 patch release in next week.  
 * KubeEdge v1.3 Release planning  
@@ -9238,14 +9271,14 @@ Cancelled for majority of members on vacation
 * \[subpathdev\] release script ( [pull\#992](https://github.com/kubeedge/kubeedge/pull/992))  
 * \[subpathdev\] gomod ([pull\#947](https://github.com/kubeedge/kubeedge/pull/947))  
 * \[xufei/qianchenjie\] rename edgecontroller and edge\_core  
-* \[xufei\] use cobra command framwork  
+* \[xufei\] use cobra command framework  
 * \[kadis\] change model message to protobuf message ([pull\#891](https://github.com/kubeedge/kubeedge/pull/891))  
   
 
 
 **Usage of gomod:**
 
-- Go get \<name of dependecy\>@master  
+- Go get \<name of dependency\>@master  
 - Go mod vendor
 
 **Release v1.1 roadmap:**
