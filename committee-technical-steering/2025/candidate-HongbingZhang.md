@@ -21,7 +21,7 @@ If I have opportunity to continue TSC role, I will try all my ways to help KubeE
 2. Oversee project direction and drive KubeEdge to be more LLM/GAI friendly especially the collaboration between the big and small AI modesl 
 3. Continue to lead DaoCloud edge and open source team to focus on KubeEdge tech contribution
 4. Keep close connection with industry and try to enable more customers to deploy KubeEdge technology
-5. Leverage my resources to promote KubeEdge influence/reputation and expand its deveoper/end user coverage 
+5. Leverage my resources to promote KubeEdge influence/reputation and expand its developer/end user coverage 
 
 Resources About Me
 
