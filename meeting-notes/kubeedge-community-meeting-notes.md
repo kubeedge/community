@@ -44,7 +44,28 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Nov.19th, 2025**
+## **Next Meeting is Nov.26th, 2025**
+
+## **Nov.26th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- haogy  
+- haojiezhang  
+- Li Yue  
+- 军伟
+
+**Agenda: (please enter your topic below)**  
+SIG Device-IoT:
+
+* Device anomaly detection feature. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
+
+
+SIG Testing
+
+* Automatically Generate unit test based on LLM [https://github.com/kubeedge/kubeedge/issues/6318](https://github.com/kubeedge/kubeedge/issues/6318) – LiYue
 
 ## **Nov.19th, 2025**
 
@@ -53,6 +74,8 @@ Related Projects:
 - CNCF KubeEdge
 
 **Agenda: (please enter your topic below)**
+
+* Device anomaly detection feature. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
 
 ## **Nov.12th, 2025**
 
@@ -118,7 +141,7 @@ SIG Device-IoT:
 * Make the device model more meaningful [https://github.com/kubeedge/kubeedge/pull/6415](https://github.com/kubeedge/kubeedge/pull/6415)  – Chunkai Wang  
 * A topic-based Device Data Pub/Sub Framework Based on KubeEdge – @Boxiong Zhang   
 * Cloud-Edge Video Stream Communication Extension Based on KubeEdge – @Qiurui Huang   
-* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  c
+* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
 
 ## **Oct.22nd, 2025**
 
