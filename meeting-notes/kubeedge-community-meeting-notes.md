@@ -44,7 +44,90 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Nov.19th, 2025**
+## **Next Meeting is Dec.17th, 2025**
+
+## 
+
+## **Dec.10th 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- haojiezhang  
+- Li Yue  
+- Willard Hu  
+- 言者无罪  
+- lisi  
+- chuanhao
+
+**Agenda: (please enter your topic below)**  
+SIG Device-IoT:
+
+* Add device anomaly detection demo in example repositories  
+  [https://github.com/kubeedge/examples/pull/163](https://github.com/kubeedge/examples/pull/163)   – Haojie Zhang
+
+
+SIG Node:
+
+* Deep Integration with AMD Edge Nodes  \- @lisi
+
+## 
+
+## **Dec.3rd 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- haojiezhang  
+- Li Yue  
+- Willard Hu  
+- weibeinan  
+- xlli
+
+
+**Agenda: (please enter your topic below)**  
+SIG Device-IoT:
+
+* Device anomaly detection feature. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang  
+* Extract dmicache into a separate module \- Haojie Zhang  
+  [https://github.com/kubeedge/kubeedge/pull/6560](https://github.com/kubeedge/kubeedge/pull/6560)  
+* Discuss: Reposition the mapper-framework project as an SDK \- Willard Hu  
+  [https://github.com/kubeedge/kubeedge/issues/6564](https://github.com/kubeedge/kubeedge/issues/6564)
+
+SIG Cluster Lifecycle:
+
+* Demo: Successfully joined a Windows node using ‘keadm’ \- Willard Hu
+
+[https://github.com/kubeedge/kubeedge/pull/6557](https://github.com/kubeedge/kubeedge/pull/6557)  
+SIG Node
+
+* Discuss:  Some enhancements to EdgeCore for Windows \- Willard Hu
+
+	[https://github.com/kubeedge/kubeedge/issues/6561](https://github.com/kubeedge/kubeedge/issues/6561)  
+	[https://github.com/kubeedge/kubeedge/pull/6563](https://github.com/kubeedge/kubeedge/pull/6563)
+
+## **Nov.26th, 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- haogy  
+- haojiezhang  
+- Li Yue  
+- 军伟
+
+**Agenda: (please enter your topic below)**  
+SIG Device-IoT:
+
+* Device anomaly detection feature. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
+
+
+SIG Testing
+
+* Automatically Generate unit test based on LLM [https://github.com/kubeedge/kubeedge/issues/6318](https://github.com/kubeedge/kubeedge/issues/6318) – LiYue
 
 ## **Nov.19th, 2025**
 
@@ -53,6 +136,8 @@ Related Projects:
 - CNCF KubeEdge
 
 **Agenda: (please enter your topic below)**
+
+* Device anomaly detection feature. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
 
 ## **Nov.12th, 2025**
 
@@ -118,7 +203,7 @@ SIG Device-IoT:
 * Make the device model more meaningful [https://github.com/kubeedge/kubeedge/pull/6415](https://github.com/kubeedge/kubeedge/pull/6415)  – Chunkai Wang  
 * A topic-based Device Data Pub/Sub Framework Based on KubeEdge – @Boxiong Zhang   
 * Cloud-Edge Video Stream Communication Extension Based on KubeEdge – @Qiurui Huang   
-* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  c
+* Proposal discussion on device anomaly detection. [https://github.com/kubeedge/kubeedge/pull/6478](https://github.com/kubeedge/kubeedge/pull/6478)  – Haojie Zhang
 
 ## **Oct.22nd, 2025**
 
