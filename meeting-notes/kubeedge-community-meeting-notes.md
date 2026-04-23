@@ -44,9 +44,334 @@ Related Projects:
   [https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint](https://wiki.akraino.org/display/AK/KubeEdge+Edge+Service+Blueprint)
 
 
-## **Next Meeting is Dec.17th, 2025**
+## **Next Meeting is Apr.29th, 2026**
+
+## **Apr.22th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Chuanhao jin  
+- GaoFeng  
+- Chen Su  
+- Li Yue  
+- Boshi  
+- Tushar Patle  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG-Release：
+
+* Discussion: Review of suggestions for the official website revision – Chuanhao  
+* Discussion: Suggestions for the revision of the review dashboard – Chuanhao  
+* \[Proposal\] Clean up outdated examples and improve long-term maintenance of the examples repository \- GaoFeng  
+  * [https://github.com/kubeedge/examples/issues/165](https://github.com/kubeedge/examples/issues/165)  
+  * The issue to tracking the status for each examples, anyone who interesting in could join to refresh and fix the outdate issue  
+    * https://github.com/kubeedge/examples/issues/166  
+* LFX & Kubecon & Roadmap – Chuanhao
+
+## 	
+
+## **Apr.15th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Lisi  
+- Chen Su  
+- Ddc-baiye  
+- 熊楷  
+- Willard Hu  
+- BoShi  
+- Li Yue  
+- Kevin.Lin
+
+**Agenda: (please enter your topic below)**
+
+SIG-Release：
+
+* K8S DRA – 熊楷
+
+SIG-Node:
+
+* Validating KubeEdge Deployment on RISC‑V Architecture @dongdong
 
 ## 
+
+## **Apr.8th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Chuanhao jin  
+- BoShi  
+- Willard Hu  
+- Guoxudong  
+- Chen Su  
+- Nunlup  
+- Ddc-baiye  
+- Lisi  
+- yangzhijia  
+- 浪潮沄熹-周幸骏  
+- 熊楷
+
+**Agenda: (please enter your topic below)**  
+SIG-Release：
+
+* 介绍 KWDB 项目和 new dbmethod for KWDB PR—xudong  
+* Discuss：DRA \[[https://github.com/kubeedge/kubeedge/pull/6720](https://github.com/kubeedge/kubeedge/pull/6720)\] – xiongkai
+
+## **Apr.1th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- ddc-baiye  
+- Chuanhao jin  
+- Chen Su  
+- Willard Hu  
+- BoShi   
+- lisi
+
+**Agenda: (please enter your topic below)**  
+SIG-Node:
+
+* Validating KubeEdge Deployment on RISC‑V Architecture @dongdong
+
+## **Mar.25th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Li Yue  
+- chuanhao jin  
+- Wilard Hu  
+- yangzhijia  
+- BoShi  
+- lisi  
+- Chen Su
+
+**Agenda: (please enter your topic below)**  
+SIG Release / Community Growth :
+
+* Very Short Repo Roundup After v1.23.0 – Chuanhao  
+* Top 50 Newcomer Pain Points in KubeEdge  – BoShi /  Li Si  
+* If We Could Only Fix 5 Things for Newcomers, What Should They Be? – Chuanhao  
+* How Can We Turn Newcomer Pain Points into Community Contribution Entry Points? – Chuanhao / BoShi / Li Si
+
+## 
+
+## **Mar.18th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- 亚光 朱  
+- Li Yue  
+- Willard Huisi  
+- Chen Su  
+- Chuanhao  
+- Lisi  
+- Star  
+- 言者无罪
+
+**Agenda: (please enter your topic below)**  
+SIG Release – Discuss（Chuanhao）: 
+
+* Should we establish a clearer growth path for new contributors?  
+* Does the community need a faster response mechanism for issues and PRs?  
+* Which emerging technical directions should KubeEdge proactively follow?  
+* Which directions are suitable for short-term implementation, and which are more worth exploring experimentally?  
+* Should the community strengthen connections with other open-source communities and industry communities?  
+* Could we design more topic-based sharing sessions, small meetups, or joint community activities?
+
+## **Mar.11th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Tomoya \- Sony  
+- Baoyue  
+- Mikasa Wu  
+- 言者无罪  
+- Li Yue  
+- yangzhijia   
+- 亚光 朱  
+- Fupeng  
+- Chen Su  
+- ZhiyingFang  
+- chuanhao  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release: 
+
+* New release v1.23.0 introduction  [https://github.com/Shelley-BaoYue/kubeedge/blob/8f224dbacef8a85252d4d36826168b607d9f02c3/CHANGELOG/CHANGELOG-1.23.md](https://github.com/Shelley-BaoYue/kubeedge/blob/8f224dbacef8a85252d4d36826168b607d9f02c3/CHANGELOG/CHANGELOG-1.23.md) 
+
+	  
+Documentation: 
+
+* Documentation maintenance status (Tomoya)  
+  * Chinese contents removal  
+    * [https://github.com/kubeedge/website/issues/769](https://github.com/kubeedge/website/issues/769)  
+  *  Enable Mergifyio  
+    * [https://github.com/kubeedge/website/issues/756](https://github.com/kubeedge/website/issues/756) 
+
+## **Mar.4th, 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Tomoya Fujita \- Sony  
+- alienware  
+- Willard Hu  
+- 言者无罪  
+- Li Yue  
+- yangzhijia   
+- 亚光 朱  
+- 
+
+**Agenda: (please enter your topic below)**  
+Documentation: 
+
+* Documentation maintenance status (Tomoya)  
+  *  Maintainability bandwidth to review issues and PRs?  
+    * [https://github.com/kubeedge/website/pull/768](https://github.com/kubeedge/website/pull/768) (Happy to help to maintain the website for good health.)  
+    * [https://github.com/kubeedge/website/pull/760](https://github.com/kubeedge/website/pull/760)  
+      * I am considering more enhancement for the doc.  
+  * Chinese contents removal  
+    * [https://github.com/kubeedge/website/issues/769](https://github.com/kubeedge/website/issues/769)  
+  *  Enable Mergifyio  
+    * [https://github.com/kubeedge/website/issues/756](https://github.com/kubeedge/website/issues/756) 
+
+SIG Release:
+
+* Development update for release 1.23 [https://github.com/kubeedge/kubeedge/milestone/24](https://github.com/kubeedge/kubeedge/milestone/24) 	
+
+## **Feb.11th-25th 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**  
+Cancelled for Chinese New Year Vacation
+
+## **Feb.4th 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Li Yue  
+- Su chen  
+- 言者无罪  
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release:
+
+* Development update for release 1.23 [https://github.com/kubeedge/kubeedge/milestone/24](https://github.com/kubeedge/kubeedge/milestone/24)   
+* Recent issues and PRs discussion 
+
+## **Jan.21th 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- yangzhijia 
+
+**Agenda: (please enter your topic below)**  
+SIG Cluster-Lifecycle: 
+
+* Discussion on batch enable/disable EdgeHub on edgenodes via keadm. [https://github.com/kubeedge/kubeedge/issues/6609](https://github.com/kubeedge/kubeedge/issues/6609) – Zhiyang Yang 
+
+## **Jan.14th 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**  
+Cancelled for most developers work on release 1.23
+
+## **Jan.7th 2026**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- Willard Hu  
+- 言者无罪  
+- Li Yue  
+- yangzhijia   
+- 军伟   
+- 
+
+**Agenda: (please enter your topic below)**  
+SIG Release: 
+
+* Development update for release 1.23 [https://github.com/kubeedge/kubeedge/milestone/24](https://github.com/kubeedge/kubeedge/milestone/24)   
+* Recent issues and PRs discussion   
+* 
+
+## **Dec.31th 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**  
+Canceled for most developers are on New Year’s holiday. 
+
+## **Dec.24th 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge  
+- Baoyue  
+- Willard Hu  
+- weibeinan  
+- Xiezg  
+- 军伟 
+
+**Agenda: (please enter your topic below)**  
+SIG Node:
+
+* Demo: Edgecore logs are printed to a log file on Windows @WillardHu  
+* Demo: Edgecore version control on Windows @WillardHu
+
+	[https://github.com/kubeedge/kubeedge/issues/6561](https://github.com/kubeedge/kubeedge/issues/6561)  
+	[https://github.com/kubeedge/kubeedge/pull/6565](https://github.com/kubeedge/kubeedge/pull/6565)  
+	[https://github.com/kubeedge/kubeedge/pull/6580](https://github.com/kubeedge/kubeedge/pull/6580)
+
+SIG Release:
+
+* New patch releases v1.22.1 and 1.21.1 introduction [https://github.com/kubeedge/kubeedge/pull/6582](https://github.com/kubeedge/kubeedge/pull/6582)   @Yue Bao鲍 \[Shelley-BaoYue\]
+
+## 
+
+## **Dec.17th 2025**
+
+**Attendees:**
+
+- CNCF KubeEdge
+
+**Agenda: (please enter your topic below)**  
+SIG Node:
+
+* Demo: Edgecore logs are printed to a log file on Windows @WillardHu  
+* Demo: Edgecore version control on Windows @WillardHu
+
+	[https://github.com/kubeedge/kubeedge/issues/6561](https://github.com/kubeedge/kubeedge/issues/6561)  
+	[https://github.com/kubeedge/kubeedge/pull/6565](https://github.com/kubeedge/kubeedge/pull/6565)  
+	[https://github.com/kubeedge/kubeedge/pull/6580](https://github.com/kubeedge/kubeedge/pull/6580)
+
+SIG Release:
+
+* New patch releases v1.22.1 and 1.21.1 introduction [https://github.com/kubeedge/kubeedge/pull/6582](https://github.com/kubeedge/kubeedge/pull/6582)   @Yue Bao鲍 \[Shelley-BaoYue\]
+
+	
 
 ## **Dec.10th 2025**
 
