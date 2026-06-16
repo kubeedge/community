@@ -83,6 +83,9 @@ The following is a timeline of a vulnerability process.
 
 This part should be completed within the 1-7 days of Disclosure.
 
+For detailed operational steps for privately tracking, developing, and preparing
+security fixes, see the [Security Fixes Development Process](security-fixes-development-process.md).
+
 After receiving any suspected vulnerability, the Security Team will discuss the issue with the reporter(s) and KubeEdge's security advisors to analyze/validate the vulnerability, assess its severity based on its actual impact on KubeEdge.
 
 If the vulnerability is accepted, its remediation priority, and develop remediations (including mitigations, patches/versions, and other risk mitigations) will be determined.
