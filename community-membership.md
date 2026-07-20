@@ -7,7 +7,7 @@ This document gives a brief overview of the KubeEdge community roles with the re
 | Role | Requirements | Responsibilities | Privileges |
 | -----| ---------------- | ------------ | -------|
 | [Member](#member) | Sponsor from 2 reviewers, active in community, multiple contributions to KubeEdge | Active contributor in the community | KubeEdge GitHub organization Member |
-| [Reviewer](#member) | Sponsor from 2 approvers, has good experience and history of review in specific package | Review contributions from other members | Add `lgtm` label to specific PRs |
+| [Reviewer](#reviewer) | Sponsor from 2 approvers, has good experience and history of review in specific package | Review contributions from other members | Add `lgtm` label to specific PRs |
 | [Approver](#approver) | Sponsor from 2 approvers, highly experienced and knowledge of domain, actively contributed to code and review  | Review and approve contributions from community members | Write access to specific packagies in relevant repository |
 | [Maintainer](#maintainer) | Approved by 2 TSC members. SIG Chair, SIG tech leader, Approver, Reviewer can apply as maintainer of KubeEdge | Responsible for coordinating with CNCF on tasks such as voting, surveys, etc. | Name entry in Maintainers file of the repository |
 | [Owner](#owner) | Sponsor from 3 owners, helps drive the overall KubeEdge project | Drive the overall technical roadmap of the project and set priorities of activities in release planning | KubeEdge GitHub organization Admin access |
