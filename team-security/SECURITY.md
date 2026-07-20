@@ -10,10 +10,13 @@ The information of the Security Team members is described as follows:
 
 | Name                                                         | Email                 |
 | ------------------------------------------------------------ | --------------------- |
-| Kevin Wang ([@kevin-wangzefeng](https://github.com/kevin-wangzefeng)) | wangzefeng@huawei.com |
-| Fisher Xu ([@fisherxu](https://github.com/fisherxu))         | xufei40@huawei.com    |
-| Vincent Lin ([@vincentgoat](https://github.com/vincentgoat)) | linguohui1@huawei.com |
-| Wei Hu ([@WillardHu](https://github.com/WillardHu))          | wei.hu@daocloud.io |
+| Chuanhao Jin ([@DoisLONG](https://github.com/DoisLONG))      | 15221580643@163.com   |
+| Hongbing Zhang ([@HongbingZhang](https://github.com/HongbingZhang)) | hongbing.zhang@daocloud.io |
+| Kevin Wang ([@kevin-wangzefeng](https://github.com/kevin-wangzefeng)) | kevinwzf0126@gmail.com |
+| Wei Hu ([@WillardHu](https://github.com/WillardHu))          | wei.hu@daocloud.io    |
+| Yin Ding ([@dingyin](https://github.com/dingyin))            | dingyin@gmail.com     |
+| Yue Bao ([@Shelley-BaoYue](https://github.com/Shelley-BaoYue)) | baoyue2@huawei.com  |
+| Yue Li ([@liyuerich](https://github.com/liyuerich))          | yue.li@daocloud.io    |
 
 ### E-mail Response
 
